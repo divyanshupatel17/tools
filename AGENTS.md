@@ -143,6 +143,9 @@ check it before assuming, especially `docs/architecture.md` and `docs/tools.md`.
 - Branches: `feature/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`. `main` is production.
 - Conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`, `perf:`.
 - Never commit `.env`, secrets, build output, `node_modules`, or anything in `.local/`.
+- Never commit changes on your own. Only commit when explicitly asked. When asked, give the
+  commit message in short, following conventional commit tags (`feat:`, `fix:`, `refactor:`,
+  `docs:`, `chore:`, `test:`, `perf:`).
 
 ## Comments
 

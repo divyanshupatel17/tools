@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# build output
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+
+# test / tooling output
+coverage/
+playwright-report/
+test-results/
+.turbo/
+.eslintcache
+
+# environment
+.env
+.env.*
+!.env.example
+
+# platform
+.vercel/
+
+# scratch — never published
+.local/
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+pnpm-debug.log*

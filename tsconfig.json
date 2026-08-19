@@ -1,0 +1,5 @@
+{
+  "extends": "./packages/config/tsconfig.base.json",
+  "include": [],
+  "references": [{ "path": "./apps/web" }]
+}

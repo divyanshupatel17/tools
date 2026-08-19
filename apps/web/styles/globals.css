@@ -1,0 +1,617 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+:root {
+  --brand-yellow: #ffc928;
+  --brand-golden: #f5a900;
+  --brand-deep-gold: #e89a00;
+
+  --paper: #fff9e8;
+  --cream: #fff3cf;
+  --pale-yellow: #ffe9a8;
+
+  --ink: #2c261d;
+  --soft-text: #51483b;
+
+  /* Text painted on the brand yellow. Deliberately absent from the dark block: the brand
+     yellow is the same colour in both themes, so its foreground must not flip with --ink. */
+  --on-brand: #1b1a17;
+
+  --background: var(--paper);
+  --surface: #fffdf6;
+  --surface-muted: var(--cream);
+  --foreground: var(--ink);
+  --muted-foreground: var(--soft-text);
+  --border: #f2e3b8;
+
+  --accent-pdf: #e45143;
+  --accent-image: #5c9f4a;
+  --accent-video: #7658d5;
+  --accent-audio: #f29a18;
+  --accent-text: #4386c5;
+  --accent-developer: #6956c8;
+  --accent-converters: #3e79d6;
+  --accent-utilities: #e85c9f;
+  --accent-ai: #8a5cf6;
+
+  /* Icon tiles are the accent softened against paper rather than a second hardcoded colour. */
+  --accent-tint: 15%;
+  --tint-base: #ffffff;
+
+  /* Ends on the exact colour the desert illustration's sky begins with. */
+  --footer-top: #f7dc8e;
+  --footer-mid: #fae7a9;
+  --desert-sky: #fdf2bb;
+
+  --shadow-card: 0 2px 10px rgb(120 90 20 / 0.07);
+
+  --success: #3f8f4f;
+  --danger: var(--accent-pdf);
+  --warning: #b8860b;
+
+  --focus-ring: var(--brand-deep-gold);
+  --radius-card: 1rem;
+}
+
+/* AMOLED: true black backgrounds so the panel can switch those pixels off. */
+[data-theme='dark'] {
+  --brand-yellow: #ffc928;
+  --brand-golden: #ffb524;
+  --brand-deep-gold: #ffc142;
+
+  --paper: #000000;
+  --cream: #0b0906;
+  --pale-yellow: #1a1409;
+
+  --ink: #f7efdb;
+  --soft-text: #a2937c;
+
+  --surface: #0a0906;
+  --border: #241e12;
+
+  --accent-pdf: #ef7365;
+  --accent-image: #82c46e;
+  --accent-video: #a087f0;
+  --accent-audio: #ffb547;
+  --accent-text: #6ba6e0;
+  --accent-developer: #9581ea;
+  --accent-converters: #6b9df0;
+  --accent-utilities: #f584bb;
+  --accent-ai: #a78bfa;
+
+  --accent-tint: 22%;
+  --tint-base: #000000;
+
+  --footer-top: #0e0b06;
+  --footer-mid: #070603;
+  --desert-sky: #000000;
+
+  --shadow-card: 0 2px 10px rgb(0 0 0 / 0.6);
+
+  --success: #6cc47c;
+  --warning: #e0b23d;
+}
+
+@theme inline {
+  --color-brand: var(--brand-yellow);
+  --color-brand-strong: var(--brand-golden);
+  --color-paper: var(--paper);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+  --color-on-brand: var(--on-brand);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+
+  --font-display: var(--font-caveat-brush), ui-rounded, cursive;
+  --font-sans: var(--font-nunito-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+  --shadow-card: var(--shadow-card);
+  --radius-card: var(--radius-card);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: light;
+  }
+
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    /* A full bleed section (e.g. VideoWorkspaceLayout) sizes itself with 100vw, which is
+       always a few pixels wider than the body once a scrollbar is present. Clipping that
+       sliver here is simpler and safer than measuring scrollbar width in JS. */
+    overflow-x: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+
+  &:focus {
+    left: 1rem;
+    top: 1rem;
+  }
+}
+
+/* Handwritten headings sit slightly tighter than their metrics suggest. */
+@utility font-hand {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+/*
+ * Watercolour paper grain. A single inline fractal-noise SVG keeps this to a few
+ * hundred bytes with no extra request, and stays crisp at any zoom.
+ */
+@utility paper-grain {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.22'/%3E%3C/svg%3E");
+  }
+}
+
+[data-theme='dark'] .paper-grain::after {
+  mix-blend-mode: screen;
+  opacity: 0.16;
+}
+
+/* Irregular brush stroke behind a section heading, painted rather than a rounded box. */
+@utility painted-label {
+  position: relative;
+  display: inline-block;
+  padding: 0.1em 0.9em 0.16em;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--pale-yellow);
+    border-radius: 42% 58% 55% 45% / 62% 48% 52% 38%;
+    transform: rotate(-0.6deg);
+  }
+}
+
+/* Hand-drawn underline used beneath the hero's second line. */
+@utility brush-underline {
+  background-image: linear-gradient(
+    to right,
+    transparent 2%,
+    var(--brand-yellow) 12%,
+    var(--brand-golden) 50%,
+    var(--brand-yellow) 88%,
+    transparent 98%
+  );
+  border-radius: 999px;
+}
+
+@utility pixelated {
+  image-rendering: pixelated;
+}
+
+/*
+ * The footer is one painted surface. It starts fully transparent so whatever page
+ * sits above bleeds into it, then carries down to the exact sky colour the desert
+ * illustration begins on — no seam on any route.
+ */
+@utility footer-wash {
+  background-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--footer-top) 16%,
+    var(--footer-mid) 46%,
+    var(--desert-sky) 100%
+  );
+}
+
+/*
+ * Doodles cross-fade in place as the field reshuffles. Transition only, never an
+ * animation: a filled animation would outrank the opacity class and freeze them on.
+ */
+@utility doodle-fade {
+  transition: opacity 1.8s ease-in-out;
+}
+
+/*
+ * Rendered Markdown preview (Markdown Formatter & Preview). Scoped under one class rather than
+ * bare element selectors so it can never leak into the rest of the site. Every colour comes from
+ * an existing theme token so light, dark and system all stay correct; syntax highlighting is a
+ * small hand mapped palette onto highlight.js's class names instead of a vendored theme, for the
+ * same reason.
+ */
+.md-preview {
+  color: var(--color-foreground);
+  line-height: 1.7;
+  overflow-wrap: break-word;
+}
+
+.md-preview > :first-child {
+  margin-top: 0;
+}
+
+.md-preview h1,
+.md-preview h2,
+.md-preview h3,
+.md-preview h4,
+.md-preview h5,
+.md-preview h6 {
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.6em;
+  scroll-margin-top: 5rem;
+}
+
+.md-preview h1 {
+  font-size: 1.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.md-preview h2 {
+  font-size: 1.3em;
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.md-preview h3 {
+  font-size: 1.1em;
+}
+
+.md-preview p,
+.md-preview ul,
+.md-preview ol,
+.md-preview blockquote,
+.md-preview pre,
+.md-preview .md-table-wrap {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.md-preview ul,
+.md-preview ol {
+  padding-left: 1.5em;
+}
+
+.md-preview li + li {
+  margin-top: 0.25em;
+}
+
+.md-preview li.md-task-item {
+  list-style: none;
+  margin-left: -1.5em;
+  padding-left: 0;
+}
+
+.md-task-checkbox {
+  margin-right: 0.5em;
+  cursor: pointer;
+  accent-color: var(--color-brand);
+}
+
+.md-anchor-link {
+  margin-left: 0.4em;
+  color: var(--color-muted);
+  text-decoration: none;
+  opacity: 0;
+  font-weight: 400;
+}
+
+.md-preview h1:hover .md-anchor-link,
+.md-preview h2:hover .md-anchor-link,
+.md-preview h3:hover .md-anchor-link,
+.md-preview h4:hover .md-anchor-link,
+.md-preview h5:hover .md-anchor-link,
+.md-preview h6:hover .md-anchor-link,
+.md-anchor-link:focus-visible {
+  opacity: 1;
+}
+
+.md-preview blockquote {
+  border-left: 3px solid var(--color-border);
+  padding: 0.1em 1em;
+  color: var(--color-muted);
+}
+
+.md-preview blockquote.md-alert {
+  border-radius: 0.5rem;
+  border-left-width: 4px;
+  padding: 0.75em 1em;
+  color: var(--color-foreground);
+}
+
+.md-alert-title {
+  font-weight: 700;
+  margin: 0 0 0.35em;
+}
+
+.md-alert-note {
+  border-color: var(--accent-text);
+  background: color-mix(in srgb, var(--accent-text) 10%, transparent);
+}
+.md-alert-note .md-alert-title {
+  color: var(--accent-text);
+}
+
+.md-alert-tip {
+  border-color: var(--color-success);
+  background: color-mix(in srgb, var(--color-success) 10%, transparent);
+}
+.md-alert-tip .md-alert-title {
+  color: var(--color-success);
+}
+
+.md-alert-important {
+  border-color: var(--accent-developer);
+  background: color-mix(in srgb, var(--accent-developer) 10%, transparent);
+}
+.md-alert-important .md-alert-title {
+  color: var(--accent-developer);
+}
+
+.md-alert-warning {
+  border-color: var(--color-warning);
+  background: color-mix(in srgb, var(--color-warning) 10%, transparent);
+}
+.md-alert-warning .md-alert-title {
+  color: var(--color-warning);
+}
+
+.md-alert-caution {
+  border-color: var(--color-danger);
+  background: color-mix(in srgb, var(--color-danger) 10%, transparent);
+}
+.md-alert-caution .md-alert-title {
+  color: var(--color-danger);
+}
+
+.md-preview code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-cream);
+  padding: 0.15em 0.4em;
+  border-radius: 0.3em;
+}
+
+.md-preview pre.md-code-block {
+  background: var(--color-cream);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1em;
+  overflow-x: auto;
+}
+
+.md-preview pre.md-code-block code {
+  background: none;
+  padding: 0;
+  font-size: 0.85em;
+  line-height: 1.6;
+}
+
+.md-preview .hljs {
+  color: var(--color-foreground);
+  background: none;
+}
+.md-preview .hljs-comment,
+.md-preview .hljs-quote {
+  color: var(--color-muted);
+  font-style: italic;
+}
+.md-preview .hljs-keyword,
+.md-preview .hljs-selector-tag,
+.md-preview .hljs-literal,
+.md-preview .hljs-type {
+  color: var(--accent-developer);
+}
+.md-preview .hljs-string,
+.md-preview .hljs-attr,
+.md-preview .hljs-regexp {
+  color: var(--accent-image);
+}
+.md-preview .hljs-number {
+  color: var(--accent-audio);
+}
+.md-preview .hljs-title,
+.md-preview .hljs-built_in {
+  color: var(--accent-text);
+}
+.md-preview .hljs-variable,
+.md-preview .hljs-attribute {
+  color: var(--accent-utilities);
+}
+.md-preview .hljs-tag,
+.md-preview .hljs-name {
+  color: var(--accent-pdf);
+}
+.md-preview .hljs-emphasis {
+  font-style: italic;
+}
+.md-preview .hljs-strong {
+  font-weight: 700;
+}
+
+/* Code Formatter panels reuse the same hljs palette as the Markdown preview so both stay
+   legible in light, dark and system themes without any hardcoded hex values. */
+.code-panel .hljs {
+  color: var(--color-foreground);
+  background: none;
+}
+.code-panel .hljs-comment,
+.code-panel .hljs-quote {
+  color: var(--color-muted);
+  font-style: italic;
+}
+.code-panel .hljs-keyword,
+.code-panel .hljs-selector-tag,
+.code-panel .hljs-literal,
+.code-panel .hljs-type {
+  color: var(--accent-developer);
+}
+.code-panel .hljs-string,
+.code-panel .hljs-attr,
+.code-panel .hljs-regexp {
+  color: var(--accent-image);
+}
+.code-panel .hljs-number {
+  color: var(--accent-audio);
+}
+.code-panel .hljs-title,
+.code-panel .hljs-built_in {
+  color: var(--accent-text);
+}
+.code-panel .hljs-variable,
+.code-panel .hljs-attribute {
+  color: var(--accent-utilities);
+}
+.code-panel .hljs-tag,
+.code-panel .hljs-name {
+  color: var(--accent-pdf);
+}
+.code-panel .hljs-emphasis {
+  font-style: italic;
+}
+.code-panel .hljs-strong {
+  font-weight: 700;
+}
+
+.md-preview .md-table-wrap {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+}
+
+.md-preview table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.92em;
+}
+
+.md-preview th,
+.md-preview td {
+  border: 1px solid var(--color-border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.md-preview th {
+  background: var(--color-cream);
+  font-weight: 700;
+}
+
+.md-preview a {
+  color: var(--brand-deep-gold);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.md-preview img {
+  max-width: 100%;
+  border-radius: 0.5rem;
+}
+
+.md-preview hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 1.5em 0;
+}
+
+.md-preview .footnotes {
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.85em;
+  color: var(--color-muted);
+}
+
+.md-preview .md-mermaid-block {
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1em;
+  margin-bottom: 1em;
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  white-space: pre-wrap;
+}
+
+.md-preview .md-mermaid-block.md-mermaid-rendered {
+  white-space: normal;
+}
+
+.md-preview .md-mermaid-block.md-mermaid-error {
+  color: var(--color-danger);
+  font-family: var(--font-sans);
+  white-space: normal;
+}
+
+.md-preview .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.25em 0;
+}
+
+/* Export PDF (Markdown Formatter & Preview) prints only the rendered preview, via the browser's
+   own print to PDF, not the surrounding page chrome. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #md-print-target,
+  #md-print-target * {
+    visibility: visible;
+  }
+  #md-print-target {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}

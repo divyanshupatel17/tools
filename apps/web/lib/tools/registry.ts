@@ -1670,6 +1670,7 @@ const UTILITY_TOOLS = define('utilities', [
     icon: 'Timer',
     input_types: ['none'],
     output_types: ['none'],
+    status: 'available',
   },
   {
     slug: 'timer',
@@ -1678,6 +1679,7 @@ const UTILITY_TOOLS = define('utilities', [
     icon: 'AlarmClock',
     input_types: ['none'],
     output_types: ['none'],
+    status: 'available',
   },
 ]);
 

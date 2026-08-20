@@ -140,7 +140,9 @@ check it before assuming, especially `docs/architecture.md` and `docs/tools.md`.
 
 ## Git
 
-- Branches: `feature/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`. `main` is production.
+- Branches: `feat/*`, `fix/*`, `claude/*`, `codex/*`, `chore/*`, `refactor/*`, `docs/*`.
+  `main` is production; always branch from an updated `main`. Full branching, PR and commit
+  flow with a diagram: `docs/git_workflow.md`.
 - Conventional commits: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`, `test:`, `perf:`.
 - Never commit `.env`, secrets, build output, `node_modules`, or anything in `.local/`.
 - Never commit changes on your own. Only commit when explicitly asked. When asked, give the
@@ -160,4 +162,5 @@ algorithms. One or two short lines. Never restate what the code plainly says.
 | `docs/tools.md` | Naming rules, the full URL table for every tool and category, and the slug uniqueness rule. |
 | `docs/{category}_tools.md` | One per category (`pdf`, `image`, `video`, `audio`, `text`, `developer`, `converters`, `utilities`, `ai`) — a checklist plus a feature table per tool. Update this whenever a tool's status or feature set changes. |
 | `docs/seo.md` | Metadata, SEO checklist per tool, and the device/responsiveness checklist a tool must pass before shipping. |
+| `docs/git_workflow.md` | Branch prefixes, commit conventions, and the full branch to PR to merge flow with a diagram. |
 | `docs/deployment.md`, `docs/privacy.md`, `docs/terms.md` | Deploy process and the copy behind the live Privacy/Terms pages. |

@@ -244,6 +244,20 @@ const PDF_TOOLS = define('pdf', [
     status: 'available',
   },
   {
+    slug: 'ipynb-to-pdf',
+    section: 'convert-to',
+    name: 'Jupyter Notebook to PDF',
+    description:
+      'Typeset a .ipynb notebook into a PDF, markdown cells, code cells, stdout, errors, tables and plot images included.',
+    icon: 'Code2',
+    input_types: ['document'],
+    output_types: ['pdf'],
+    multiple_files: true,
+    worker_required: true,
+    status: 'available',
+    seo: { title: 'Jupyter Notebook to PDF' },
+  },
+  {
     slug: 'text-to-pdf',
     section: 'convert-to',
     name: 'Text to PDF',

@@ -56,7 +56,7 @@ today.
 Every tool's canonical URL, alphabetical within its category. Generated from `registry.ts` —
 if this drifts from the live registry, regenerate it rather than hand editing rows.
 
-### PDF Tools — `/tools/pdf` — 37 tools
+### PDF Tools — `/tools/pdf` — 38 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
@@ -72,6 +72,7 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Flatten PDF | `/tools/flatten-pdf` | Available |
 | HTML to PDF | `/tools/html-to-pdf` | Available |
 | Images to PDF | `/tools/jpg-to-pdf` | Available |
+| Jupyter Notebook to PDF | `/tools/ipynb-to-pdf` | Available |
 | Markdown to PDF | `/tools/markdown-to-pdf` | Available |
 | Merge PDF | `/tools/merge-pdf` | Available |
 | OCR PDF | `/tools/ocr-pdf` | Available |

@@ -75,6 +75,10 @@ const WORKSPACES: Record<string, ComponentType> = {
     () => import('@/features/pdf/markdown_to_pdf/workspace').then((m) => m.MarkdownToPdfWorkspace),
     { loading: Pending },
   ),
+  'pdf.ipynb-to-pdf': dynamic(
+    () => import('@/features/pdf/ipynb_to_pdf/workspace').then((m) => m.IpynbToPdfWorkspace),
+    { loading: Pending },
+  ),
   'pdf.html-to-pdf': dynamic(
     () => import('@/features/pdf/html_to_pdf/workspace').then((m) => m.HtmlToPdfWorkspace),
     { loading: Pending },

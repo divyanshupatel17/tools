@@ -21,6 +21,10 @@ export type DocBlock =
   | { type: 'table'; rows: InlineSpan[][][] }
   | { type: 'hr' }
   | { type: 'blockquote'; lines: InlineSpan[][] }
+  /** Small gray label line, e.g. a notebook cell's "In [1]" / "Out[1]" marker. */
+  | { type: 'caption'; text: string }
+  /** A raster image, embedded and scaled to fit within one page (e.g. a notebook's plot output). */
+  | { type: 'image'; bytes: Uint8Array; format: 'png' | 'jpeg' }
   /** Forces a new page regardless of remaining space — for a source with its own real page or
    * slide boundaries (PowerPoint to PDF, one PDF page per slide), where letting content flow
    * across pages the way body text does would lose that boundary. */
@@ -278,6 +282,36 @@ export async function renderBlocksToPdf(
         color: rgb(0.75, 0.75, 0.75),
       });
       ts.addGap(bodySize * 0.6);
+      continue;
+    }
+
+    if (block.type === 'caption') {
+      const size = Math.max(bodySize - 2.5, 7);
+      ts.addGap(4);
+      ts.drawLine(block.text, fonts.mono, fonts, size, options.marginPt, [0.5, 0.5, 0.5]);
+      continue;
+    }
+
+    if (block.type === 'image') {
+      const embedded =
+        block.format === 'png'
+          ? await document_.embedPng(block.bytes)
+          : await document_.embedJpg(block.bytes);
+      const maxWidth = ts.contentWidth;
+      const maxHeight = height - options.marginPt * 2;
+      const scale = Math.min(maxWidth / embedded.width, maxHeight / embedded.height, 1);
+      const drawWidth = embedded.width * scale;
+      const drawHeight = embedded.height * scale;
+
+      ts.ensureSpace(drawHeight + 8);
+      ts.addGap(4);
+      ts.currentPage.drawImage(embedded, {
+        x: options.marginPt + (maxWidth - drawWidth) / 2,
+        y: ts.y - drawHeight,
+        width: drawWidth,
+        height: drawHeight,
+      });
+      ts.y -= drawHeight + 8;
       continue;
     }
 

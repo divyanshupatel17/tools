@@ -3,7 +3,7 @@
 Single source of truth for what the PDF category contains and what runs today. Registry
 entries live in `apps/web/lib/tools/registry.ts`; section headers in `apps/web/lib/tools/sections.ts`.
 
-Everything runs in the browser. Nothing is uploaded. All 37 tools are `status: 'available'`.
+Everything runs in the browser. Nothing is uploaded. All 38 tools are `status: 'available'`.
 
 ## Checklist
 
@@ -23,6 +23,7 @@ Everything runs in the browser. Nothing is uploaded. All 37 tools are `status: '
 - [x] Excel to PDF — `excel-to-pdf`
 - [x] HTML to PDF — `html-to-pdf`
 - [x] Markdown to PDF — `markdown-to-pdf`
+- [x] Jupyter Notebook to PDF — `ipynb-to-pdf`
 - [x] Text to PDF — `text-to-pdf`
 - [x] PDF to Images — `pdf-to-jpg`
 - [x] PDF to Word — `pdf-to-word`
@@ -75,6 +76,7 @@ Everything runs in the browser. Nothing is uploaded. All 37 tools are `status: '
 | Excel to PDF | `excel-to-pdf` | First sheet as a real ruled table. Other sheets, cell formatting and formulas are not carried over. |
 | HTML to PDF | `html-to-pdf` | Structural tags plus inline bold/italic/code, no CSS layout. |
 | Markdown to PDF | `markdown-to-pdf` | Bold, italic, strikethrough, inline code, blockquotes, horizontal rules and clickable links. |
+| Jupyter Notebook to PDF | `ipynb-to-pdf` | 1 to 20 `.ipynb` files. Markdown cells, code cells, stdout/stderr, tracebacks, image outputs and HTML table outputs (e.g. a DataFrame) typeset in cell order. One PDF per notebook, zipped when converting more than one. |
 | Text to PDF | `text-to-pdf` | Line by line, manual line breaks preserved. |
 
 ## Convert from PDF
@@ -132,3 +134,4 @@ facing text.
 | Word to PDF | No font size/color or inline image support yet, structure only. |
 | PDF to Word / PowerPoint | Table layout and editable slide text are not reconstructed; PDF to PowerPoint rasterises each page as a picture on purpose. |
 | Markdown to PDF | Nested inline styles (bold inside italic) are not resolved, innermost marker wins. |
+| Jupyter Notebook to PDF | Only `image/png` and `image/jpeg` outputs render; other rich outputs (LaTeX, interactive widgets) fall back to their `text/plain` repr, or are skipped if that is also absent. Markdown cell attachments (`attachment:` images) are not resolved. |

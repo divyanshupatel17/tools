@@ -17,6 +17,7 @@ export const WORKSPACE_IDS = [
   'pdf.jpg-to-pdf',
   'pdf.text-to-pdf',
   'pdf.markdown-to-pdf',
+  'pdf.ipynb-to-pdf',
   'pdf.html-to-pdf',
   'pdf.scan-to-pdf',
   'pdf.compress-pdf',

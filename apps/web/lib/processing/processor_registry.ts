@@ -32,6 +32,7 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'pdf.jpg-to-pdf': () => import('@/features/pdf/jpg_to_pdf/processor'),
   'pdf.text-to-pdf': () => import('@/features/pdf/text_to_pdf/processor'),
   'pdf.markdown-to-pdf': () => import('@/features/pdf/markdown_to_pdf/processor'),
+  'pdf.ipynb-to-pdf': () => import('@/features/pdf/ipynb_to_pdf/processor'),
   'pdf.html-to-pdf': () => import('@/features/pdf/html_to_pdf/processor'),
   'pdf.scan-to-pdf': () => import('@/features/pdf/scan_to_pdf/processor'),
   'pdf.compress-pdf': () => import('@/features/pdf/compress_pdf/processor'),

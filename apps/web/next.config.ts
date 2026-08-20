@@ -15,7 +15,10 @@ const config: NextConfig = {
   transpilePackages: ['@tools/ui', '@tools/file_utils', '@tools/tool_engine'],
   turbopack: {
     resolveAlias: {
-      'clean-css': { browser: cleanCssStub },
+      // Turbopack's resolveAlias can't parse an absolute Windows path (backslashes,
+      // drive letter) — "windows imports are not implemented yet" — so this must be a
+      // project root relative specifier with forward slashes, unlike the webpack alias below.
+      'clean-css': { browser: './lib/stubs/clean_css_stub.ts' },
     },
   },
   // `next dev` still runs on Turbopack (turbopack.resolveAlias above); the production

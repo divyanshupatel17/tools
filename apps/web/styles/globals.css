@@ -34,6 +34,7 @@
   --accent-converters: #3e79d6;
   --accent-utilities: #e85c9f;
   --accent-ai: #8a5cf6;
+  --accent-math: #1a9b8a;
 
   /* Icon tiles are the accent softened against paper rather than a second hardcoded colour. */
   --accent-tint: 15%;
@@ -79,6 +80,7 @@
   --accent-converters: #6b9df0;
   --accent-utilities: #f584bb;
   --accent-ai: #a78bfa;
+  --accent-math: #3ec9b3;
 
   --accent-tint: 22%;
   --tint-base: #000000;

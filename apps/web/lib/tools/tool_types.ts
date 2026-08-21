@@ -16,6 +16,7 @@ export const TOOL_CATEGORY_IDS = [
   'converters',
   'utilities',
   'ai',
+  'math',
 ] as const;
 
 export type ToolCategoryId = (typeof TOOL_CATEGORY_IDS)[number];

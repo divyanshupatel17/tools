@@ -7,7 +7,7 @@ import { getToolsByCategory } from '@/lib/tools/registry';
 export const metadata: Metadata = buildMetadata({
   title: 'All Tools',
   description:
-    'Every tool on divyanshupatel.com/tools, grouped by category. PDF, image, video, audio, text, developer, converter and utility tools that run in your browser.',
+    'Every tool on divyanshupatel.com/tools, grouped by category. PDF, image, video, audio, text, developer, converter, utility and math tools that run in your browser.',
   path: '/all',
   keywords: ['all online tools', 'free browser tools', 'pdf tools', 'image tools'],
 });

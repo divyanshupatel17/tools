@@ -3,7 +3,8 @@
 Every tool below is a registry entry with a route. `lib/tools/registry.ts` is the single source
 of truth; nothing here is hand maintained navigation. Per category planning docs:
 `pdf_tools.md`, `image_tools.md`, `video_tools.md`, `audio_tools.md`, `text_tools.md`,
-`developer_tools.md`, `converters_tools.md`, `utilities_tools.md`, `ai_tools.md`.
+`developer_tools.md`, `converters_tools.md`, `utilities_tools.md`, `ai_tools.md`,
+`math_tools.md`.
 
 ## Naming rules
 
@@ -27,11 +28,11 @@ Every category and tool URL is flat, with no category segment in the tool path:
 
 `toolPath()` in `lib/tools/registry.ts` builds every tool URL as `/${tool.slug}`; nothing else
 constructs a tool URL by hand. This means **every tool slug across every category shares one
-flat namespace**, and must also stay distinct from the 9 category slugs (`pdf`, `image`,
-`video`, `audio`, `text`, `developer`, `converters`, `utilities`, `ai`). `registry.ts` asserts
-this at module load — a duplicate slug or a slug matching a category name throws immediately
-rather than silently shadowing a route. Keep this in mind when naming a new tool: check the
-table below (or grep the registry) before picking a slug, not after.
+flat namespace**, and must also stay distinct from the 10 category slugs (`pdf`, `image`,
+`video`, `audio`, `text`, `developer`, `converters`, `utilities`, `ai`, `math`). `registry.ts`
+asserts this at module load — a duplicate slug or a slug matching a category name throws
+immediately rather than silently shadowing a route. Keep this in mind when naming a new tool:
+check the table below (or grep the registry) before picking a slug, not after.
 
 ## Categories
 
@@ -44,8 +45,9 @@ table below (or grep the registry) before picking a slug, not after.
 | Text Tools | `/tools/text` | 13 | 5 | All available |
 | Developer Tools | `/tools/developer` | 18 | 6 | All available |
 | Converters | `/tools/converters` | 7 | none | All planned |
-| Utilities | `/tools/utilities` | 6 | none | All planned |
+| Utilities | `/tools/utilities` | 5 | none | All planned |
 | AI Tools | `/tools/ai` | 2 | none | All available |
+| Math Tools | `/tools/math` | 6 | none | All planned |
 
 A category large enough to be hard to scan declares sections in `lib/tools/sections.ts`, and
 each of its tools names one in `section`. PDF, Image, Video, Audio, Text and Developer have them
@@ -249,11 +251,10 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Unit Converter | `/tools/unit-converter` | Planned |
 | Weight Converter | `/tools/weight-converter` | Planned |
 
-### Utilities — `/tools/utilities` — 6 tools
+### Utilities — `/tools/utilities` — 5 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
-| Calculator | `/tools/calculator` | Planned |
 | Password Generator | `/tools/password-generator` | Planned |
 | QR Generator | `/tools/qr-generator` | Planned |
 | Random Generator | `/tools/random-generator` | Planned |
@@ -267,6 +268,17 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Gemini Video Watermark Remover | `/tools/gemini-video-watermark-remover` | Available |
 | Gemini Watermark Remover | `/tools/gemini-watermark-remover` | Available |
 
+### Math Tools — `/tools/math` — 6 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| 3D Graphing Calculator | `/tools/3d-graphing-calculator` | Planned |
+| Basic Calculator | `/tools/calculator` | Planned |
+| Graphing Calculator | `/tools/graphing-calculator` | Planned |
+| Matrix Calculator | `/tools/matrix-calculator` | Planned |
+| Programmer Calculator | `/tools/programmer-calculator` | Planned |
+| Scientific Calculator | `/tools/scientific-calculator` | Planned |
+
 ## Notes
 
 - Images to PDF and PDF to Images live under PDF only. A duplicate under Image would compete
@@ -277,3 +289,6 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
   and app development need.
 - `currency-converter` is the one tool with `client_only: false` — exchange rates cannot be
   computed offline.
+- Basic Calculator lives under Math, not Utilities, and kept the `calculator` slug it had there.
+  Math is the stronger fit next to the Scientific, Graphing, Programmer, Matrix and 3D Graphing
+  Calculators.

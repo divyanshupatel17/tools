@@ -10,6 +10,7 @@ const ACCENT_VAR: Record<ToolAccent, string> = {
   converters: 'var(--accent-converters)',
   utilities: 'var(--accent-utilities)',
   ai: 'var(--accent-ai)',
+  math: 'var(--accent-math)',
 };
 
 /**

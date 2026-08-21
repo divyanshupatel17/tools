@@ -48,7 +48,7 @@ processor id, input and output types, `client_only`, `worker_required`, `multipl
 Everything derives from it — the homepage, category listings, navigation, search, related
 tools, `generateStaticParams`, and the sitemap. Nothing else may hold a tool list.
 
-`lib/tools/categories.ts` holds the 9 categories. `lib/tools/tool_types.ts` holds the types
+`lib/tools/categories.ts` holds the 10 categories. `lib/tools/tool_types.ts` holds the types
 and re-exports the processor contract from `@tools/tool_engine`.
 
 ## Browser-first processing

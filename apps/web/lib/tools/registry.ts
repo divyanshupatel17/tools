@@ -1715,6 +1715,7 @@ const MATH_TOOLS = define('math', [
     icon: 'Calculator',
     input_types: ['none'],
     output_types: ['text'],
+    status: 'available',
   },
   {
     slug: 'scientific-calculator',

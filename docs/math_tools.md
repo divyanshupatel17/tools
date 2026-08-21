@@ -2,8 +2,8 @@
 
 Single source of truth for what the Math category will contain. Registry entries live in
 `apps/web/lib/tools/registry.ts`. Math has **6 tools**, no declared sections
-(`lib/tools/sections.ts`) — small enough to render as one flat grid. None are built yet; follow
-`docs/architecture.md`'s "Adding a tool" steps as each one starts.
+(`lib/tools/sections.ts`) — small enough to render as one flat grid. Basic Calculator is built;
+the rest follow `docs/architecture.md`'s "Adding a tool" steps as each one starts.
 
 This category covers calculation and graphing: everyday arithmetic, scientific functions, base
 conversion and bitwise work, matrices, and 2D/3D function plotting. Everything runs entirely
@@ -15,7 +15,7 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 
 ## Checklist
 
-- [ ] Basic Calculator — `calculator`
+- [x] Basic Calculator — `calculator`
 - [ ] Scientific Calculator — `scientific-calculator`
 - [ ] Graphing Calculator — `graphing-calculator`
 - [ ] Programmer Calculator — `programmer-calculator`
@@ -28,9 +28,11 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 
 | Feature | Details |
 | --- | --- |
-| Input | Keyboard friendly, standard operator precedence. |
-| History | A running history of past entries in the same session. |
-| Operations | Add, subtract, multiply, divide, percent, sign toggle. |
+| Input | On screen keypad plus full keyboard support (digits, `+ - * /`, `%`, Enter for equals, Backspace, Escape to clear). Standard operator precedence: multiply and divide bind tighter than add and subtract. |
+| Operations | Add, subtract, multiply, divide, percent, sign toggle, backspace, all clear. |
+| History | A running list of past `expression = result` entries for the session, shown in a toggleable panel with a clear action. |
+| Fullscreen | Expands via the native Fullscreen API from a dedicated icon button. |
+| Keys | Raised, tactile keys that visibly depress on press, whether triggered by pointer, touch or the matching keyboard key. |
 
 SEO: Online Calculator, Simple Calculator.
 

@@ -703,6 +703,11 @@ const WORKSPACES: Record<string, ComponentType> = {
       ),
     { loading: Pending },
   ),
+
+  'math.calculator': dynamic(
+    () => import('@/features/math/calculator/workspace').then((m) => m.CalculatorWorkspace),
+    { loading: Pending },
+  ),
 };
 
 export function ToolUi({ id }: { id: string }) {

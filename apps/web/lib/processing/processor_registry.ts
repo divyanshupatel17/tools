@@ -188,6 +188,9 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'ai.gemini-watermark-remover': () => import('@/features/ai/gemini_watermark_remover/processor'),
   'ai.gemini-video-watermark-remover': () =>
     import('@/features/ai/gemini_video_watermark_remover/processor'),
+
+  // Math.
+  'math.calculator': () => import('@/features/math/calculator/processor'),
 };
 
 export function hasProcessor(id: string): boolean {

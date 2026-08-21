@@ -47,7 +47,7 @@ check the table below (or grep the registry) before picking a slug, not after.
 | Converters | `/tools/converters` | 7 | none | All planned |
 | Utilities | `/tools/utilities` | 5 | none | All planned |
 | AI Tools | `/tools/ai` | 2 | none | All available |
-| Math Tools | `/tools/math` | 6 | none | All planned |
+| Math Tools | `/tools/math` | 6 | none | 1 available, 5 planned |
 
 A category large enough to be hard to scan declares sections in `lib/tools/sections.ts`, and
 each of its tools names one in `section`. PDF, Image, Video, Audio, Text and Developer have them
@@ -273,7 +273,7 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Tool | URL | Status |
 | --- | --- | --- |
 | 3D Graphing Calculator | `/tools/3d-graphing-calculator` | Planned |
-| Basic Calculator | `/tools/calculator` | Planned |
+| Basic Calculator | `/tools/calculator` | Available |
 | Graphing Calculator | `/tools/graphing-calculator` | Planned |
 | Matrix Calculator | `/tools/matrix-calculator` | Planned |
 | Programmer Calculator | `/tools/programmer-calculator` | Planned |

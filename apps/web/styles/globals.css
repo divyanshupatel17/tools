@@ -34,7 +34,9 @@
   --accent-converters: #3e79d6;
   --accent-utilities: #e85c9f;
   --accent-ai: #8a5cf6;
-  --accent-math: #1a9b8a;
+  --accent-math: #128577;
+  /* Text painted on a solid --accent-math fill (e.g. the calculator's equals key). */
+  --on-accent-math: #ffffff;
 
   /* Icon tiles are the accent softened against paper rather than a second hardcoded colour. */
   --accent-tint: 15%;
@@ -81,6 +83,7 @@
   --accent-utilities: #f584bb;
   --accent-ai: #a78bfa;
   --accent-math: #3ec9b3;
+  --on-accent-math: #052420;
 
   --accent-tint: 22%;
   --tint-base: #000000;
@@ -1032,6 +1035,66 @@
 
 .watch-bar-reflow {
   animation: watch-bar-fade-in 0.2s ease;
+}
+
+/* Calculator keypad: keys sit raised on a solid drop shadow and depress into it on press or
+   activation (mouse, touch or the matching keyboard key), rather than only tinting on hover. */
+.calc-key {
+  border: 1px solid var(--calc-key-border);
+  background: var(--calc-key-bg);
+  color: var(--calc-key-text);
+  box-shadow:
+    0 4px 0 var(--calc-key-edge),
+    var(--shadow-card);
+  transform: translateY(0);
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.1s ease,
+    background-color 0.15s ease;
+}
+
+.calc-key:hover {
+  background: var(--calc-key-bg-hover);
+}
+
+.calc-key:active,
+.calc-key.is-pressed {
+  transform: translateY(4px);
+  box-shadow:
+    0 0 0 var(--calc-key-edge),
+    inset 0 1px 3px rgb(0 0 0 / 0.15);
+}
+
+.calc-key--digit {
+  --calc-key-bg: var(--surface);
+  --calc-key-bg-hover: var(--surface-muted);
+  --calc-key-border: var(--border);
+  --calc-key-edge: color-mix(in srgb, var(--border), black 15%);
+  --calc-key-text: var(--foreground);
+}
+
+.calc-key--function {
+  --calc-key-bg: var(--surface-muted);
+  --calc-key-bg-hover: var(--cream);
+  --calc-key-border: var(--border);
+  --calc-key-edge: color-mix(in srgb, var(--border), black 15%);
+  --calc-key-text: var(--foreground);
+}
+
+.calc-key--operator {
+  --calc-key-bg: color-mix(in srgb, var(--accent-math) 14%, var(--surface));
+  --calc-key-bg-hover: color-mix(in srgb, var(--accent-math) 24%, var(--surface));
+  --calc-key-border: color-mix(in srgb, var(--accent-math) 35%, var(--border));
+  --calc-key-edge: color-mix(in srgb, var(--accent-math) 55%, black 12%);
+  --calc-key-text: var(--accent-math);
+}
+
+.calc-key--equals {
+  --calc-key-bg: var(--accent-math);
+  --calc-key-bg-hover: color-mix(in srgb, var(--accent-math), white 12%);
+  --calc-key-border: var(--accent-math);
+  --calc-key-edge: color-mix(in srgb, var(--accent-math), black 20%);
+  --calc-key-text: var(--on-accent-math);
 }
 
 /* Export PDF (Markdown Formatter & Preview) prints only the rendered preview, via the browser's

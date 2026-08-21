@@ -158,6 +158,9 @@ export const WORKSPACE_IDS = [
   'developer.random-data-generator',
   'developer.lorem-ipsum',
 
+  'utilities.stopwatch',
+  'utilities.timer',
+
   'ai.gemini-watermark-remover',
   'ai.gemini-video-watermark-remover',
 ] as const;

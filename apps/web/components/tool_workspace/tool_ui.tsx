@@ -641,6 +641,15 @@ const WORKSPACES: Record<string, ComponentType> = {
     { loading: Pending },
   ),
 
+  'utilities.stopwatch': dynamic(
+    () => import('@/features/utilities/stopwatch/workspace').then((m) => m.StopwatchWorkspace),
+    { loading: Pending },
+  ),
+  'utilities.timer': dynamic(
+    () => import('@/features/utilities/timer/workspace').then((m) => m.TimerWorkspace),
+    { loading: Pending },
+  ),
+
   'developer.url-query-string': dynamic(
     () =>
       import('@/features/developer/url_query_string/workspace').then((m) => m.UrlQueryStringWorkspace),

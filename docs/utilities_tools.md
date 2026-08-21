@@ -17,8 +17,8 @@ Developer, since placeholder text is overwhelmingly a web and app development ne
 - [ ] Password Generator — `password-generator`
 - [ ] Random Generator — `random-generator`
 - [ ] Calculator — `calculator`
-- [ ] Stopwatch — `stopwatch`
-- [ ] Timer — `timer`
+- [x] Stopwatch — `stopwatch`
+- [x] Timer — `timer`
 
 ## Utilities
 
@@ -63,8 +63,15 @@ SEO: Online Calculator, Simple Calculator.
 
 | Feature | Details |
 | --- | --- |
-| Timing | Start, stop, reset, with lap splits. |
-| Accuracy | Stays accurate even in a background tab, not throttled by the tab timer. |
+| Timing | Start, stop, reset, with lap splits (Space to start/pause, L to lap, R to reset). |
+| Accuracy | `performance.now()`-anchored elapsed clock; recomputes from real timestamps on every tick, so a throttled background tab never drifts. |
+| Faces | Digital readout or an analog dial (continuous sweep hand), toggled from the theme picker; shared with Timer. |
+| Themes | 11 design themes (3D, Claymorphism, Cyberpunk, Glassmorphism, Liquid Glass, Minimalism, Neo Brutalism, Neomorphism, Retro Y2K, Skeuomorphism, Terminal UI), each in light and dark, plus a custom accent colour. Minimalism is the default and follows the site's own light/AMOLED-dark theme. |
+| Time format | Auto, or an explicit HH:MM:SS / HH:MM / MM:SS / HH:MM:SS.MS layout from the action bar. |
+| Fullscreen | Distraction-free mode with its own floating, draggable action bar, independent light/dark toggle, and zoom in/out. |
+| Picture-in-Picture | Opens in a real floating window via the `documentPictureInPicture` API (Chromium only; the button is disabled elsewhere). |
+| Sound | Web Audio-synthesized alerts, no asset file; toggled from the action bar. |
+| Quick link | Swaps directly to Timer from the action bar. |
 
 SEO: Online Stopwatch, Stopwatch Timer.
 
@@ -72,8 +79,10 @@ SEO: Online Stopwatch, Stopwatch Timer.
 
 | Feature | Details |
 | --- | --- |
-| Countdown | Set a duration and count down to zero. |
-| Alert | A sound plus a browser notification when it finishes. |
+| Countdown | Set hours, minutes and seconds (or +1/+5/+15/+30 minute presets) and count down to zero; optional label. Space to start/pause, R to reset. |
+| Alert | A synthesized tick in the final 10 seconds, a chime at zero, plus a browser notification when it finishes. |
+| Faces | Digital readout or an analog depleting ring, shared with Stopwatch. |
+| Themes, fullscreen, PiP, time format, quick link | Shared with Stopwatch — see above. |
 
 SEO: Online Timer, Countdown Timer.
 

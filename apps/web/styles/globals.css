@@ -598,6 +598,440 @@
   padding: 0.25em 0;
 }
 
+/*
+ * Stopwatch & Timer watch skins. Scoped entirely under `.watch-widget` so these tokens can
+ * never leak into the rest of the site. `minimalism` is the default and simply mirrors the
+ * site's own light/AMOLED-dark tokens; the other ten are self-contained palettes the user
+ * opts into from the theme picker. Every colour a watch component uses comes from one of
+ * these `--w-*` variables, never a hardcoded hex in the component itself.
+ */
+.watch-widget {
+  --w-radius: 1.75rem;
+  --w-font: var(--font-sans);
+  --w-border-width: 1px;
+  --w-glow: none;
+  --w-scanline: 0;
+}
+
+/*
+ * Minimalism mirrors the site's own light and AMOLED-dark palette, but with values fixed
+ * per mode rather than `var(--background)` etc. — those flip on `html[data-theme]`, the site's
+ * own toggle, not on this widget's independent `data-watch-mode`, so a plain reference would
+ * leave the widget's dark toggle without any visible effect on this theme.
+ */
+.watch-widget[data-watch-theme='minimalism'] {
+  --w-page: #fff9e8;
+  --w-face: #fffdf6;
+  --w-border: #f2e3b8;
+  --w-shadow: 0 2px 10px rgb(120 90 20 / 0.07);
+  --w-text: #2c261d;
+  --w-muted: #51483b;
+  --w-accent: #e85c9f;
+  --w-accent-text: #ffffff;
+  --w-button: #fffdf6;
+  --w-glow: none;
+}
+.watch-widget[data-watch-theme='minimalism'][data-watch-mode='dark'] {
+  --w-page: #000000;
+  --w-face: #0a0906;
+  --w-border: #241e12;
+  --w-shadow: 0 2px 10px rgb(0 0 0 / 0.6);
+  --w-text: #f7efdb;
+  --w-muted: #a2937c;
+  --w-accent: #f584bb;
+  --w-accent-text: #1b1a17;
+  --w-button: #0a0906;
+  --w-glow: none;
+}
+
+.watch-widget[data-watch-theme='3d'] {
+  --w-page: #eef1f7;
+  --w-face: linear-gradient(160deg, #ffffff, #dee3ee);
+  --w-border: #c7cee0;
+  --w-shadow: 0 16px 30px rgb(30 41 59 / 0.22), inset 0 1px 0 rgb(255 255 255 / 0.6);
+  --w-text: #1e293b;
+  --w-muted: #64748b;
+  --w-accent: #6366f1;
+  --w-accent-text: #ffffff;
+  --w-button: linear-gradient(160deg, #ffffff, #e2e6f2);
+  --w-radius: 1.5rem;
+  --w-glow: 0 3px 0 rgb(255 255 255 / 0.8), 0 6px 10px rgb(30 41 59 / 0.25);
+}
+.watch-widget[data-watch-theme='3d'][data-watch-mode='dark'] {
+  --w-page: #0f1017;
+  --w-face: linear-gradient(160deg, #262838, #17181f);
+  --w-border: #34364a;
+  --w-shadow: 0 18px 34px rgb(0 0 0 / 0.65), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  --w-text: #e7e9f5;
+  --w-muted: #9296b3;
+  --w-accent: #818cf8;
+  --w-accent-text: #141520;
+  --w-button: linear-gradient(160deg, #2c2e40, #1c1d27);
+  --w-glow: 0 2px 0 rgb(255 255 255 / 0.08), 0 8px 16px rgb(0 0 0 / 0.6);
+}
+
+.watch-widget[data-watch-theme='claymorphism'] {
+  --w-page: #eef1ff;
+  --w-face: #dee6ff;
+  --w-border: transparent;
+  --w-shadow: 10px 10px 20px #b9c4e0, -10px -10px 20px #ffffff;
+  --w-text: #33415c;
+  --w-muted: #6b7aa0;
+  --w-accent: #8fa8ff;
+  --w-accent-text: #1c2540;
+  --w-button: #eef1ff;
+  --w-radius: 2rem;
+  --w-glow: 3px 3px 0 rgb(255 255 255 / 0.8), -3px -3px 8px rgb(120 140 200 / 0.3);
+}
+.watch-widget[data-watch-theme='claymorphism'][data-watch-mode='dark'] {
+  --w-page: #1a1e2e;
+  --w-face: #262b40;
+  --w-shadow: 10px 10px 20px #11141d, -10px -10px 20px #333a54;
+  --w-text: #dbe2f5;
+  --w-muted: #99a2c2;
+  --w-accent: #93a8ff;
+  --w-accent-text: #161a29;
+  --w-button: #1a1e2e;
+  --w-glow: 3px 3px 0 rgb(255 255 255 / 0.08), -3px -3px 10px rgb(0 0 0 / 0.5);
+}
+
+.watch-widget[data-watch-theme='cyberpunk'] {
+  --w-page: #f5f5fa;
+  --w-face: #ffffff;
+  --w-border: #14141c;
+  --w-border-width: 2px;
+  --w-shadow: 4px 4px 0 #14141c;
+  --w-text: #0d0d12;
+  --w-muted: #55566b;
+  --w-accent: #ff2bd6;
+  --w-accent-text: #ffffff;
+  --w-button: #14141c;
+  --w-button-text: #ffffff;
+  --w-radius: 1rem;
+  --w-glow: 3px 3px 0 #ff2bd6;
+}
+.watch-widget[data-watch-theme='cyberpunk'][data-watch-mode='dark'] {
+  --w-page: #05010a;
+  --w-face: #0b0518;
+  --w-border: #ff2bd6;
+  --w-border-width: 1px;
+  --w-shadow: 0 0 0 1px #ff2bd6, 0 0 26px rgb(255 43 214 / 0.45);
+  --w-text: #f4effc;
+  --w-muted: #b6a9d6;
+  --w-accent: #00e5ff;
+  --w-accent-text: #04121a;
+  --w-button: #140a24;
+  --w-button-text: #f4effc;
+  --w-glow: 0 0 16px currentColor;
+}
+
+.watch-widget[data-watch-theme='glassmorphism'] {
+  --w-page: linear-gradient(150deg, #dbe8ff, #ffe1f3);
+  --w-face: rgb(255 255 255 / 0.55);
+  --w-border: rgb(255 255 255 / 0.7);
+  --w-shadow: 0 8px 30px rgb(31 41 55 / 0.15);
+  --w-text: #1f2937;
+  --w-muted: #4b5568;
+  --w-accent: #6366f1;
+  --w-accent-text: #ffffff;
+  --w-button: rgb(255 255 255 / 0.65);
+  --w-blur: 18px;
+  --w-radius: 1.75rem;
+  --w-glow: 0 4px 20px rgb(99 102 241 / 0.3);
+}
+.watch-widget[data-watch-theme='glassmorphism'][data-watch-mode='dark'] {
+  --w-page: linear-gradient(150deg, #0e1330, #1c1030);
+  --w-face: rgb(20 20 35 / 0.5);
+  --w-border: rgb(255 255 255 / 0.16);
+  --w-shadow: 0 8px 30px rgb(0 0 0 / 0.5);
+  --w-text: #eef2ff;
+  --w-muted: #b9bfe0;
+  --w-accent: #a5b4fc;
+  --w-accent-text: #1a1a2e;
+  --w-button: rgb(255 255 255 / 0.08);
+  --w-glow: 0 4px 24px rgb(165 180 252 / 0.4);
+}
+
+.watch-widget[data-watch-theme='liquid-glass'] {
+  --w-page: linear-gradient(135deg, #d9e8ff 0%, #ffe3f6 50%, #e3fff3 100%);
+  --w-face: rgb(255 255 255 / 0.4);
+  --w-border: rgb(255 255 255 / 0.8);
+  --w-shadow: 0 10px 40px rgb(99 102 241 / 0.25), inset 0 1px 1px rgb(255 255 255 / 0.9);
+  --w-text: #1c2340;
+  --w-muted: #4c5578;
+  --w-accent: #4f8cff;
+  --w-accent-text: #ffffff;
+  --w-button: rgb(255 255 255 / 0.55);
+  --w-blur: 24px;
+  --w-radius: 2rem;
+  --w-glow: 0 4px 24px rgb(79 140 255 / 0.35);
+}
+.watch-widget[data-watch-theme='liquid-glass'][data-watch-mode='dark'] {
+  --w-page: linear-gradient(135deg, #150a2e 0%, #2a0f3d 50%, #0a1f2e 100%);
+  --w-face: rgb(35 20 60 / 0.45);
+  --w-border: rgb(255 255 255 / 0.2);
+  --w-shadow: 0 10px 40px rgb(0 0 0 / 0.55), inset 0 1px 1px rgb(255 255 255 / 0.15);
+  --w-text: #f1ecff;
+  --w-muted: #c1b6e6;
+  --w-accent: #8ab4ff;
+  --w-accent-text: #101225;
+  --w-button: rgb(255 255 255 / 0.1);
+  --w-glow: 0 4px 26px rgb(138 180 255 / 0.45);
+}
+
+.watch-widget[data-watch-theme='neo-brutalism'] {
+  --w-page: #fdf3e0;
+  --w-face: #ffffff;
+  --w-border: #111111;
+  --w-border-width: 3px;
+  --w-shadow: 7px 7px 0 #111111;
+  --w-text: #111111;
+  --w-muted: #4a4a4a;
+  --w-accent: #111111;
+  --w-accent-text: #ffffff;
+  --w-button: #ffe45c;
+  --w-button-text: #111111;
+  --w-radius: 0.75rem;
+  --w-glow: 5px 5px 0 #111111;
+}
+.watch-widget[data-watch-theme='neo-brutalism'][data-watch-mode='dark'] {
+  --w-page: #111111;
+  --w-face: #1c1c1c;
+  --w-border: #ffffff;
+  --w-shadow: 7px 7px 0 #ffffff;
+  --w-text: #ffffff;
+  --w-muted: #b5b5b5;
+  --w-accent: #ffffff;
+  --w-accent-text: #111111;
+  --w-button-text: #111111;
+  --w-button: #ffe45c;
+  --w-glow: 5px 5px 0 #ffe45c;
+}
+
+.watch-widget[data-watch-theme='neomorphism'] {
+  --w-page: #e6ecf5;
+  --w-face: #e6ecf5;
+  --w-border: transparent;
+  --w-shadow: 9px 9px 18px #b6c0d6, -9px -9px 18px #ffffff;
+  --w-text: #445070;
+  --w-muted: #7a869e;
+  --w-accent: #94a3c9;
+  --w-accent-text: #1f2740;
+  --w-button: #e6ecf5;
+  --w-radius: 2rem;
+  --w-glow: 2px 2px 3px rgb(182 192 214 / 0.9), -2px -2px 3px rgb(255 255 255 / 0.9);
+}
+.watch-widget[data-watch-theme='neomorphism'][data-watch-mode='dark'] {
+  --w-page: #1c2230;
+  --w-face: #1c2230;
+  --w-shadow: 9px 9px 18px #12161f, -9px -9px 18px #262e41;
+  --w-text: #cbd5e1;
+  --w-muted: #8b96b3;
+  --w-accent: #5b6b8c;
+  --w-accent-text: #e7ecf7;
+  --w-button: #1c2230;
+  --w-glow: 2px 2px 3px rgb(18 22 31 / 0.9), -2px -2px 3px rgb(38 46 65 / 0.9);
+}
+
+.watch-widget[data-watch-theme='retro-y2k'] {
+  --w-page: linear-gradient(150deg, #eaf6ff, #ffe3f6);
+  --w-face: linear-gradient(165deg, #ffffff, #dce9f7 60%, #ffffff);
+  --w-border: #ff5cc7;
+  --w-border-width: 2px;
+  --w-shadow: 0 10px 26px rgb(255 92 199 / 0.28), inset 0 1px 0 rgb(255 255 255 / 0.9);
+  --w-text: #12283e;
+  --w-muted: #4d6579;
+  --w-accent: #00c2ff;
+  --w-accent-text: #05202e;
+  --w-button: linear-gradient(165deg, #ffffff, #cdeeff);
+  --w-radius: 1.5rem;
+  --w-glow: 0 2px 0 #ffffff, 0 4px 16px rgb(255 92 199 / 0.5);
+}
+.watch-widget[data-watch-theme='retro-y2k'][data-watch-mode='dark'] {
+  --w-page: linear-gradient(150deg, #050014, #1a0030);
+  --w-face: linear-gradient(165deg, #2c1450, #180a2c 60%, #2c1450);
+  --w-border: #ffd54a;
+  --w-shadow: 0 10px 30px rgb(255 213 74 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.12);
+  --w-text: #ffe9c7;
+  --w-muted: #cdb8e8;
+  --w-accent: #ffd54a;
+  --w-accent-text: #241100;
+  --w-button: linear-gradient(165deg, #3a1466, #241041);
+  --w-glow: 0 2px 20px rgb(255 213 74 / 0.6);
+}
+
+.watch-widget[data-watch-theme='skeuomorphism'] {
+  --w-page: #cfd3d8;
+  --w-face: radial-gradient(circle at 35% 30%, #ffffff, #e3e6ea 70%);
+  --w-border: #b7bcc4;
+  --w-border-width: 6px;
+  --w-shadow: 0 12px 24px rgb(0 0 0 / 0.28), inset 0 1px 2px rgb(255 255 255 / 0.8);
+  --w-text: #1f2933;
+  --w-muted: #566270;
+  --w-accent: #b3261e;
+  --w-accent-text: #ffffff;
+  --w-button: radial-gradient(circle at 35% 30%, #ffffff, #dfe2e6 70%);
+  --w-radius: 1.75rem;
+  /* The analog dial forces a true circle itself; this only rounds the digital face's bezel. */
+  --w-face-radius: 3rem;
+  --w-glow: 1px 1px 0 rgb(255 255 255 / 0.7), -1px -1px 1px rgb(0 0 0 / 0.3);
+}
+.watch-widget[data-watch-theme='skeuomorphism'][data-watch-mode='dark'] {
+  --w-page: #1a1a1a;
+  --w-face: radial-gradient(circle at 35% 30%, #363636, #141414 70%);
+  --w-border: #3a3a3a;
+  --w-shadow: 0 12px 26px rgb(0 0 0 / 0.6), inset 0 1px 2px rgb(255 255 255 / 0.12);
+  --w-text: #f1f1f1;
+  --w-muted: #a8a8a8;
+  --w-accent: #ff4d4d;
+  --w-accent-text: #1a0000;
+  --w-button: radial-gradient(circle at 35% 30%, #3d3d3d, #1c1c1c 70%);
+  --w-glow: 1px 1px 0 rgb(255 255 255 / 0.15), -1px -1px 1px rgb(0 0 0 / 0.6);
+}
+
+.watch-widget[data-watch-theme='terminal-ui'] {
+  --w-page: #f4f1e6;
+  --w-face: #fffdf5;
+  --w-border: #3a3a2e;
+  --w-shadow: none;
+  --w-text: #2e3b1f;
+  --w-muted: #5b6650;
+  --w-accent: #3f7d20;
+  --w-accent-text: #f4f1e6;
+  --w-button: #eae6d4;
+  --w-font: var(--font-mono);
+  --w-radius: 0.5rem;
+  --w-glow: 0 0 1px currentColor;
+}
+.watch-widget[data-watch-theme='terminal-ui'][data-watch-mode='dark'] {
+  --w-page: #000000;
+  --w-face: #000000;
+  --w-border: #00ff66;
+  --w-text: #00ff66;
+  --w-muted: #0b8f3f;
+  --w-accent: #00ff66;
+  --w-accent-text: #001a08;
+  --w-button: #001a08;
+  --w-glow: 0 0 8px currentColor;
+  --w-scanline: 1;
+}
+
+.watch-widget {
+  background: var(--w-page);
+  color: var(--w-text);
+  font-family: var(--w-font);
+  border-radius: var(--w-radius);
+}
+
+.watch-face {
+  background: var(--w-face);
+  border: var(--w-border-width) solid var(--w-border);
+  box-shadow: var(--w-shadow);
+  border-radius: var(--w-face-radius, var(--w-radius));
+  color: var(--w-text);
+  position: relative;
+  overflow: hidden;
+}
+
+.watch-widget[data-watch-theme='glassmorphism'] .watch-face,
+.watch-widget[data-watch-theme='liquid-glass'] .watch-face {
+  backdrop-filter: blur(var(--w-blur, 16px));
+  -webkit-backdrop-filter: blur(var(--w-blur, 16px));
+}
+
+.watch-widget[data-watch-theme='terminal-ui'] .watch-face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: calc(var(--w-scanline, 0) * 0.12);
+  background: repeating-linear-gradient(
+    to bottom,
+    currentColor 0px,
+    currentColor 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.watch-readout {
+  text-shadow: var(--w-glow, none);
+}
+
+.watch-button {
+  background: var(--w-button);
+  /* Most themes keep --w-button close to --w-face's tone, so --w-text reads fine on it by
+     default. A few give the button chip a deliberately different colour (cyberpunk's near
+     black pill, neo-brutalism's constant yellow chip) — those set --w-button-text explicitly
+     below rather than relying on the fallback. */
+  color: var(--w-button-text, var(--w-text));
+  border: var(--w-border-width) solid var(--w-border);
+}
+
+.watch-button-primary {
+  background: var(--w-accent);
+  color: var(--w-accent-text);
+  border: var(--w-border-width) solid var(--w-border);
+}
+
+/* A slim, theme-coloured scrollbar for the fullscreen wrapper's overflow-y-auto safety net —
+   the platform's default scrollbar is a stray grey bar that belongs to no theme. */
+.watch-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--w-border) transparent;
+}
+.watch-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.watch-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.watch-scroll::-webkit-scrollbar-thumb {
+  background: var(--w-border);
+  border-radius: 999px;
+}
+
+.watch-widget:fullscreen {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  padding: 2rem;
+  background: var(--w-page);
+}
+
+/* Switching theme, mode or accent recolours these three element types; transitioning them
+   makes the swap read as a change rather than a flash. Gradient backgrounds (retro-y2k,
+   liquid-glass, 3d, glassmorphism) don't interpolate between two different gradients, so
+   those themes still snap — solid-colour themes get the full smooth crossfade. */
+.watch-widget,
+.watch-face,
+.watch-button,
+.watch-button-primary {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+@keyframes watch-bar-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.watch-bar-reflow {
+  animation: watch-bar-fade-in 0.2s ease;
+}
+
 /* Export PDF (Markdown Formatter & Preview) prints only the rendered preview, via the browser's
    own print to PDF, not the surrounding page chrome. */
 @media print {

@@ -179,6 +179,10 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'developer.random-data-generator': () => import('@/features/developer/random_data_generator/processor'),
   'developer.lorem-ipsum': () => import('@/features/developer/lorem_ipsum_generator/processor'),
 
+  // Utilities.
+  'utilities.stopwatch': () => import('@/features/utilities/stopwatch/processor'),
+  'utilities.timer': () => import('@/features/utilities/timer/processor'),
+
   // AI tools.
   'ai.gemini-watermark-remover': () => import('@/features/ai/gemini_watermark_remover/processor'),
   'ai.gemini-video-watermark-remover': () =>

@@ -257,8 +257,8 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Password Generator | `/tools/password-generator` | Planned |
 | QR Generator | `/tools/qr-generator` | Planned |
 | Random Generator | `/tools/random-generator` | Planned |
-| Stopwatch | `/tools/stopwatch` | Planned |
-| Timer | `/tools/timer` | Planned |
+| Stopwatch | `/tools/stopwatch` | Available |
+| Timer | `/tools/timer` | Available |
 
 ### AI Tools — `/tools/ai` — 2 tools
 

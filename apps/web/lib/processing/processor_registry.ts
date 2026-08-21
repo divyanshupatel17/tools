@@ -182,6 +182,7 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   // Utilities.
   'utilities.stopwatch': () => import('@/features/utilities/stopwatch/processor'),
   'utilities.timer': () => import('@/features/utilities/timer/processor'),
+  'utilities.qr-generator': () => import('@/features/utilities/qr_generator/processor'),
 
   // AI tools.
   'ai.gemini-watermark-remover': () => import('@/features/ai/gemini_watermark_remover/processor'),

@@ -649,6 +649,10 @@ const WORKSPACES: Record<string, ComponentType> = {
     () => import('@/features/utilities/timer/workspace').then((m) => m.TimerWorkspace),
     { loading: Pending },
   ),
+  'utilities.qr-generator': dynamic(
+    () => import('@/features/utilities/qr_generator/workspace').then((m) => m.QrGeneratorWorkspace),
+    { loading: Pending },
+  ),
 
   'developer.url-query-string': dynamic(
     () =>

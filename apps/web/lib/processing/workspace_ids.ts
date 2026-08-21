@@ -160,6 +160,7 @@ export const WORKSPACE_IDS = [
 
   'utilities.stopwatch',
   'utilities.timer',
+  'utilities.qr-generator',
 
   'ai.gemini-watermark-remover',
   'ai.gemini-video-watermark-remover',

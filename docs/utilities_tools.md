@@ -13,7 +13,7 @@ Developer, since placeholder text is overwhelmingly a web and app development ne
 
 ## Checklist
 
-- [ ] QR Generator — `qr-generator`
+- [x] QR Generator — `qr-generator`
 - [ ] Password Generator — `password-generator`
 - [ ] Random Generator — `random-generator`
 - [ ] Calculator — `calculator`
@@ -26,8 +26,12 @@ Developer, since placeholder text is overwhelmingly a web and app development ne
 
 | Feature | Details |
 | --- | --- |
-| Input | A link, plain text, or Wi-Fi network credentials. |
-| Output | Download as PNG or SVG. |
+| Types | 28 types: URL, text, email, phone, SMS, vCard, MeCard, location, Wi-Fi, calendar event, WhatsApp, Telegram, FaceTime, Skype, Twitter, Facebook, Instagram, YouTube, LinkedIn, Spotify, PayPal, Pinterest, Bitcoin, website, Google Maps (address, lat/long, or a pasted Maps link), App Store, Play Store, and a Universal type that auto detects a link, email or phone number. |
+| Design | Solid or gradient (linear/radial) foreground, optional separate eye colours, transparent background, 5 module shapes, 4 eye frame/ball shapes. Finder eyes always render in one flat colour even when the body uses a gradient, so detection never depends on a position varying hue. |
+| Logo | One click quick picks for the brand types, or upload your own; resize, optional backing padding, remove. Error correction is raised automatically once a logo is added. |
+| Advanced | Error correction level (L/M/Q/H), quiet zone margin, output size up to 2000px. |
+| Reliability | The rendered code is decoded back locally (jsQR) and flagged if it would not scan. |
+| Output | Download as PNG, SVG or WebP. Everything renders in the browser; nothing is uploaded. |
 
 SEO: QR Code Generator, Free QR Code Maker.
 

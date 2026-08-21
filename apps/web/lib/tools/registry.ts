@@ -1634,10 +1634,11 @@ const UTILITY_TOOLS = define('utilities', [
     slug: 'qr-generator',
     name: 'QR Generator',
     description:
-      'Create a QR code for a link, text or Wi-Fi network and download it as PNG or SVG.',
+      'Create a styled QR code for a link, contact card, Wi-Fi network and more, then download it as PNG or SVG.',
     icon: 'QrCode',
     input_types: ['text'],
     output_types: ['image'],
+    status: 'available',
   },
   {
     slug: 'password-generator',

@@ -1725,6 +1725,7 @@ const MATH_TOOLS = define('math', [
     icon: 'FunctionSquare',
     input_types: ['none'],
     output_types: ['text'],
+    status: 'available',
   },
   {
     slug: 'graphing-calculator',

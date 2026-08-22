@@ -1089,6 +1089,109 @@
   --calc-key-text: var(--accent-math);
 }
 
+.calc-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin: 0 1px;
+  background: var(--accent-math);
+  vertical-align: middle;
+  animation: calc-caret-blink 1s step-end infinite;
+}
+
+@keyframes calc-caret-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.calc-empty-slot {
+  display: inline-block;
+  min-width: 0.9em;
+  height: 1em;
+  margin: 0 1px;
+  border: 1.5px dashed var(--border);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.calc-slot {
+  cursor: text;
+}
+
+.calc-radical {
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.calc-radical-index {
+  align-self: flex-start;
+  font-size: 0.52em;
+  line-height: 1;
+  margin-right: -0.15em;
+  transform: translateY(-25%);
+}
+
+.calc-radical-symbol {
+  align-self: flex-start;
+  padding-right: 1px;
+}
+
+.calc-radical-bar {
+  border-top: 1.5px solid currentColor;
+  padding: 0 2px;
+}
+
+.calc-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 2px;
+  font-size: 0.85em;
+}
+
+.calc-fraction-num {
+  border-bottom: 1.5px solid currentColor;
+  padding: 0 2px 1px;
+}
+
+.calc-fraction-denom {
+  padding: 1px 2px 0;
+}
+
+.calc-bounded-symbol {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin-right: 2px;
+}
+
+.calc-bounded-glyph {
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+.calc-bound-to,
+.calc-bound-from {
+  font-size: 0.55em;
+  line-height: 1;
+}
+
+.calc-key--control {
+  --calc-key-bg: color-mix(in srgb, var(--border), var(--surface) 55%);
+  --calc-key-bg-hover: color-mix(in srgb, var(--border), var(--surface) 35%);
+  --calc-key-border: var(--border);
+  --calc-key-edge: color-mix(in srgb, var(--border), black 20%);
+  --calc-key-text: var(--foreground);
+}
+
 .calc-key--equals {
   --calc-key-bg: var(--accent-math);
   --calc-key-bg-hover: color-mix(in srgb, var(--accent-math), white 12%);

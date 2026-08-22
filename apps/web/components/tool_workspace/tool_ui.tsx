@@ -708,6 +708,13 @@ const WORKSPACES: Record<string, ComponentType> = {
     () => import('@/features/math/calculator/workspace').then((m) => m.CalculatorWorkspace),
     { loading: Pending },
   ),
+  'math.scientific-calculator': dynamic(
+    () =>
+      import('@/features/math/scientific_calculator/workspace').then(
+        (m) => m.ScientificCalculatorWorkspace,
+      ),
+    { loading: Pending },
+  ),
 };
 
 export function ToolUi({ id }: { id: string }) {

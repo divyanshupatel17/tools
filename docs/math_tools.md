@@ -2,8 +2,9 @@
 
 Single source of truth for what the Math category will contain. Registry entries live in
 `apps/web/lib/tools/registry.ts`. Math has **6 tools**, no declared sections
-(`lib/tools/sections.ts`) — small enough to render as one flat grid. Basic Calculator is built;
-the rest follow `docs/architecture.md`'s "Adding a tool" steps as each one starts.
+(`lib/tools/sections.ts`) — small enough to render as one flat grid. Basic Calculator and
+Scientific Calculator are built; the rest follow `docs/architecture.md`'s "Adding a tool" steps
+as each one starts.
 
 This category covers calculation and graphing: everyday arithmetic, scientific functions, base
 conversion and bitwise work, matrices, and 2D/3D function plotting. Everything runs entirely
@@ -16,7 +17,7 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 ## Checklist
 
 - [x] Basic Calculator — `calculator`
-- [ ] Scientific Calculator — `scientific-calculator`
+- [x] Scientific Calculator — `scientific-calculator`
 - [ ] Graphing Calculator — `graphing-calculator`
 - [ ] Programmer Calculator — `programmer-calculator`
 - [ ] Matrix Calculator — `matrix-calculator`
@@ -40,10 +41,13 @@ SEO: Online Calculator, Simple Calculator.
 
 | Feature | Details |
 | --- | --- |
-| Functions | Trigonometric (sin, cos, tan and inverses), logarithmic, exponential, powers, roots and factorial. |
-| Modes | Degree and radian angle modes. |
-| Memory | Store, recall, add to and clear a memory register. |
-| History | A running history of past entries in the same session. |
+| Input | Cursor based expression editing (insert anywhere, left/right, undo/redo), keyboard support, and a live result preview that updates on every keystroke. Every function and constant button is visible at once, not tucked under a tab. |
+| Functions | Trigonometric (sin, cos, tan and inverses), hyperbolic, natural and base 10 log, eˣ, square root, nth root, general power, square, cube, reciprocal, absolute value, round, factorial, nCr and nPr, all through a real recursive descent parser with parentheses and comma separated arguments. |
+| Modes | Degree and radian angle modes, switchable at any time; conversion applies to sin, cos, tan and their inverses. |
+| Constants | π, e, φ (golden ratio) and Ans (the last committed answer). |
+| Display | The typed expression renders in proper math notation (sin⁻¹, √, ⁿ√, `\|x\|`) instead of raw parser tokens, both live and in history. |
+| History | A running list of past `expression -> result` entries for the session, shown in the same toggleable panel as Basic Calculator. |
+| Fullscreen | Expands via the native Fullscreen API, matching Basic Calculator. |
 
 SEO: Scientific Calculator, Online Scientific Calculator.
 

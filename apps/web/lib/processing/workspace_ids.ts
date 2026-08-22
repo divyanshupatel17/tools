@@ -166,6 +166,7 @@ export const WORKSPACE_IDS = [
   'ai.gemini-video-watermark-remover',
 
   'math.calculator',
+  'math.scientific-calculator',
 ] as const;
 
 export function hasWorkspace(id: string): boolean {

@@ -167,6 +167,7 @@ export const WORKSPACE_IDS = [
 
   'math.calculator',
   'math.scientific-calculator',
+  'math.graphing-calculator',
 ] as const;
 
 export function hasWorkspace(id: string): boolean {

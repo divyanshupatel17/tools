@@ -18,7 +18,7 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 
 - [x] Basic Calculator — `calculator`
 - [x] Scientific Calculator — `scientific-calculator`
-- [ ] Graphing Calculator — `graphing-calculator`
+- [x] Graphing Calculator — `graphing-calculator`
 - [ ] Programmer Calculator — `programmer-calculator`
 - [ ] Matrix Calculator — `matrix-calculator`
 - [ ] 3D Graphing Calculator — `3d-graphing-calculator`
@@ -55,10 +55,12 @@ SEO: Scientific Calculator, Online Scientific Calculator.
 
 | Feature | Details |
 | --- | --- |
-| Plotting | Graph one or more functions of x at once, each in its own colour. |
-| Navigation | Pan and zoom the plane, trace a curve to read exact coordinates. |
-| Input | Standard math notation, including implicit multiplication. |
-| Output | The rendered graph can be viewed full size and downloaded as an image. |
+| Layout | An editable equation list on the left, each row auto colour coded; the plot fills the right side and stays sticky on scroll, matching the reference implementation this tool follows (Desmos). |
+| Expression kinds | A bare expression or `y=f(x)` plots a function of x; `x=g(y)` plots a function of y; `a=3` (or any bare letter equals a constant expression) declares a slider parameter later rows can reference; `x^2+y^2=4` style two variable equalities plot an implicit curve via marching squares; `<`, `<=`, `>`, `>=` shade an inequality's region; `(a, a^2)` plots a literal point. |
+| Functions | Trig and inverse trig (`sin`...`cot`, `asin`/`arcsin`...`acot`/`arccot`), hyperbolic and inverse hyperbolic, `ln`, `log` (base 10 or `log(base, x)`), `exp`, `sqrt`, `cbrt`, `nthroot`, `abs`, `floor`, `ceil`, `round`, `sign`, `mod`, `gcd`, `lcm`, `ncr`, `npr`, factorial, and `min`/`max`/`mean`/`sum` over any number of arguments, all through a real recursive descent parser with implicit multiplication (`2x`, `xy`, `2(x+1)`). |
+| Sliders | Each parameter row gets an inline range input with editable min and max, plus a play button that animates the value back and forth. |
+| Navigation | Drag to pan, scroll or pinch to zoom (keeping x and y scaled equally so circles stay round), hover any function or point to trace its exact coordinates. |
+| Output | A small export button offers standard, high and ultra resolution PNG downloads of the current view. |
 
 SEO: Graphing Calculator, Function Grapher.
 

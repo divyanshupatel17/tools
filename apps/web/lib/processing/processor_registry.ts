@@ -192,6 +192,7 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   // Math.
   'math.calculator': () => import('@/features/math/calculator/processor'),
   'math.scientific-calculator': () => import('@/features/math/scientific_calculator/processor'),
+  'math.graphing-calculator': () => import('@/features/math/graphing_calculator/processor'),
 };
 
 export function hasProcessor(id: string): boolean {

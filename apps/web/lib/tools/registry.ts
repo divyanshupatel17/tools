@@ -1734,6 +1734,7 @@ const MATH_TOOLS = define('math', [
     icon: 'LineChart',
     input_types: ['none'],
     output_types: ['image'],
+    status: 'available',
   },
   {
     slug: 'programmer-calculator',

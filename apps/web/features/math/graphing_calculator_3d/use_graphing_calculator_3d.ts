@@ -3,53 +3,46 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import type { RowState, SliderRange } from '../shared/expression_types';
-import { buildGraphModel, colorForIndex, defaultSliderRange, type RowResult } from './model';
-import { clampScale, DEFAULT_VIEWPORT, screenToWorld, type Viewport } from './viewport';
+import { colorForIndex } from '../graphing_calculator/model';
+import { buildGraphModel3d, defaultSliderRange, type RowResult3d } from './model';
+import {
+  clampDistance,
+  clampElevation,
+  DEFAULT_ORBIT,
+  orbitBasis,
+  type OrbitState,
+} from './orbit_camera';
 
 export type { RowState, SliderRange };
 
 let rowIdCounter = 0;
 function nextRowId(): string {
   rowIdCounter += 1;
-  return `expr${rowIdCounter}`;
+  return `expr3d${rowIdCounter}`;
 }
 
 const INITIAL_ROWS: RowState[] = [
-  { id: nextRowId(), raw: 'y=a*sin(x)', color: colorForIndex(0), hidden: false },
+  { id: nextRowId(), raw: 'z=a*sin(sqrt(x^2+y^2))', color: colorForIndex(0), hidden: false },
   { id: nextRowId(), raw: 'a=1', color: colorForIndex(1), hidden: false },
 ];
 
 /**
- * One animated flower centered on the origin, plus a handful of cheap (non-implicit) curves
- * touching the other function categories. Only the flower itself costs a marching-squares
- * pass each frame — everything else is a plain, fast y = f(x) sample — so this stays light
- * even while the flower's scale slider is playing.
- *
- * The flower is a 5-petal polar rose r = cos(5*theta), written without trigonometry via
- * r^(k+1) = Re[(x+iy)^k] for k = 5: (x^2+y^2)^3 = x^5 - 10*x^3*y^2 + 5*x*y^4, substituting
- * x/a and y/a to resize the whole curve as the slider `a` animates.
+ * Kept light on purpose (lesson from the 2D tool's "load examples" once being too heavy):
+ * only the animated surface resamples every frame; the isosurface, the inequality and the
+ * point are all static, computed once at load.
  */
-const EXAMPLE_EXPRESSIONS = [
-  'a=1.5',
-  '((x/a)^2+(y/a)^2)^3=(x/a)^5-10*(x/a)^3*(y/a)^2+5*(x/a)*(y/a)^4',
-  'y=sin(x)',
-  'y=tanh(x)*2',
-  'y=ln(x+11)-3',
-  'y=sqrt(x+10)-5',
-  'y=mod(x,4)-2',
-  'y=max(x/3,-3)',
-] as const;
+const EXAMPLE_EXPRESSIONS = ['a=1', 'z=a*sin(x)*cos(y)', 'x^2+y^2+z^2=9', 'x+y+z<-2', '(3,3,3)'] as const;
 const EXAMPLE_SLIDER_COUNT = 1;
-const EXAMPLE_SLIDER_RANGE: SliderRange = { min: 0.4, max: 4, step: 0.02 };
+const EXAMPLE_SLIDER_RANGE: SliderRange = { min: 0.2, max: 2.5, step: 0.02 };
 
-export function useGraphingCalculator() {
+export function useGraphingCalculator3d() {
   const [rows, setRows] = useState<RowState[]>(INITIAL_ROWS);
   const [sliderValues, setSliderValues] = useState<Record<string, number>>({});
   const [sliderRanges, setSliderRanges] = useState<Record<string, SliderRange>>({});
   const [playing, setPlaying] = useState<Record<string, boolean>>({});
-  const [viewport, setViewport] = useState<Viewport>(DEFAULT_VIEWPORT);
+  const [orbit, setOrbit] = useState<OrbitState>(DEFAULT_ORBIT);
 
-  const model: RowResult[] = useMemo(() => buildGraphModel(rows, sliderValues), [rows, sliderValues]);
+  const model: RowResult3d[] = useMemo(() => buildGraphModel3d(rows, sliderValues), [rows, sliderValues]);
 
   const rangeFor = useCallback(
     (id: string, declaredValue: number): SliderRange => sliderRanges[id] ?? defaultSliderRange(declaredValue),
@@ -119,7 +112,6 @@ export function useGraphingCalculator() {
     setRows((current) => current.map((row) => (row.id === id ? { ...row, color } : row)));
   }, []);
 
-  /** Moves `activeId` to sit at `overId`'s current position, shifting everything between. */
   const reorderRow = useCallback((activeId: string, overId: string) => {
     setRows((current) => {
       const fromIndex = current.findIndex((row) => row.id === activeId);
@@ -162,8 +154,6 @@ export function useGraphingCalculator() {
         for (const entry of modelRef.current) {
           if (entry.row.type !== 'slider' || !playingRef.current[entry.id]) continue;
           const range = rangesRef.current[entry.id] ?? defaultSliderRange(entry.row.declaredDefault);
-          // A stable per-slider period and phase offset (derived from its id) so several
-          // playing sliders drift in and out of sync instead of pulsing in mechanical lockstep.
           const seed = [...entry.id].reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
           const cycleMs = 3200 + (seed % 5) * 700;
           const phaseOffset = (seed % 10) / 10;
@@ -180,71 +170,98 @@ export function useGraphingCalculator() {
     return () => cancelAnimationFrame(frame);
   }, [playing]);
 
-  const panBy = useCallback((dxScreen: number, dyScreen: number) => {
-    setViewport((current) => ({
+  // Continuous, unanimated updates for drag/wheel/pinch (they already feel animated since they
+  // fire every pointer event); orbitBy/panBy are called directly from the canvas's handlers.
+  const orbitBy = useCallback((dAzimuth: number, dElevation: number) => {
+    setOrbit((current) => ({
       ...current,
-      centerX: current.centerX - dxScreen / current.scale,
-      centerY: current.centerY + dyScreen / current.scale,
+      azimuth: current.azimuth + dAzimuth,
+      elevation: clampElevation(current.elevation + dElevation),
     }));
   }, []);
 
-  const zoomAt = useCallback((screenX: number, screenY: number, width: number, height: number, factor: number) => {
-    setViewport((current) => {
-      const [worldX, worldY] = screenToWorld(current, width, height, screenX, screenY);
-      const nextScale = clampScale(current.scale * factor);
-      const [newWorldX, newWorldY] = screenToWorld({ ...current, scale: nextScale }, width, height, screenX, screenY);
+  const panBy = useCallback((dxScreen: number, dyScreen: number, viewHeightPx: number, fovRadians: number) => {
+    setOrbit((current) => {
+      const worldPerPixel = (2 * current.distance * Math.tan(fovRadians / 2)) / Math.max(1, viewHeightPx);
+      const { right, up } = orbitBasis(current);
+      const dx = -dxScreen * worldPerPixel;
+      const dy = dyScreen * worldPerPixel;
       return {
-        scale: nextScale,
-        centerX: current.centerX + (worldX - newWorldX),
-        centerY: current.centerY + (worldY - newWorldY),
+        ...current,
+        target: [
+          current.target[0] + right[0] * dx + up[0] * dy,
+          current.target[1] + right[1] * dx + up[1] * dy,
+          current.target[2] + right[2] * dx + up[2] * dy,
+        ],
       };
     });
   }, []);
 
-  // Drag/wheel/pinch already feel animated since they fire continuously; button-triggered
-  // zoom and reset instead ease over a fixed duration so they don't just snap into place.
-  const viewportRef = useRef(viewport);
-  useEffect(() => {
-    viewportRef.current = viewport;
-  }, [viewport]);
-  const viewportAnimationRef = useRef<number | null>(null);
-  useEffect(() => () => {
-    if (viewportAnimationRef.current !== null) cancelAnimationFrame(viewportAnimationRef.current);
+  const dollyBy = useCallback((factor: number) => {
+    setOrbit((current) => ({ ...current, distance: clampDistance(current.distance / factor) }));
   }, []);
 
-  const animateViewportTo = useCallback((target: Viewport, duration = 280) => {
-    if (viewportAnimationRef.current !== null) cancelAnimationFrame(viewportAnimationRef.current);
+  // Button-triggered zoom/reset ease over a fixed duration instead of snapping into place,
+  // matching the 2D Graphing Calculator's `animateViewportTo` pattern.
+  const orbitRef = useRef(orbit);
+  useEffect(() => {
+    orbitRef.current = orbit;
+  }, [orbit]);
+  const animationRef = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (animationRef.current !== null) cancelAnimationFrame(animationRef.current);
+    },
+    [],
+  );
+
+  const animateOrbitTo = useCallback((target: OrbitState, duration = 280) => {
+    if (animationRef.current !== null) cancelAnimationFrame(animationRef.current);
     const start = performance.now();
-    const from = viewportRef.current;
+    const from = orbitRef.current;
     function tick(now: number) {
       const t = Math.min(1, (now - start) / duration);
       const eased = 1 - (1 - t) ** 3;
-      setViewport({
-        centerX: from.centerX + (target.centerX - from.centerX) * eased,
-        centerY: from.centerY + (target.centerY - from.centerY) * eased,
-        scale: from.scale + (target.scale - from.scale) * eased,
+      setOrbit({
+        azimuth: from.azimuth + (target.azimuth - from.azimuth) * eased,
+        elevation: from.elevation + (target.elevation - from.elevation) * eased,
+        distance: from.distance + (target.distance - from.distance) * eased,
+        target: [
+          from.target[0] + (target.target[0] - from.target[0]) * eased,
+          from.target[1] + (target.target[1] - from.target[1]) * eased,
+          from.target[2] + (target.target[2] - from.target[2]) * eased,
+        ],
       });
-      viewportAnimationRef.current = t < 1 ? requestAnimationFrame(tick) : null;
+      animationRef.current = t < 1 ? requestAnimationFrame(tick) : null;
     }
-    viewportAnimationRef.current = requestAnimationFrame(tick);
+    animationRef.current = requestAnimationFrame(tick);
   }, []);
 
   const zoomBy = useCallback(
     (factor: number) => {
-      const current = viewportRef.current;
-      animateViewportTo({ ...current, scale: clampScale(current.scale * factor) });
+      const current = orbitRef.current;
+      animateOrbitTo({ ...current, distance: clampDistance(current.distance / factor) });
     },
-    [animateViewportTo],
+    [animateOrbitTo],
   );
 
-  const resetView = useCallback(() => animateViewportTo(DEFAULT_VIEWPORT), [animateViewportTo]);
+  const resetView = useCallback(() => animateOrbitTo(DEFAULT_ORBIT), [animateOrbitTo]);
+
+  /** Snaps the view to look straight down one axis, keeping the current distance and target. */
+  const snapView = useCallback(
+    (azimuth: number, elevation: number) => {
+      const current = orbitRef.current;
+      animateOrbitTo({ ...current, azimuth, elevation: clampElevation(elevation) });
+    },
+    [animateOrbitTo],
+  );
 
   return {
     rows,
     model,
     sliderValues,
     playing,
-    viewport,
+    orbit,
     rangeFor,
     addRow,
     loadExamples,
@@ -257,12 +274,14 @@ export function useGraphingCalculator() {
     setSliderValue,
     setSliderRange,
     togglePlay,
+    orbitBy,
     panBy,
-    zoomAt,
+    dollyBy,
     zoomBy,
     resetView,
-    setViewport,
+    snapView,
+    setOrbit,
   };
 }
 
-export type GraphingCalculator = ReturnType<typeof useGraphingCalculator>;
+export type GraphingCalculator3d = ReturnType<typeof useGraphingCalculator3d>;

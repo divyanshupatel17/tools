@@ -21,7 +21,7 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 - [x] Graphing Calculator — `graphing-calculator`
 - [ ] Programmer Calculator — `programmer-calculator`
 - [ ] Matrix Calculator — `matrix-calculator`
-- [ ] 3D Graphing Calculator — `3d-graphing-calculator`
+- [x] 3D Graphing Calculator — `3d-graphing-calculator`
 
 ## Math
 
@@ -88,10 +88,12 @@ SEO: Matrix Calculator, Matrix Multiplication Calculator.
 
 | Feature | Details |
 | --- | --- |
-| Plotting | Graph a surface from a function of x and y. |
-| Navigation | Rotate, pan and zoom the 3D view. |
-| Input | Standard math notation, including implicit multiplication. |
-| Output | The rendered surface can be viewed full size and downloaded as an image. |
+| Layout | An editable equation list on the left (the same expression panel component the 2D Graphing Calculator uses), a rotatable 3D plot filling the right side, matching Desmos 3D. |
+| Expression kinds | `z=f(x,y)` (or bare `f(x,y)`), `y=f(x,z)` and `x=f(y,z)` plot a surface; `a=3` declares a slider parameter later rows can reference; a three variable equality like `x^2+y^2+z^2=9` plots an implicit isosurface via marching cubes; `<`, `<=`, `>`, `>=` shade an inequality as a region bounded by the view box; `(a,a^2,1)` plots a literal point. A two variable equation such as `x^2+y^2=7` becomes a cylinder automatically, since the third axis is simply free. |
+| Functions | The same full function set as the 2D Graphing Calculator (trig, inverse trig, hyperbolic, logs, roots, number theory, aggregates), through the same recursive descent parser. |
+| Sliders | Each parameter row gets the same inline range input and play button as the 2D tool. Surfaces resample every frame while a slider animates; implicit and inequality surfaces only re extract when the values they actually reference change. |
+| Navigation | Drag to rotate the view, scroll or pinch to zoom, shift drag or right click drag to pan, hover any surface or point to trace its exact coordinate. |
+| Output | A small export button offers standard, high and ultra resolution PNG downloads of the current view. |
 
 SEO: 3D Graphing Calculator, Surface Plotter.
 

@@ -23,13 +23,16 @@ import { CSS } from '@dnd-kit/utilities';
 import { Eye, EyeOff, GripVertical, Pause, Play, Plus, Sparkles, Trash2, X } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { NumberField } from '@/components/ui/number_field';
-import { PALETTE } from './model';
+import { PALETTE } from '../graphing_calculator/model';
 import { FunctionKeypad } from './function_keypad';
-import type { RowState, GraphingCalculator } from './use_graphing_calculator';
-import type { RowResult } from './model';
+import type { ExpressionCalculator, RowResultLike, RowState } from './expression_types';
 
-interface ExpressionPanelProps {
-  calculator: GraphingCalculator;
+interface ExpressionPanelProps<TRow extends { type: string }> {
+  calculator: ExpressionCalculator<TRow>;
+  /** Bare variable keys the function keypad leads with (defaults to `x`, `y`). */
+  variableKeys?: readonly string[];
+  /** Id passed to the underlying dnd-kit `DndContext`; must be unique per rendered panel. */
+  dndContextId: string;
 }
 
 /** Renders through a portal at a fixed position so it always floats above every sibling row. */
@@ -121,21 +124,30 @@ function RowPreviewCard({ color, raw }: { color: string; raw: string }) {
   );
 }
 
-interface ExpressionRowProps {
+interface ExpressionRowProps<TRow extends { type: string }> {
   rowState: RowState;
-  result: RowResult | undefined;
-  calculator: GraphingCalculator;
+  result: RowResultLike<TRow> | undefined;
+  calculator: ExpressionCalculator<TRow>;
   registerInput: (id: string, el: HTMLInputElement | null) => void;
   onFocusRow: (id: string) => void;
   focusRow: (id: string) => void;
 }
 
-function ExpressionRow({ rowState, result, calculator, registerInput, onFocusRow, focusRow }: ExpressionRowProps) {
+function ExpressionRow<TRow extends { type: string }>({
+  rowState,
+  result,
+  calculator,
+  registerInput,
+  onFocusRow,
+  focusRow,
+}: ExpressionRowProps<TRow>) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: rowState.id });
   const classified = result?.row;
   const isError = classified?.type === 'error' && rowState.raw.trim() !== '';
+  const errorRow = isError ? (classified as unknown as { message: string }) : null;
   const isSlider = classified?.type === 'slider';
-  const range = isSlider ? calculator.rangeFor(rowState.id, classified.declaredDefault) : null;
+  const sliderRow = isSlider ? (classified as unknown as { paramName: string; value: number; declaredDefault: number }) : null;
+  const range = sliderRow ? calculator.rangeFor(rowState.id, sliderRow.declaredDefault) : null;
 
   return (
     <li
@@ -193,7 +205,7 @@ function ExpressionRow({ rowState, result, calculator, registerInput, onFocusRow
         </button>
       </div>
 
-      {isSlider && range && (
+      {sliderRow && range && (
         <div className="mt-2 ml-7 flex flex-col gap-1.5 rounded-lg border border-border/60 bg-surface-muted/50 px-2 py-1.5">
           <div className="flex items-center gap-2">
             <button
@@ -205,7 +217,7 @@ function ExpressionRow({ rowState, result, calculator, registerInput, onFocusRow
               {calculator.playing[rowState.id] ? <Pause className="size-3" aria-hidden /> : <Play className="size-3" aria-hidden />}
             </button>
             <span className="min-w-0 truncate text-xs font-medium tabular-nums text-foreground">
-              {classified.paramName} = {Number(classified.value.toPrecision(6))}
+              {sliderRow.paramName} = {Number(sliderRow.value.toPrecision(6))}
             </span>
           </div>
           <div className="flex min-w-0 items-center gap-2">
@@ -223,10 +235,10 @@ function ExpressionRow({ rowState, result, calculator, registerInput, onFocusRow
               min={range.min}
               max={range.max}
               step={range.step}
-              value={classified.value}
+              value={sliderRow.value}
               onChange={(event) => calculator.setSliderValue(rowState.id, Number(event.target.value))}
               className="h-7 min-w-0 flex-1 accent-[var(--accent-math)]"
-              aria-label={`Value of ${classified.paramName}`}
+              aria-label={`Value of ${sliderRow.paramName}`}
             />
             <NumberField
               id={`${rowState.id}-max`}
@@ -241,12 +253,12 @@ function ExpressionRow({ rowState, result, calculator, registerInput, onFocusRow
         </div>
       )}
 
-      {isError && <p className="mt-1 pl-7 text-xs text-danger">{classified.message}</p>}
+      {errorRow && <p className="mt-1 pl-7 text-xs text-danger">{errorRow.message}</p>}
     </li>
   );
 }
 
-export function ExpressionPanel({ calculator }: ExpressionPanelProps) {
+export function ExpressionPanel<TRow extends { type: string }>({ calculator, variableKeys, dndContextId }: ExpressionPanelProps<TRow>) {
   const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const activeRowRef = useRef<string | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -331,7 +343,7 @@ export function ExpressionPanel({ calculator }: ExpressionPanelProps) {
         </div>
       </div>
       <DndContext
-        id="graphing-calculator-expressions"
+        id={dndContextId}
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragStart={onDragStart}
@@ -367,7 +379,7 @@ export function ExpressionPanel({ calculator }: ExpressionPanelProps) {
         <Plus className="size-4" aria-hidden />
         Add expression
       </button>
-      <FunctionKeypad onInsert={insertAtCursor} />
+      <FunctionKeypad onInsert={insertAtCursor} variableKeys={variableKeys} />
     </div>
   );
 }

@@ -24,9 +24,7 @@ function fn2(label: string, name: string, ariaLabel?: string): KeypadKey {
   return { label, ariaLabel, insert: `${name}(,)`, cursorBack: 2 };
 }
 
-const BASIC_KEYS: KeypadKey[] = [
-  { label: 'x', insert: 'x' },
-  { label: 'y', insert: 'y' },
+const BASE_SYMBOL_KEYS: KeypadKey[] = [
   { label: '(', insert: '(' },
   { label: ')', insert: ')' },
   { label: ',', insert: ',' },
@@ -112,8 +110,15 @@ const SECTIONS: KeypadSection[] = [
   },
 ];
 
-export function FunctionKeypad({ onInsert }: { onInsert: (text: string, cursorBack?: number) => void }) {
+interface FunctionKeypadProps {
+  onInsert: (text: string, cursorBack?: number) => void;
+  /** Bare variable keys to lead the quick row with. Defaults to `x`, `y`. */
+  variableKeys?: readonly string[];
+}
+
+export function FunctionKeypad({ onInsert, variableKeys = ['x', 'y'] }: FunctionKeypadProps) {
   const [open, setOpen] = useState(false);
+  const basicKeys: KeypadKey[] = [...variableKeys.map((name) => ({ label: name, insert: name })), ...BASE_SYMBOL_KEYS];
 
   return (
     <div className="rounded-xl border border-border">
@@ -132,7 +137,7 @@ export function FunctionKeypad({ onInsert }: { onInsert: (text: string, cursorBa
       {open && (
         <div className="max-h-64 overflow-y-auto border-t border-border p-2">
           <div className="grid grid-cols-6 gap-1 pb-2 sm:grid-cols-7">
-            {BASIC_KEYS.map((key) => (
+            {basicKeys.map((key) => (
               <button
                 key={key.label}
                 type="button"

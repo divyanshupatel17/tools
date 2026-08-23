@@ -1759,6 +1759,7 @@ const MATH_TOOLS = define('math', [
     icon: 'Box',
     input_types: ['none'],
     output_types: ['image'],
+    status: 'available',
   },
 ]);
 

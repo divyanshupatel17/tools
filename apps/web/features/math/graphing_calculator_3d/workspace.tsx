@@ -1,14 +1,14 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Download, Expand, Home, Minimize2, Minus, Plus } from 'lucide-react';
+import { Download, Expand, Grid3x3, Home, Minimize2, Minus, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useCalculatorFullscreen } from '../calculator/use_calculator_fullscreen';
 import { ExpressionPanel } from '../shared/expression_panel';
-import { GraphCanvas, type GraphCanvasHandle } from './graph_canvas';
-import type { RenderRow } from './canvas_renderer';
-import { useGraphingCalculator } from './use_graphing_calculator';
-import type { Scope } from './parser';
+import type { Scope } from '../graphing_calculator/parser';
+import { GraphCanvas3d, type GraphCanvas3dHandle, type RenderRow3d } from './graph_canvas_3d';
+import { ELEVATION_LIMIT } from './orbit_camera';
+import { useGraphingCalculator3d } from './use_graphing_calculator_3d';
 
 const EXPORT_OPTIONS: { label: string; scale: number }[] = [
   { label: 'Standard (1x)', scale: 1 },
@@ -38,12 +38,29 @@ function ToolbarButton({ label, onClick, children }: { label: string; onClick: (
   );
 }
 
-export function GraphingCalculatorWorkspace() {
-  const calculator = useGraphingCalculator();
+function AxisSnapButton({ label, title, onClick }: { label: string; title: string; onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={title}
+      title={title}
+      className="flex h-9 items-center justify-center rounded-full border border-border bg-surface px-3 text-xs font-semibold text-muted transition-colors hover:bg-surface-muted hover:text-foreground"
+    >
+      {label}
+    </button>
+  );
+}
+
+const HALF_PI = Math.PI / 2;
+
+export function Graphing3dCalculatorWorkspace() {
+  const calculator = useGraphingCalculator3d();
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasHandleRef = useRef<GraphCanvasHandle>(null);
+  const canvasHandleRef = useRef<GraphCanvas3dHandle>(null);
   const { isFullscreen, toggle } = useCalculatorFullscreen(containerRef);
   const [exportOpen, setExportOpen] = useState(false);
+  const [showGrid, setShowGrid] = useState(true);
   const [panelWidth, setPanelWidth] = useState(DEFAULT_PANEL_WIDTH);
   const [isDesktop, setIsDesktop] = useState(false);
 
@@ -75,11 +92,11 @@ export function GraphingCalculatorWorkspace() {
     else if (event.key === 'ArrowRight') setPanelWidth((width) => clampPanelWidth(width + 24));
   }
 
-  const renderRows: RenderRow[] = useMemo(
+  const renderRows: RenderRow3d[] = useMemo(
     () =>
       calculator.rows.map((rowState) => {
         const result = calculator.model.find((entry) => entry.id === rowState.id);
-        return { id: rowState.id, color: rowState.color, hidden: rowState.hidden, row: result?.row ?? { type: 'empty' } };
+        return { id: rowState.id, raw: rowState.raw, color: rowState.color, hidden: rowState.hidden, row: result?.row ?? { type: 'empty' } };
       }),
     [calculator.rows, calculator.model],
   );
@@ -110,7 +127,7 @@ export function GraphingCalculatorWorkspace() {
             isFullscreen ? 'lg:h-full' : 'lg:sticky lg:top-20 lg:h-[38rem]',
           )}
         >
-          <ExpressionPanel calculator={calculator} dndContextId="graphing-calculator-expressions" />
+          <ExpressionPanel calculator={calculator} variableKeys={['x', 'y', 'z']} dndContextId="3d-graphing-calculator-expressions" />
         </div>
 
         <div
@@ -131,14 +148,21 @@ export function GraphingCalculatorWorkspace() {
               <ToolbarButton label="Reset view" onClick={calculator.resetView}>
                 <Home className="size-4" aria-hidden />
               </ToolbarButton>
-              <ToolbarButton label="Zoom in" onClick={() => calculator.zoomBy(1.4)}>
+              <ToolbarButton label="Zoom in" onClick={() => calculator.zoomBy(1.25)}>
                 <Plus className="size-4" aria-hidden />
               </ToolbarButton>
-              <ToolbarButton label="Zoom out" onClick={() => calculator.zoomBy(1 / 1.4)}>
+              <ToolbarButton label="Zoom out" onClick={() => calculator.zoomBy(1 / 1.25)}>
                 <Minus className="size-4" aria-hidden />
               </ToolbarButton>
+              <div className="mx-1 h-6 w-px bg-border" aria-hidden />
+              <AxisSnapButton label="XY" title="Align to the XY plane" onClick={() => calculator.snapView(0, 0)} />
+              <AxisSnapButton label="XZ" title="Align to the XZ plane" onClick={() => calculator.snapView(0, ELEVATION_LIMIT)} />
+              <AxisSnapButton label="YZ" title="Align to the YZ plane" onClick={() => calculator.snapView(HALF_PI, 0)} />
             </div>
             <div className="flex items-center gap-2">
+              <ToolbarButton label={showGrid ? 'Hide the grid' : 'Show the grid'} onClick={() => setShowGrid((value) => !value)}>
+                <Grid3x3 className={cn('size-4', !showGrid && 'opacity-40')} aria-hidden />
+              </ToolbarButton>
               <div className="relative">
                 <ToolbarButton label="Export graph as an image" onClick={() => setExportOpen((value) => !value)}>
                   <Download className="size-4" aria-hidden />
@@ -171,19 +195,22 @@ export function GraphingCalculatorWorkspace() {
           </div>
 
           <div className={isFullscreen ? 'min-h-0 flex-1' : 'h-[26rem] lg:h-[38rem]'}>
-            <GraphCanvas
+            <GraphCanvas3d
               ref={canvasHandleRef}
               rows={renderRows}
               params={params}
-              viewport={calculator.viewport}
+              orbit={calculator.orbit}
+              onOrbit={calculator.orbitBy}
               onPan={calculator.panBy}
-              onZoom={calculator.zoomAt}
-              fileName="graph"
+              onDolly={calculator.dollyBy}
+              fileName="3d-graph"
+              showGrid={showGrid}
             />
           </div>
           <p className="text-center text-xs text-muted">
-            Drag to pan, scroll or pinch to zoom, hover a curve to read its exact value. Type
-            a=1 to add a slider, or an equation like x^2+y^2=4 to plot a curve.
+            Drag to rotate, shift drag or right click drag to pan, scroll or pinch to zoom, hover
+            a surface to read its exact coordinate. Type a=1 to add a slider, or an equation like
+            x^2+y^2+z^2=9 to plot a surface.
           </p>
         </div>
       </div>

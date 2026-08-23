@@ -68,7 +68,7 @@ export interface RowResult {
 }
 
 /** Finds the first top-level (paren-depth 0) relational operator, longest match first. */
-function splitRelation(text: string): { left: string; op: '=' | Comparator; right: string } | null {
+export function splitRelation(text: string): { left: string; op: '=' | Comparator; right: string } | null {
   let depth = 0;
   for (let i = 0; i < text.length; i++) {
     const ch = text[i];

@@ -168,6 +168,7 @@ export const WORKSPACE_IDS = [
   'math.calculator',
   'math.scientific-calculator',
   'math.graphing-calculator',
+  'math.programmer-calculator',
   'math.3d-graphing-calculator',
 ] as const;
 

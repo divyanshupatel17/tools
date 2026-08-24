@@ -19,7 +19,7 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 - [x] Basic Calculator — `calculator`
 - [x] Scientific Calculator — `scientific-calculator`
 - [x] Graphing Calculator — `graphing-calculator`
-- [ ] Programmer Calculator — `programmer-calculator`
+- [x] Programmer Calculator — `programmer-calculator`
 - [ ] Matrix Calculator — `matrix-calculator`
 - [x] 3D Graphing Calculator — `3d-graphing-calculator`
 

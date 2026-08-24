@@ -1743,6 +1743,7 @@ const MATH_TOOLS = define('math', [
     icon: 'Binary',
     input_types: ['none'],
     output_types: ['text'],
+    status: 'available',
   },
   {
     slug: 'matrix-calculator',

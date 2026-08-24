@@ -65,4 +65,7 @@ export const rootMetadata: Metadata = {
     index: true,
     follow: true,
   },
+  verification: {
+    google: 'mD1IsFs5HbEm35Of4iZY-dsLmjtIXhseGaaI4gGkYbo',
+  },
 };

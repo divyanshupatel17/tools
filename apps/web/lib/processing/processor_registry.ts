@@ -194,6 +194,7 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'math.scientific-calculator': () => import('@/features/math/scientific_calculator/processor'),
   'math.graphing-calculator': () => import('@/features/math/graphing_calculator/processor'),
   'math.programmer-calculator': () => import('@/features/math/programmer_calculator/processor'),
+  'math.matrix-calculator': () => import('@/features/math/matrix_calculator/processor'),
   'math.3d-graphing-calculator': () => import('@/features/math/graphing_calculator_3d/processor'),
 };
 

@@ -724,6 +724,10 @@ const WORKSPACES: Record<string, ComponentType> = {
       import('@/features/math/programmer_calculator/workspace').then((m) => m.ProgrammerCalculatorWorkspace),
     { loading: Pending },
   ),
+  'math.matrix-calculator': dynamic(
+    () => import('@/features/math/matrix_calculator/workspace').then((m) => m.MatrixCalculatorWorkspace),
+    { loading: Pending },
+  ),
   'math.3d-graphing-calculator': dynamic(
     () => import('@/features/math/graphing_calculator_3d/workspace').then((m) => m.Graphing3dCalculatorWorkspace),
     { loading: Pending },

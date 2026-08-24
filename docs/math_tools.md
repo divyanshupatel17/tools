@@ -2,9 +2,7 @@
 
 Single source of truth for what the Math category will contain. Registry entries live in
 `apps/web/lib/tools/registry.ts`. Math has **6 tools**, no declared sections
-(`lib/tools/sections.ts`) — small enough to render as one flat grid. Basic Calculator and
-Scientific Calculator are built; the rest follow `docs/architecture.md`'s "Adding a tool" steps
-as each one starts.
+(`lib/tools/sections.ts`) — small enough to render as one flat grid. All six are built.
 
 This category covers calculation and graphing: everyday arithmetic, scientific functions, base
 conversion and bitwise work, matrices, and 2D/3D function plotting. Everything runs entirely
@@ -20,7 +18,7 @@ calculator is a stronger fit next to the rest of Math than as a generic utility 
 - [x] Scientific Calculator — `scientific-calculator`
 - [x] Graphing Calculator — `graphing-calculator`
 - [x] Programmer Calculator — `programmer-calculator`
-- [ ] Matrix Calculator — `matrix-calculator`
+- [x] Matrix Calculator — `matrix-calculator`
 - [x] 3D Graphing Calculator — `3d-graphing-calculator`
 
 ## Math
@@ -78,9 +76,10 @@ SEO: Programmer Calculator, Hex Calculator.
 
 | Feature | Details |
 | --- | --- |
-| Size | Configurable rows and columns, up to a practical limit for on screen entry. |
-| Operations | Addition, subtraction, multiplication, transpose, determinant and inverse. |
-| Result | Shown as a matrix grid, matching the input layout. |
+| Size | Configurable rows and columns per matrix, 1 to 10, with values preserved on resize. Determinant and inverse fall back from exact cofactor expansion to Gaussian elimination above 6×6 so a 10×10 never risks freezing the tab. |
+| Layout | Desktop is a draggable split: the full operations list is its own resizable pane on the left, and Matrix A sits above Matrix B in a second resizable pane on the right (its own drag handle between them), plus a full operation dropdown below and a sticky Calculation Steps panel further right. Any pane squeezed narrow drops its text labels for icons/truncated titles instead of overlapping; the steps panel still collapses to an icon rail. |
+| Operations | Addition, subtraction, multiplication (including transpose combinations `Aᵀ×B` and `A×Bᵀ`), integer powers, transpose, determinant, inverse, rank, row reduction (RREF), LU decomposition, Cholesky decomposition, eigenvalues and diagonalization (closed form up to 3×3), and solving `A·x = B`. Every operation is listed directly in the operations pane (grouped by Matrix A / Matrix B / combined) as well as in the dropdown. |
+| Result | A bracketed matrix (rendered as a real table so it never overlaps, however many decimal places are shown), scalar or eigenvalue list depending on the operation, plus every worked step and a real (not decorative) count of the arithmetic operations performed. |
 
 SEO: Matrix Calculator, Matrix Multiplication Calculator.
 

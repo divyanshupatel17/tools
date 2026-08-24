@@ -1721,6 +1721,7 @@ const MATH_TOOLS = define('math', [
     icon: 'Grid3x3',
     input_types: ['none'],
     output_types: ['text'],
+    status: 'available',
   },
   {
     slug: '3d-graphing-calculator',

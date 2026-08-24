@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { forwardRef, useState, type KeyboardEvent } from 'react';
 
 export interface NumberFieldProps {
   value: number;
@@ -18,6 +18,8 @@ export interface NumberFieldProps {
    */
   allowDecimal?: boolean;
   'aria-label'?: string;
+  /** Passed straight to the underlying input, e.g. for a grid that wires up arrow key navigation. */
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 /**
@@ -26,17 +28,10 @@ export interface NumberFieldProps {
  * snapping it back, so backspace works. It only clamps to `min`/`max` and reports a final
  * value once the field loses focus.
  */
-export function NumberField({
-  value,
-  onChange,
-  min,
-  max,
-  disabled,
-  className,
-  id,
-  allowDecimal = false,
-  ...aria
-}: NumberFieldProps) {
+export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(function NumberField(
+  { value, onChange, min, max, disabled, className, id, allowDecimal = false, onKeyDown, ...aria },
+  ref,
+) {
   const [text, setText] = useState(String(value));
   // Tracks the prop we last rendered text for, so an external change (e.g. a "rotate all"
   // button) overwrites the field, but our own onChange/onBlur updates do not fight it back.
@@ -63,6 +58,7 @@ export function NumberField({
 
   return (
     <input
+      ref={ref}
       id={id}
       type="text"
       inputMode={signed ? 'text' : allowDecimal ? 'decimal' : 'numeric'}
@@ -92,8 +88,9 @@ export function NumberField({
         setText(String(clamped));
         onChange(clamped);
       }}
+      onKeyDown={onKeyDown}
       className={className}
       {...aria}
     />
   );
-}
+});

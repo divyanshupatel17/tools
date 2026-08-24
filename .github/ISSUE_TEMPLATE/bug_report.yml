@@ -1,0 +1,54 @@
+name: Bug report
+description: Something on the site is broken or not working as expected.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Since files never leave the browser, please do not attach
+        sensitive files; a description or a non-sensitive sample is enough.
+
+  - type: input
+    id: tool
+    attributes:
+      label: Tool or page
+      description: Which tool or page is affected? Include the URL if you have it.
+      placeholder: "https://divyanshupatel.com/tools/merge-pdf"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to ...
+        2. Upload ...
+        3. Click ...
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: "Chrome 128 on Windows 11"
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or console errors
+      description: Optional, but helpful.
+    validations:
+      required: false

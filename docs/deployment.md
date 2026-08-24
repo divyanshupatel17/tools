@@ -4,14 +4,14 @@
 
 ```bash
 pnpm install
-pnpm dev      # http://localhost:3000/tools
+pnpm dev      # http://localhost:3000
 ```
 
 Production build locally:
 
 ```bash
 pnpm build
-pnpm start    # http://localhost:3000/tools
+pnpm start    # http://localhost:3000
 ```
 
 No environment variables are required. `NEXT_PUBLIC_SITE_ORIGIN` is optional and only overrides
@@ -27,9 +27,11 @@ the canonical origin used in metadata, the sitemap and robots.
 | Build command    | `pnpm build`                     |
 | Node version     | 24                               |
 
-The app sets `basePath: '/tools'`, so the deployment serves `/tools/...` on its own domain.
-Point `divyanshupatel.com/tools` at it either by attaching the domain directly or by rewriting
-`/tools/:path*` from the main site to this deployment with the prefix preserved.
+The app sets `basePath: ''` and is served at the root of its own subdomain,
+`toolhub.divyanshupatel.com` — attach that domain directly to the Vercel project, no rewrite
+needed. If it ever moves back under a path on another domain (e.g. `divyanshupatel.com/tools`),
+set `basePath` in `next.config.ts` and `SITE_BASE_PATH` in `lib/seo/site.ts` together first —
+see [architecture.md](architecture.md#routing-and-basepath).
 
 ## Environments
 
@@ -52,3 +54,8 @@ feature branch → push → Vercel preview → test → pull request → CI gree
 ## Rollback
 
 Promote the previous production deployment from the Vercel dashboard. Do not force-push `main`.
+
+## See also
+
+Branching and commit conventions: [git_workflow.md](git_workflow.md). Full doc index:
+[AGENTS.md](../AGENTS.md#docs).

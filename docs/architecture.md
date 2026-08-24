@@ -16,27 +16,31 @@ packages/config       shared tsconfig base
 
 ## Routing and basePath
 
-The app is served at `divyanshupatel.com/tools`. `next.config.ts` sets `basePath: '/tools'`,
-so routes are authored without the prefix:
+The app is served at the root of its own domain (`toolhub.divyanshupatel.com`).
+`next.config.ts` sets `basePath: ''`, so every route below is also the real URL, no prefix
+added:
 
 | File | URL |
 | --- | --- |
-| `app/page.tsx` | `/tools` |
-| `app/all/page.tsx` | `/tools/all` |
-| `app/pdf/page.tsx` | `/tools/pdf` |
-| `app/[tool_slug]/page.tsx` | `/tools/merge-pdf` |
+| `app/page.tsx` | `/` |
+| `app/all/page.tsx` | `/all` |
+| `app/pdf/page.tsx` | `/pdf` |
+| `app/[tool_slug]/page.tsx` | `/merge-pdf` |
 
-`SITE_BASE_PATH` in `lib/seo/site.ts` mirrors this and must be changed alongside it.
+`SITE_BASE_PATH` in `lib/seo/site.ts` mirrors `basePath` and must be changed alongside it — it
+is the one constant every link, asset (`assetPath()`) and canonical URL (`absoluteUrl()`)
+derives from, so the app can move under a path prefix again (or to a different domain) by
+editing these two places only, never a literal path pasted somewhere else.
 
-Tool URLs are flat: **`/tools/{slug}`, never `/tools/{category}/{slug}`.** One dynamic route,
+Tool URLs are flat: **`/{slug}`, never `/{category}/{slug}`.** One dynamic route,
 `app/[tool_slug]/page.tsx`, resolves any tool by slug alone via `getToolBySlug()` and derives
 its category from the tool it finds; there is no per-category tool route. Category pages
-(`app/pdf/page.tsx` and its 8 siblings) are still one thin wrapper per category over
+(`app/pdf/page.tsx` and its 9 siblings) are still one thin wrapper per category over
 `CategoryPage` in `components/layout/` — adding a category means adding a registry category
 plus one such wrapper, no page logic duplicated.
 
 Because tool URLs are flat, every tool slug shares one namespace with every other tool slug
-*and* with the 9 category slugs. `registry.ts` throws at module load if any two collide — see
+*and* with the 10 category slugs. `registry.ts` throws at module load if any two collide — see
 `docs/tools.md` for the full URL table and the naming rule this enforces.
 
 ## The registry
@@ -191,3 +195,8 @@ Then add the category's tools via the six steps above, add `app/{category}/page.
 one-line `CategoryPage` wrapper — no `[tool_slug]` route needed, the flat `app/[tool_slug]/
 page.tsx` covers every category already), and add a row for the category to the table in
 `docs/tools.md`.
+
+## See also
+
+Full doc index: [AGENTS.md](../AGENTS.md#docs). URL and naming rules, and the full tool
+table: [tools.md](tools.md).

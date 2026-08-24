@@ -4,16 +4,28 @@ import { RunnerScores } from './runner_scores';
 import { Art } from '@/components/ui/art';
 import { Doodle } from '@/components/ui/doodle';
 import { SOCIAL_ICONS } from '@/components/ui/social_icons';
-import { CONTACT_EMAIL, OWNER_NAME, OWNER_ROLE, SOCIAL_LINKS } from '@/lib/landing/contact';
-import { WEEKLY_TOP_5 } from '@/lib/landing/leaderboard';
-import { absoluteUrl } from '@/lib/seo/site';
+import {
+  CONTACT_EMAIL,
+  OWNER_NAME,
+  OWNER_ROLE,
+  OWNER_SITE_URL,
+  REPO_URL,
+  SOCIAL_LINKS,
+} from '@/lib/landing/contact';
+import { SITE_NAME, absoluteUrl } from '@/lib/seo/site';
 
 const DOC_LINKS = [
   { label: 'Terms of Service', href: absoluteUrl('/terms') },
   { label: 'Privacy Policy', href: absoluteUrl('/privacy') },
 ];
 
-const SUGGEST_SUBJECT = encodeURIComponent('Tool suggestion for divyanshupatel.com/tools');
+const PROJECT_LINKS = [
+  { label: 'Star on GitHub', href: REPO_URL },
+  { label: 'Report an Issue', href: `${REPO_URL}/issues/new/choose` },
+  { label: 'Contribute', href: `${REPO_URL}/blob/main/CONTRIBUTING.md` },
+];
+
+const SUGGEST_SUBJECT = encodeURIComponent(`Tool suggestion for ${SITE_NAME}`);
 
 /** One painted desert. Every block below floats over it — no boxes, no dividers. */
 export function LandingFooter() {
@@ -31,7 +43,16 @@ export function LandingFooter() {
       <div className="relative mx-auto max-w-[1240px] px-4 pt-16 sm:px-6 sm:pt-20">
         <div className="grid gap-x-8 gap-y-9 sm:grid-cols-2 lg:grid-cols-4">
           <section id="contact" className="scroll-mt-24">
-            <h2 className="font-hand text-ink text-2xl">Contact</h2>
+            <div className="flex items-center gap-2">
+              <Art src="/images/brand-icon.webp" width={479} height={400} className="h-8 w-auto" />
+              <Art
+                src="/images/brand-wordmark.webp"
+                width={647}
+                height={200}
+                className="h-5 w-auto"
+              />
+            </div>
+            <h2 className="font-hand text-ink mt-4 text-2xl">Contact</h2>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
               className="text-ink/80 hover:text-ink mt-3 flex items-center gap-2 text-sm"
@@ -47,7 +68,15 @@ export function LandingFooter() {
             <p className="text-ink/80 mt-5 flex items-center gap-1.5 text-sm">
               Made with
               <Heart aria-hidden className="fill-danger text-danger size-4" />
-              by {OWNER_NAME}
+              by{' '}
+              <a
+                href={OWNER_SITE_URL}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-ink hover:underline underline-offset-2"
+              >
+                {OWNER_NAME}
+              </a>
             </p>
             <p className="text-ink/60 text-sm">{OWNER_ROLE}</p>
 
@@ -119,20 +148,31 @@ export function LandingFooter() {
 
           <section>
             <h2 className="font-hand text-ink flex items-center gap-2 text-2xl">
-              <Star aria-hidden className="fill-brand text-brand-strong size-5" />
-              Weekly Top 5 Scores
+              {SOCIAL_ICONS.GitHub && (
+                <SOCIAL_ICONS.GitHub aria-hidden className="size-5" />
+              )}
+              Open Source
             </h2>
-            <ol className="mt-3 space-y-1">
-              {WEEKLY_TOP_5.map((row, index) => (
-                <li key={row.name} className="flex items-baseline gap-2 text-sm">
-                  <span className="text-ink/50 w-4 shrink-0 tabular-nums">{index + 1}.</span>
-                  <span className="text-ink/80 truncate">{row.name}</span>
-                  <span className="text-ink/70 ml-auto font-mono text-[13px] tabular-nums">
-                    {row.score}
-                  </span>
+            <p className="text-ink/75 mt-3 text-sm">Free, browser only, and open to everyone.</p>
+            <ul className="mt-2 space-y-1.5">
+              {PROJECT_LINKS.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="text-ink/75 hover:text-ink text-sm"
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
-            </ol>
+            </ul>
+
+            <h3 className="font-hand text-ink mt-5 flex items-center gap-2 text-xl">
+              <Star aria-hidden className="fill-brand text-brand-strong size-4" />
+              My Runner Score
+            </h3>
             <RunnerScores />
           </section>
         </div>

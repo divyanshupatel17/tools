@@ -13,7 +13,7 @@ let state: RunnerScores = INITIAL;
 const listeners = new Set<() => void>();
 
 /**
- * The runner canvas and the footer leaderboard are separate subtrees, so the two
+ * The runner canvas and the footer score display are separate subtrees, so the two
  * live scores travel through this tiny store instead of a context provider.
  */
 export function publishRunnerScores(next: RunnerScores): void {

@@ -4,7 +4,7 @@ import { useRunnerScores } from '@/lib/landing/runner_store';
 
 const pad = (value: number) => String(value).padStart(5, '0');
 
-/** Lives in the footer's leaderboard column; the canvas feeds it through the store. */
+/** Lives in the footer's project column; the canvas feeds it through the store. */
 export function RunnerScores() {
   const { score, best } = useRunnerScores();
 

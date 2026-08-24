@@ -56,5 +56,5 @@ export const SAMPLE_URLS: string[] = [
   'https://example.com/path?name=value#section',
   'https://user:pass@sub.example.co.uk:8443/products/42?ref=ad&utm_source=newsletter#reviews',
   'ftp://files.example.org:21/archive/data.zip',
-  'https://divyanshupatel.com/tools?category=developer&sort=popular',
+  'https://toolhub.divyanshupatel.com?category=developer&sort=popular',
 ];

@@ -4,6 +4,7 @@ import { replaceExtension } from '@tools/file_utils';
 import { buildSrgbIccProfile } from '@/lib/pdf/icc_srgb';
 import { renderPdfPagesToImages } from '@/lib/pdf/pdf_to_images';
 import { readPdfPreview } from '@/lib/pdf/pdf_preview';
+import { SITE_NAME } from '@/lib/seo/site';
 
 export type PdfToPdfaOptions = Record<string, unknown>;
 
@@ -20,7 +21,7 @@ function xmpPacket(): string {
     `<pdfaid:part>2</pdfaid:part>\n` +
     `<pdfaid:conformance>B</pdfaid:conformance>\n` +
     `<dc:format>application/pdf</dc:format>\n` +
-    `<xmp:CreatorTool>divyanshupatel.com/tools</xmp:CreatorTool>\n` +
+    `<xmp:CreatorTool>${SITE_NAME}</xmp:CreatorTool>\n` +
     `</rdf:Description>\n` +
     `</rdf:RDF>\n` +
     `</x:xmpmeta>\n` +
@@ -66,8 +67,8 @@ const pdfToPdfa: ToolProcessor<PdfToPdfaOptions> = async (input, context) => {
 
   context.on_progress?.({ ratio: 0.7, label: 'Embedding pages' });
   const output = await PDFDocument.create();
-  output.setProducer('divyanshupatel.com/tools');
-  output.setCreator('divyanshupatel.com/tools');
+  output.setProducer(SITE_NAME);
+  output.setCreator(SITE_NAME);
 
   // Pages were rendered at a fixed 200/72 scale, so dividing the image's pixel size by that
   // scale recovers each page's original point size exactly — no separate lookup needed.

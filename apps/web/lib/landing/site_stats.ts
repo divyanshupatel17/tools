@@ -1,3 +1,4 @@
+import { TOOL_CATEGORIES } from '@/lib/tools/categories';
 import { TOOLS } from '@/lib/tools/registry';
 
 export interface SiteStat {
@@ -8,37 +9,31 @@ export interface SiteStat {
   accent: 'pdf' | 'image' | 'audio' | 'developer';
 }
 
-const inIndianDigits = (value: number) => value.toLocaleString('en-IN');
-
-/** Only the tool count is real data; visitors, files processed and uptime are placeholders
- * until wired to analytics/uptime monitoring. */
-export const PLACEHOLDER_VISITORS = 1_245_678;
-export const PLACEHOLDER_FILES_PROCESSED = 9_876_543;
-export const PLACEHOLDER_UPTIME = '99.9%';
-
+/** Every figure here is derived from the live registry. No visitor or usage counters:
+ * this app has no analytics backend to source them from. */
 export const SITE_STATS: readonly SiteStat[] = [
-  {
-    label: 'Total Visitors',
-    value: inIndianDigits(PLACEHOLDER_VISITORS),
-    icon: 'Users',
-    accent: 'pdf',
-  },
-  {
-    label: 'Total Files Processed',
-    value: inIndianDigits(PLACEHOLDER_FILES_PROCESSED),
-    icon: 'FileText',
-    accent: 'image',
-  },
   {
     label: 'Total Tools',
     value: `${TOOLS.length}+`,
     icon: 'Wrench',
+    accent: 'pdf',
+  },
+  {
+    label: 'Categories',
+    value: `${TOOL_CATEGORIES.length}`,
+    icon: 'LayoutGrid',
+    accent: 'image',
+  },
+  {
+    label: 'Server Uploads',
+    value: '0',
+    icon: 'Shield',
     accent: 'audio',
   },
   {
-    label: 'Uptime',
-    value: PLACEHOLDER_UPTIME,
-    icon: 'Shield',
+    label: 'Cost to Use',
+    value: 'Free',
+    icon: 'CircleCheck',
     accent: 'developer',
   },
 ];

@@ -28,3 +28,8 @@ version.
 ## Contact
 
 See the contact details on the site itself.
+
+## See also
+
+The live copy on the site is `apps/web/app/terms/page.tsx`; keep the two in sync. Full doc
+index: [AGENTS.md](../AGENTS.md#docs). Privacy policy: [privacy.md](privacy.md).

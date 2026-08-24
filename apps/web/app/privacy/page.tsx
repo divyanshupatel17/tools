@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Container } from '@/components/layout/container';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { SITE_NAME } from '@/lib/seo/site';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Privacy',
-  description: 'How divyanshupatel.com/tools handles your files. Everything runs in your browser; nothing is uploaded.',
+  description: `How ${SITE_NAME} handles your files. Everything runs in your browser; nothing is uploaded.`,
   path: '/privacy',
 });
 

@@ -33,3 +33,8 @@ No credentials, API keys or tokens in the repository, including inside `.local/`
 leaked and must be rotated.
 
 There are currently no required environment variables.
+
+## See also
+
+The live copy on the site is `apps/web/app/privacy/page.tsx`; keep the two in sync. Full doc
+index: [AGENTS.md](../AGENTS.md#docs). Terms of use: [terms.md](terms.md).

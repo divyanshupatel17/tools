@@ -3,14 +3,14 @@
 ## URLs
 
 ```
-/tools                    home, every category
-/tools/all                every tool, grouped by category
-/tools/pdf                category
-/tools/merge-pdf          tool — flat, no /pdf/ segment
+/                         home, every category
+/all                      every tool, grouped by category
+/pdf                      category
+/merge-pdf                tool — flat, no /pdf/ segment
 ```
 
 Lowercase, kebab-case, short, readable, keyword-focused. Never `?tool=merge`,
-`/tools/merge_pdf_tool`, `/tools/pdf/merge-pdf`, or a `/beta` path. A live slug is permanent —
+`/merge_pdf_tool`, `/pdf/merge-pdf`, or a `/beta` path. A live slug is permanent —
 renaming loses rankings and breaks inbound links.
 
 Tool URLs are flat by design: `toolPath()` in `lib/tools/registry.ts` returns `/${tool.slug}`,
@@ -25,8 +25,8 @@ the other rather than shipping a duplicate page.
 
 `lib/seo/metadata.ts` builds every page's metadata:
 
-- `rootMetadata` sets `metadataBase`, the title template `%s — divyanshupatel.com/tools`, the
-  default description and site-wide Open Graph and Twitter defaults.
+- `rootMetadata` sets `metadataBase`, the title template `` %s | ${SITE_NAME} `` (currently
+  `%s | ToolHub`), the default description and site-wide Open Graph and Twitter defaults.
 - `buildMetadata({ title, description, path, keywords })` is used by category and tool pages.
 
 Tool copy comes from the registry's `seo` field, which falls back to the tool name and
@@ -53,21 +53,22 @@ When adding or reviewing a tool, confirm all of this before calling it done:
 ## Canonical URLs
 
 Every page sets `alternates.canonical` to its absolute URL via `absoluteUrl()`, which combines
-`SITE_ORIGIN` and `SITE_BASE_PATH`. Because the app uses `basePath: '/tools'`, `SITE_BASE_PATH`
-in `lib/seo/site.ts` must stay in sync with `next.config.ts`.
+`SITE_ORIGIN` and `SITE_BASE_PATH`. `SITE_BASE_PATH` in `lib/seo/site.ts` must stay in sync
+with `basePath` in `next.config.ts` (currently `''` — the app is served at the root of
+`toolhub.divyanshupatel.com`).
 
 ## Sitemap and robots
 
-`app/sitemap.ts` generates `/tools/sitemap.xml` from the registry — home, `/all`, 9 categories,
-and every tool at its flat URL. Priorities: home 1.0, `/all` 0.9, categories 0.8, popular tools
-0.7, the rest 0.6. Adding a registry entry adds a sitemap entry automatically.
+`app/sitemap.ts` generates `/sitemap.xml` from the registry — home, `/all`, every category in
+`lib/tools/categories.ts`, and every tool at its flat URL. Priorities: home 1.0, `/all` 0.9,
+categories 0.8, popular tools 0.7, the rest 0.6. Adding a registry entry adds a sitemap entry
+automatically.
 
 `app/robots.ts` allows everything and points at the sitemap.
 
-No redirects exist for the old `/tools/{category}/{slug}` shape — the app is pre-launch and not
-yet published anywhere, so there is no indexed traffic or inbound link to protect. If that
-changes before a future URL change, add registry-generated redirects in `next.config.ts` at
-that time rather than by default.
+No redirects exist for the old `/{category}/{slug}` shape. If a live URL ever needs to
+change after launch, add registry-generated redirects in `next.config.ts` at that time rather
+than by default.
 
 ## Structured data
 
@@ -97,3 +98,8 @@ Every tool ships only once it holds up here, not just in a desktop browser at de
       silently reads as a broken tool.
 - [ ] Light, dark and system theme all render correctly — no hardcoded hex colors bypassing the
       CSS variables in `styles/globals.css`.
+
+## See also
+
+Full doc index: [AGENTS.md](../AGENTS.md#docs). URL and naming rules for every tool:
+[tools.md](tools.md).

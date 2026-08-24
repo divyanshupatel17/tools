@@ -1,7 +1,8 @@
-# divyanshupatel.com/tools
+# ToolHub
 
 Free online tools that run entirely in your browser — PDF, image, video, audio, text,
 developer, converter and utility tools. No upload, no account, no tracking of your files.
+Live at [toolhub.divyanshupatel.com](https://toolhub.divyanshupatel.com).
 
 ## Features
 
@@ -23,17 +24,18 @@ No backend, database, or authentication.
 ## URL structure
 
 ```
-/tools                        landing page
-/tools/all                    every tool, grouped by category
-/tools/pdf                    a category
-/tools/merge-pdf              a tool — flat, no /pdf/ segment
+/                              landing page
+/all                           every tool, grouped by category
+/pdf                           a category
+/merge-pdf                     a tool — flat, no /pdf/ segment
 ```
 
 Categories: `pdf`, `image`, `video`, `audio`, `text`, `developer`, `converters`, `utilities`,
-`ai`. Every tool URL is flat (`/tools/{slug}`, not `/tools/{category}/{slug}`); the app is
-served under `/tools` via `basePath`, so routes are authored without that prefix
-(`app/[tool_slug]/page.tsx` → `/tools/merge-pdf`). Full table of every tool's URL:
-[docs/tools.md](docs/tools.md).
+`ai`, `math`. Every tool URL is flat (`/{slug}`, not `/{category}/{slug}`). The app is served
+at the root of its domain (`basePath: ''`), so routes are authored exactly as they resolve
+(`app/[tool_slug]/page.tsx` → `/merge-pdf`). If it is ever hosted under a path prefix instead,
+`basePath` in `next.config.ts` and `SITE_BASE_PATH` in `lib/seo/site.ts` are the only two
+places that change. Full table of every tool's URL: [docs/tools.md](docs/tools.md).
 
 ## Repository structure
 
@@ -60,7 +62,7 @@ whole new category: [docs/architecture.md](docs/architecture.md).
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:3000/tools
+pnpm dev            # http://localhost:3000
 ```
 
 Requires Node 20+ and pnpm 11+. No environment variables are needed.
@@ -85,15 +87,21 @@ pnpm format         # prettier
 4. Build the workspace UI and flip `status` to `available`
 5. Update that category's checklist in `docs/{category}_tools.md`
 
-Full walkthrough: [docs/architecture.md](docs/architecture.md).
+Full walkthrough: [docs/architecture.md](docs/architecture.md). Contribution process:
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Git workflow
+## Contributing
 
-Branch (`feature/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`) → push → Vercel preview →
+Branch (`feat/*`, `fix/*`, `chore/*`, `refactor/*`, `docs/*`) → push → Vercel preview →
 pull request → CI (lint, typecheck, test, build) → merge to `main` → production.
 
 Commits follow conventional prefixes: `feat:`, `fix:`, `refactor:`, `docs:`, `chore:`,
-`test:`, `perf:`.
+`test:`, `perf:`. Full guide: [CONTRIBUTING.md](CONTRIBUTING.md) and
+[docs/git_workflow.md](docs/git_workflow.md).
+
+Found a bug or want a new tool? Open an
+[issue](https://github.com/divyanshupatel17/tools/issues/new/choose). Found a security
+problem? See [SECURITY.md](SECURITY.md) instead of filing a public issue.
 
 ## Deployment
 
@@ -105,6 +113,11 @@ gets a preview URL. Details in [docs/deployment.md](docs/deployment.md).
 Files are processed in your browser and never uploaded. If a tool ever needs a server, that
 will be stated on the tool itself. See [docs/privacy.md](docs/privacy.md) and
 [docs/terms.md](docs/terms.md).
+
+## Docs
+
+Full reference index, and the rules every change follows: [AGENTS.md](AGENTS.md).
+Release history: [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 

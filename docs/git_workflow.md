@@ -381,3 +381,8 @@ flowchart TD
 ```
 
 Keep branches focused, commits descriptive, and always start new work from the latest `main`.
+
+## See also
+
+Condensed version of this flow, plus the checks to run before opening a pull request:
+[CONTRIBUTING.md](../CONTRIBUTING.md). Full doc index: [AGENTS.md](../AGENTS.md#docs).

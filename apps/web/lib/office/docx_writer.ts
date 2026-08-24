@@ -1,4 +1,5 @@
 import type { TextBlock } from '@/lib/pdf/pdf_text_blocks';
+import { SITE_NAME } from '@/lib/seo/site';
 import { escapeXml, writeOoxmlPackage } from './ooxml';
 
 const CONTENT_TYPES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -47,7 +48,7 @@ function coreProps(title: string): string {
 
 const APP_PROPS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">
-  <Application>divyanshupatel.com/tools</Application>
+  <Application>${SITE_NAME}</Application>
 </Properties>`;
 
 function paragraph(text: string, styleId?: string): string {

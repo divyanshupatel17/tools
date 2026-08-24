@@ -20,10 +20,10 @@ of truth; nothing here is hand maintained navigation. Per category planning docs
 Every category and tool URL is flat, with no category segment in the tool path:
 
 ```
-/tools                        home
-/tools/all                    every tool, grouped by category
-/tools/pdf                    a category page
-/tools/merge-pdf              a tool page — not /tools/pdf/merge-pdf
+/                       home
+/all                    every tool, grouped by category
+/pdf                    a category page
+/merge-pdf              a tool page — not /pdf/merge-pdf
 ```
 
 `toolPath()` in `lib/tools/registry.ts` builds every tool URL as `/${tool.slug}`; nothing else
@@ -38,16 +38,16 @@ check the table below (or grep the registry) before picking a slug, not after.
 
 | Category | Route | Tools | Sections | Status |
 | --- | --- | --- | --- | --- |
-| PDF Tools | `/tools/pdf` | 37 | 6 | All available |
-| Image Tools | `/tools/image` | 64 | 5 | All available |
-| Video Tools | `/tools/video` | 8 | 4 | 6 available, 2 planned |
-| Audio Tools | `/tools/audio` | 10 | 3 | All available |
-| Text Tools | `/tools/text` | 13 | 5 | All available |
-| Developer Tools | `/tools/developer` | 18 | 6 | All available |
-| Converters | `/tools/converters` | 7 | none | All planned |
-| Utilities | `/tools/utilities` | 5 | none | All planned |
-| AI Tools | `/tools/ai` | 2 | none | All available |
-| Math Tools | `/tools/math` | 6 | none | 2 available, 4 planned |
+| PDF Tools | `/pdf` | 37 | 6 | All available |
+| Image Tools | `/image` | 64 | 5 | All available |
+| Video Tools | `/video` | 8 | 4 | 6 available, 2 planned |
+| Audio Tools | `/audio` | 10 | 3 | All available |
+| Text Tools | `/text` | 13 | 5 | All available |
+| Developer Tools | `/developer` | 18 | 6 | All available |
+| Converters | `/converters` | 7 | none | All planned |
+| Utilities | `/utilities` | 5 | none | All planned |
+| AI Tools | `/ai` | 2 | none | All available |
+| Math Tools | `/math` | 6 | none | 2 available, 4 planned |
 
 A category large enough to be hard to scan declares sections in `lib/tools/sections.ts`, and
 each of its tools names one in `section`. PDF, Image, Video, Audio, Text and Developer have them
@@ -58,223 +58,223 @@ today.
 Every tool's canonical URL, alphabetical within its category. Generated from `registry.ts` —
 if this drifts from the live registry, regenerate it rather than hand editing rows.
 
-### PDF Tools — `/tools/pdf` — 38 tools
+### PDF Tools — `/pdf` — 38 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
-| Add Page Numbers | `/tools/add-page-numbers` | Available |
-| Add Watermark | `/tools/add-watermark` | Available |
-| Compare PDF | `/tools/compare-pdf` | Available |
-| Compress PDF | `/tools/compress-pdf` | Available |
-| Crop PDF | `/tools/crop-pdf` | Available |
-| Remove Pages | `/tools/delete-pages` | Available |
-| Edit PDF | `/tools/edit-pdf` | Available |
-| Excel to PDF | `/tools/excel-to-pdf` | Available |
-| Extract Pages | `/tools/extract-pages` | Available |
-| Flatten PDF | `/tools/flatten-pdf` | Available |
-| HTML to PDF | `/tools/html-to-pdf` | Available |
-| Images to PDF | `/tools/jpg-to-pdf` | Available |
-| Jupyter Notebook to PDF | `/tools/ipynb-to-pdf` | Available |
-| Markdown to PDF | `/tools/markdown-to-pdf` | Available |
-| Merge PDF | `/tools/merge-pdf` | Available |
-| OCR PDF | `/tools/ocr-pdf` | Available |
-| Organize PDF | `/tools/organize-pdf` | Available |
-| PDF Forms | `/tools/pdf-forms` | Available |
-| PDF to Excel | `/tools/pdf-to-excel` | Available |
-| PDF to HTML | `/tools/pdf-to-html` | Available |
-| PDF to Images | `/tools/pdf-to-jpg` | Available |
-| PDF to Markdown | `/tools/pdf-to-markdown` | Available |
-| PDF to PDF/A | `/tools/pdf-to-pdfa` | Available |
-| PDF to PowerPoint | `/tools/pdf-to-powerpoint` | Available |
-| PDF to Text | `/tools/pdf-to-text` | Available |
-| PDF to Word | `/tools/pdf-to-word` | Available |
-| PowerPoint to PDF | `/tools/powerpoint-to-pdf` | Available |
-| Protect PDF | `/tools/protect-pdf` | Available |
-| Redact PDF | `/tools/redact-pdf` | Available |
-| Remove Metadata | `/tools/remove-metadata` | Available |
-| Repair PDF | `/tools/repair-pdf` | Available |
-| Rotate PDF | `/tools/rotate-pdf` | Available |
-| Scan to PDF | `/tools/scan-to-pdf` | Available |
-| Sign PDF | `/tools/sign-pdf` | Available |
-| Split PDF | `/tools/split-pdf` | Available |
-| Text to PDF | `/tools/text-to-pdf` | Available |
-| Unlock PDF | `/tools/unlock-pdf` | Available |
-| Word to PDF | `/tools/word-to-pdf` | Available |
+| Add Page Numbers | `/add-page-numbers` | Available |
+| Add Watermark | `/add-watermark` | Available |
+| Compare PDF | `/compare-pdf` | Available |
+| Compress PDF | `/compress-pdf` | Available |
+| Crop PDF | `/crop-pdf` | Available |
+| Remove Pages | `/delete-pages` | Available |
+| Edit PDF | `/edit-pdf` | Available |
+| Excel to PDF | `/excel-to-pdf` | Available |
+| Extract Pages | `/extract-pages` | Available |
+| Flatten PDF | `/flatten-pdf` | Available |
+| HTML to PDF | `/html-to-pdf` | Available |
+| Images to PDF | `/jpg-to-pdf` | Available |
+| Jupyter Notebook to PDF | `/ipynb-to-pdf` | Available |
+| Markdown to PDF | `/markdown-to-pdf` | Available |
+| Merge PDF | `/merge-pdf` | Available |
+| OCR PDF | `/ocr-pdf` | Available |
+| Organize PDF | `/organize-pdf` | Available |
+| PDF Forms | `/pdf-forms` | Available |
+| PDF to Excel | `/pdf-to-excel` | Available |
+| PDF to HTML | `/pdf-to-html` | Available |
+| PDF to Images | `/pdf-to-jpg` | Available |
+| PDF to Markdown | `/pdf-to-markdown` | Available |
+| PDF to PDF/A | `/pdf-to-pdfa` | Available |
+| PDF to PowerPoint | `/pdf-to-powerpoint` | Available |
+| PDF to Text | `/pdf-to-text` | Available |
+| PDF to Word | `/pdf-to-word` | Available |
+| PowerPoint to PDF | `/powerpoint-to-pdf` | Available |
+| Protect PDF | `/protect-pdf` | Available |
+| Redact PDF | `/redact-pdf` | Available |
+| Remove Metadata | `/remove-metadata` | Available |
+| Repair PDF | `/repair-pdf` | Available |
+| Rotate PDF | `/rotate-pdf` | Available |
+| Scan to PDF | `/scan-to-pdf` | Available |
+| Sign PDF | `/sign-pdf` | Available |
+| Split PDF | `/split-pdf` | Available |
+| Text to PDF | `/text-to-pdf` | Available |
+| Unlock PDF | `/unlock-pdf` | Available |
+| Word to PDF | `/word-to-pdf` | Available |
 
-### Image Tools — `/tools/image` — 64 tools
-
-| Tool | URL | Status |
-| --- | --- | --- |
-| AVIF to BMP | `/tools/avif-to-bmp` | Available |
-| AVIF to GIF | `/tools/avif-to-gif` | Available |
-| AVIF to JPG | `/tools/avif-to-jpg` | Available |
-| AVIF to PNG | `/tools/avif-to-png` | Available |
-| AVIF to TIFF | `/tools/avif-to-tiff` | Available |
-| AVIF to WebP | `/tools/avif-to-webp` | Available |
-| Blur & Pixelate Image | `/tools/blur-pixelate` | Available |
-| BMP to AVIF | `/tools/bmp-to-avif` | Available |
-| BMP to JPG | `/tools/bmp-to-jpg` | Available |
-| BMP to PNG | `/tools/bmp-to-png` | Available |
-| BMP to WebP | `/tools/bmp-to-webp` | Available |
-| Collage Maker | `/tools/collage-maker` | Available |
-| Color Extractor | `/tools/color-extractor` | Available |
-| Compress Image | `/tools/compress-image` | Available |
-| Convert Image | `/tools/convert-image` | Available |
-| Crop Image | `/tools/crop-image` | Available |
-| GIF to AVIF | `/tools/gif-to-avif` | Available |
-| GIF to JPG | `/tools/gif-to-jpg` | Available |
-| GIF to PNG | `/tools/gif-to-png` | Available |
-| GIF to WebP | `/tools/gif-to-webp` | Available |
-| HEIC to AVIF | `/tools/heic-to-avif` | Available |
-| HEIC to JPG | `/tools/heic-to-jpg` | Available |
-| HEIC to PNG | `/tools/heic-to-png` | Available |
-| HEIC to WebP | `/tools/heic-to-webp` | Available |
-| ICO to AVIF | `/tools/ico-to-avif` | Available |
-| ICO to JPG | `/tools/ico-to-jpg` | Available |
-| ICO to PNG | `/tools/ico-to-png` | Available |
-| ICO to WebP | `/tools/ico-to-webp` | Available |
-| Image Editor | `/tools/image-editor` | Available |
-| Image Metadata | `/tools/image-metadata` | Available |
-| Image to Text | `/tools/image-to-text` | Available |
-| JPG to AVIF | `/tools/jpg-to-avif` | Available |
-| JPG to BMP | `/tools/jpg-to-bmp` | Available |
-| JPG to GIF | `/tools/jpg-to-gif` | Available |
-| JPG to ICO | `/tools/jpg-to-ico` | Available |
-| JPG to PNG | `/tools/jpg-to-png` | Available |
-| JPG to TIFF | `/tools/jpg-to-tiff` | Available |
-| JPG to WebP | `/tools/jpg-to-webp` | Available |
-| Meme Generator | `/tools/meme-generator` | Available |
-| PNG to AVIF | `/tools/png-to-avif` | Available |
-| PNG to BMP | `/tools/png-to-bmp` | Available |
-| PNG to GIF | `/tools/png-to-gif` | Available |
-| PNG to ICO | `/tools/png-to-ico` | Available |
-| PNG to JPG | `/tools/png-to-jpg` | Available |
-| PNG to TIFF | `/tools/png-to-tiff` | Available |
-| PNG to WebP | `/tools/png-to-webp` | Available |
-| Resize Image | `/tools/resize-image` | Available |
-| Rotate & Flip Image | `/tools/rotate-flip-image` | Available |
-| Screenshot Beautifier | `/tools/screenshot-beautifier` | Available |
-| SVG to AVIF | `/tools/svg-to-avif` | Available |
-| SVG to JPG | `/tools/svg-to-jpg` | Available |
-| SVG to PNG | `/tools/svg-to-png` | Available |
-| SVG to WebP | `/tools/svg-to-webp` | Available |
-| TIFF to AVIF | `/tools/tiff-to-avif` | Available |
-| TIFF to JPG | `/tools/tiff-to-jpg` | Available |
-| TIFF to PNG | `/tools/tiff-to-png` | Available |
-| TIFF to WebP | `/tools/tiff-to-webp` | Available |
-| Watermark Image | `/tools/watermark-image` | Available |
-| WebP to AVIF | `/tools/webp-to-avif` | Available |
-| WebP to BMP | `/tools/webp-to-bmp` | Available |
-| WebP to GIF | `/tools/webp-to-gif` | Available |
-| WebP to JPG | `/tools/webp-to-jpg` | Available |
-| WebP to PNG | `/tools/webp-to-png` | Available |
-| WebP to TIFF | `/tools/webp-to-tiff` | Available |
-
-### Video Tools — `/tools/video` — 6 tools
+### Image Tools — `/image` — 64 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
-| Compress Video | `/tools/compress-video` | Available |
-| Convert Video | `/tools/convert-video` | Available |
-| GIF Maker | `/tools/gif-maker` | Available |
-| Resize & Crop Video | `/tools/resize-crop-video` | Available |
-| Screen & Camera Recorder | `/tools/screen-recorder` | Available |
-| Trim & Cut Video | `/tools/trim-cut-video` | Available |
+| AVIF to BMP | `/avif-to-bmp` | Available |
+| AVIF to GIF | `/avif-to-gif` | Available |
+| AVIF to JPG | `/avif-to-jpg` | Available |
+| AVIF to PNG | `/avif-to-png` | Available |
+| AVIF to TIFF | `/avif-to-tiff` | Available |
+| AVIF to WebP | `/avif-to-webp` | Available |
+| Blur & Pixelate Image | `/blur-pixelate` | Available |
+| BMP to AVIF | `/bmp-to-avif` | Available |
+| BMP to JPG | `/bmp-to-jpg` | Available |
+| BMP to PNG | `/bmp-to-png` | Available |
+| BMP to WebP | `/bmp-to-webp` | Available |
+| Collage Maker | `/collage-maker` | Available |
+| Color Extractor | `/color-extractor` | Available |
+| Compress Image | `/compress-image` | Available |
+| Convert Image | `/convert-image` | Available |
+| Crop Image | `/crop-image` | Available |
+| GIF to AVIF | `/gif-to-avif` | Available |
+| GIF to JPG | `/gif-to-jpg` | Available |
+| GIF to PNG | `/gif-to-png` | Available |
+| GIF to WebP | `/gif-to-webp` | Available |
+| HEIC to AVIF | `/heic-to-avif` | Available |
+| HEIC to JPG | `/heic-to-jpg` | Available |
+| HEIC to PNG | `/heic-to-png` | Available |
+| HEIC to WebP | `/heic-to-webp` | Available |
+| ICO to AVIF | `/ico-to-avif` | Available |
+| ICO to JPG | `/ico-to-jpg` | Available |
+| ICO to PNG | `/ico-to-png` | Available |
+| ICO to WebP | `/ico-to-webp` | Available |
+| Image Editor | `/image-editor` | Available |
+| Image Metadata | `/image-metadata` | Available |
+| Image to Text | `/image-to-text` | Available |
+| JPG to AVIF | `/jpg-to-avif` | Available |
+| JPG to BMP | `/jpg-to-bmp` | Available |
+| JPG to GIF | `/jpg-to-gif` | Available |
+| JPG to ICO | `/jpg-to-ico` | Available |
+| JPG to PNG | `/jpg-to-png` | Available |
+| JPG to TIFF | `/jpg-to-tiff` | Available |
+| JPG to WebP | `/jpg-to-webp` | Available |
+| Meme Generator | `/meme-generator` | Available |
+| PNG to AVIF | `/png-to-avif` | Available |
+| PNG to BMP | `/png-to-bmp` | Available |
+| PNG to GIF | `/png-to-gif` | Available |
+| PNG to ICO | `/png-to-ico` | Available |
+| PNG to JPG | `/png-to-jpg` | Available |
+| PNG to TIFF | `/png-to-tiff` | Available |
+| PNG to WebP | `/png-to-webp` | Available |
+| Resize Image | `/resize-image` | Available |
+| Rotate & Flip Image | `/rotate-flip-image` | Available |
+| Screenshot Beautifier | `/screenshot-beautifier` | Available |
+| SVG to AVIF | `/svg-to-avif` | Available |
+| SVG to JPG | `/svg-to-jpg` | Available |
+| SVG to PNG | `/svg-to-png` | Available |
+| SVG to WebP | `/svg-to-webp` | Available |
+| TIFF to AVIF | `/tiff-to-avif` | Available |
+| TIFF to JPG | `/tiff-to-jpg` | Available |
+| TIFF to PNG | `/tiff-to-png` | Available |
+| TIFF to WebP | `/tiff-to-webp` | Available |
+| Watermark Image | `/watermark-image` | Available |
+| WebP to AVIF | `/webp-to-avif` | Available |
+| WebP to BMP | `/webp-to-bmp` | Available |
+| WebP to GIF | `/webp-to-gif` | Available |
+| WebP to JPG | `/webp-to-jpg` | Available |
+| WebP to PNG | `/webp-to-png` | Available |
+| WebP to TIFF | `/webp-to-tiff` | Available |
 
-### Audio Tools — `/tools/audio` — 10 tools
-
-| Tool | URL | Status |
-| --- | --- | --- |
-| Audio Metadata Editor | `/tools/audio-metadata-editor` | Available |
-| Audio Speed & Pitch Changer | `/tools/audio-speed-pitch` | Available |
-| Audio Compressor | `/tools/compress-audio` | Available |
-| Audio Converter | `/tools/convert-audio` | Available |
-| Audio Merger & Joiner | `/tools/merge-audio` | Available |
-| Reverse Audio | `/tools/reverse-audio` | Available |
-| Audio Trimmer & Cutter | `/tools/trim-audio` | Available |
-| Video to Audio | `/tools/video-to-audio` | Available |
-| Voice Recorder | `/tools/voice-recorder` | Available |
-| Volume Booster & Normalizer | `/tools/volume-booster` | Available |
-
-### Text Tools — `/tools/text` — 13 tools
-
-| Tool | URL | Status |
-| --- | --- | --- |
-| Case Converter | `/tools/case-converter` | Available |
-| Find Duplicates | `/tools/duplicate-lines` | Available |
-| Find & Replace | `/tools/find-replace` | Available |
-| Line Editor | `/tools/line-editor` | Available |
-| Markdown Formatter & Preview | `/tools/markdown-formatter` | Available |
-| Slug Generator | `/tools/slug-generator` | Available |
-| Text Statistics | `/tools/text-analyzer` | Available |
-| Text Cleaner | `/tools/text-cleaner` | Available |
-| Text Diff Checker | `/tools/text-diff` | Available |
-| Text Reverser | `/tools/text-reverser` | Available |
-| Sort & Shuffle Text | `/tools/text-sorter` | Available |
-| Text Splitter & Joiner | `/tools/text-splitter` | Available |
-| Word & Character Counter | `/tools/word-counter` | Available |
-
-### Developer Tools — `/tools/developer` — 18 tools
-
-| Tool | URL | Status |
-| --- | --- | --- |
-| Base64 Encoder & Decoder | `/tools/base64-converter` | Available |
-| Code Diff Checker | `/tools/code-diff` | Available |
-| Code Formatter & Beautifier | `/tools/code-formatter` | Available |
-| Code Minifier | `/tools/code-minifier` | Available |
-| CSV Viewer & Converter | `/tools/csv-viewer` | Available |
-| Hash Generator | `/tools/hash-generator` | Available |
-| HTML Tools | `/tools/html-tools` | Available |
-| HTTP Status Code Lookup | `/tools/http-status-codes` | Available |
-| JSON Formatter & Validator | `/tools/json-formatter` | Available |
-| JSON, YAML & XML Converter | `/tools/json-yaml-xml-converter` | Available |
-| JWT Decoder | `/tools/jwt-decoder` | Available |
-| Lorem Ipsum Generator | `/tools/lorem-ipsum` | Available |
-| MIME Type Lookup | `/tools/mime-type-lookup` | Available |
-| Random Data Generator | `/tools/random-data-generator` | Available |
-| URL Encoder & Decoder | `/tools/url-encoder-decoder` | Available |
-| URL Parser | `/tools/url-parser` | Available |
-| URL Query String Tool | `/tools/url-query-string` | Available |
-| UUID Generator | `/tools/uuid-generator` | Available |
-
-### Converters — `/tools/converters` — 7 tools
-
-| Tool | URL | Status |
-| --- | --- | --- |
-| Currency Converter | `/tools/currency-converter` | Planned |
-| Data Converter | `/tools/data-converter` | Planned |
-| Length Converter | `/tools/length-converter` | Planned |
-| Temperature Converter | `/tools/temperature-converter` | Planned |
-| Time Converter | `/tools/time-converter` | Planned |
-| Unit Converter | `/tools/unit-converter` | Planned |
-| Weight Converter | `/tools/weight-converter` | Planned |
-
-### Utilities — `/tools/utilities` — 4 tools
+### Video Tools — `/video` — 6 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
-| QR Generator | `/tools/qr-generator` | Available |
-| Random Generator | `/tools/random-generator` | Planned |
-| Stopwatch | `/tools/stopwatch` | Available |
-| Timer | `/tools/timer` | Available |
+| Compress Video | `/compress-video` | Available |
+| Convert Video | `/convert-video` | Available |
+| GIF Maker | `/gif-maker` | Available |
+| Resize & Crop Video | `/resize-crop-video` | Available |
+| Screen & Camera Recorder | `/screen-recorder` | Available |
+| Trim & Cut Video | `/trim-cut-video` | Available |
 
-### AI Tools — `/tools/ai` — 2 tools
-
-| Tool | URL | Status |
-| --- | --- | --- |
-| Gemini Video Watermark Remover | `/tools/gemini-video-watermark-remover` | Available |
-| Gemini Watermark Remover | `/tools/gemini-watermark-remover` | Available |
-
-### Math Tools — `/tools/math` — 6 tools
+### Audio Tools — `/audio` — 10 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
-| 3D Graphing Calculator | `/tools/3d-graphing-calculator` | Planned |
-| Basic Calculator | `/tools/calculator` | Available |
-| Graphing Calculator | `/tools/graphing-calculator` | Planned |
-| Matrix Calculator | `/tools/matrix-calculator` | Planned |
-| Programmer Calculator | `/tools/programmer-calculator` | Planned |
-| Scientific Calculator | `/tools/scientific-calculator` | Available |
+| Audio Metadata Editor | `/audio-metadata-editor` | Available |
+| Audio Speed & Pitch Changer | `/audio-speed-pitch` | Available |
+| Audio Compressor | `/compress-audio` | Available |
+| Audio Converter | `/convert-audio` | Available |
+| Audio Merger & Joiner | `/merge-audio` | Available |
+| Reverse Audio | `/reverse-audio` | Available |
+| Audio Trimmer & Cutter | `/trim-audio` | Available |
+| Video to Audio | `/video-to-audio` | Available |
+| Voice Recorder | `/voice-recorder` | Available |
+| Volume Booster & Normalizer | `/volume-booster` | Available |
+
+### Text Tools — `/text` — 13 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| Case Converter | `/case-converter` | Available |
+| Find Duplicates | `/duplicate-lines` | Available |
+| Find & Replace | `/find-replace` | Available |
+| Line Editor | `/line-editor` | Available |
+| Markdown Formatter & Preview | `/markdown-formatter` | Available |
+| Slug Generator | `/slug-generator` | Available |
+| Text Statistics | `/text-analyzer` | Available |
+| Text Cleaner | `/text-cleaner` | Available |
+| Text Diff Checker | `/text-diff` | Available |
+| Text Reverser | `/text-reverser` | Available |
+| Sort & Shuffle Text | `/text-sorter` | Available |
+| Text Splitter & Joiner | `/text-splitter` | Available |
+| Word & Character Counter | `/word-counter` | Available |
+
+### Developer Tools — `/developer` — 18 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| Base64 Encoder & Decoder | `/base64-converter` | Available |
+| Code Diff Checker | `/code-diff` | Available |
+| Code Formatter & Beautifier | `/code-formatter` | Available |
+| Code Minifier | `/code-minifier` | Available |
+| CSV Viewer & Converter | `/csv-viewer` | Available |
+| Hash Generator | `/hash-generator` | Available |
+| HTML Tools | `/html-tools` | Available |
+| HTTP Status Code Lookup | `/http-status-codes` | Available |
+| JSON Formatter & Validator | `/json-formatter` | Available |
+| JSON, YAML & XML Converter | `/json-yaml-xml-converter` | Available |
+| JWT Decoder | `/jwt-decoder` | Available |
+| Lorem Ipsum Generator | `/lorem-ipsum` | Available |
+| MIME Type Lookup | `/mime-type-lookup` | Available |
+| Random Data Generator | `/random-data-generator` | Available |
+| URL Encoder & Decoder | `/url-encoder-decoder` | Available |
+| URL Parser | `/url-parser` | Available |
+| URL Query String Tool | `/url-query-string` | Available |
+| UUID Generator | `/uuid-generator` | Available |
+
+### Converters — `/converters` — 7 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| Currency Converter | `/currency-converter` | Planned |
+| Data Converter | `/data-converter` | Planned |
+| Length Converter | `/length-converter` | Planned |
+| Temperature Converter | `/temperature-converter` | Planned |
+| Time Converter | `/time-converter` | Planned |
+| Unit Converter | `/unit-converter` | Planned |
+| Weight Converter | `/weight-converter` | Planned |
+
+### Utilities — `/utilities` — 4 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| QR Generator | `/qr-generator` | Available |
+| Random Generator | `/random-generator` | Planned |
+| Stopwatch | `/stopwatch` | Available |
+| Timer | `/timer` | Available |
+
+### AI Tools — `/ai` — 2 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| Gemini Video Watermark Remover | `/gemini-video-watermark-remover` | Available |
+| Gemini Watermark Remover | `/gemini-watermark-remover` | Available |
+
+### Math Tools — `/math` — 6 tools
+
+| Tool | URL | Status |
+| --- | --- | --- |
+| 3D Graphing Calculator | `/3d-graphing-calculator` | Available |
+| Basic Calculator | `/calculator` | Available |
+| Graphing Calculator | `/graphing-calculator` | Available |
+| Matrix Calculator | `/matrix-calculator` | Available |
+| Programmer Calculator | `/programmer-calculator` | Available |
+| Scientific Calculator | `/scientific-calculator` | Available |
 
 ## Notes
 
@@ -289,3 +289,8 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 - Basic Calculator lives under Math, not Utilities, and kept the `calculator` slug it had there.
   Math is the stronger fit next to the Scientific, Graphing, Programmer, Matrix and 3D Graphing
   Calculators.
+
+## See also
+
+Full doc index: [AGENTS.md](../AGENTS.md#docs). How to add a tool or category:
+[architecture.md](architecture.md). SEO and URL rules in more depth: [seo.md](seo.md).

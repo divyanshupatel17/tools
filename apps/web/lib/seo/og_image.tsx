@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-import { SITE_DESCRIPTION } from './site';
+import { SITE_DESCRIPTION, SITE_NAME } from './site';
 
 export const OG_IMAGE_SIZE = { width: 1200, height: 630 };
 
@@ -37,7 +37,7 @@ export function renderSiteOgImage() {
           T
         </div>
         <div style={{ display: 'flex', marginTop: 48, fontSize: 68, fontWeight: 800 }}>
-          divyanshupatel.com/tools
+          {SITE_NAME}
         </div>
         <div
           style={{

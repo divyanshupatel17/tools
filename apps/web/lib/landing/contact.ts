@@ -1,7 +1,10 @@
 export const OWNER_NAME = 'Divyanshu Patel';
 export const OWNER_ROLE = 'Full Stack Developer & Indie Maker';
-export const OWNER_SITE = 'divyanshupatel.com';
+export const OWNER_SITE_URL = 'https://divyanshupatel.com';
 export const CONTACT_EMAIL = 'divyanshupatel.dev@gmail.com';
+
+/** The project's own repo, distinct from the owner's personal GitHub profile in SOCIAL_LINKS. */
+export const REPO_URL = 'https://github.com/divyanshupatel17/tools';
 
 export const SOCIAL_LINKS = [
   { label: 'GitHub', href: 'https://github.com/divyanshupatel17' },

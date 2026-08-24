@@ -1,10 +1,12 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { Container } from '@/components/layout/container';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { SITE_NAME } from '@/lib/seo/site';
 
 export const metadata: Metadata = buildMetadata({
   title: 'Terms',
-  description: 'Terms of use for divyanshupatel.com/tools.',
+  description: `Terms of use for ${SITE_NAME}.`,
   path: '/terms',
 });
 
@@ -25,9 +27,9 @@ export default function TermsPage() {
           <h2 className="text-ink text-lg font-semibold">Your files</h2>
           <p className="mt-2">
             Processing happens locally in your browser, see the{' '}
-            <a href="/privacy" className="text-ink underline underline-offset-2">
+            <Link href="/privacy" className="text-ink underline underline-offset-2">
               privacy page
-            </a>
+            </Link>
             . You are responsible for the files you choose to process and for keeping your own
             copies; nothing is stored here to recover from.
           </p>

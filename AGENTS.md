@@ -8,12 +8,15 @@ check it before assuming, especially `docs/architecture.md` and `docs/tools.md`.
 
 - Browser-first. No backend, database, auth, or queue. Do not add one "for architecture".
 - `apps/web` is the only deployable. `packages/*` hold code shared beyond the app.
-- Deployed at `divyanshupatel.com/tools` via `basePath: '/tools'`. Routes are authored
-  without the prefix. **Tool URLs are flat**: `app/[tool_slug]/page.tsx` serves every tool at
-  `/tools/{slug}` (e.g. `/tools/merge-pdf`), never `/tools/{category}/{slug}`. Category pages
-  stay at `/tools/{category}` (`app/pdf/page.tsx` → `/tools/pdf`). Full details and the full
-  URL table: `docs/architecture.md`, `docs/tools.md`.
-- `SITE_BASE_PATH` in `lib/seo/site.ts` must match `basePath` in `next.config.ts`.
+- Deployed at the root of `toolhub.divyanshupatel.com` via `basePath: ''` — routes and their
+  real URLs are identical, no prefix. **Tool URLs are flat**: `app/[tool_slug]/page.tsx` serves
+  every tool at `/{slug}` (e.g. `/merge-pdf`), never `/{category}/{slug}`. Category pages stay
+  at `/{category}` (`app/pdf/page.tsx` → `/pdf`). Full details and the full URL table:
+  `docs/architecture.md`, `docs/tools.md`.
+- `SITE_BASE_PATH` in `lib/seo/site.ts` must match `basePath` in `next.config.ts` — the one
+  place to change if the app is ever hosted under a path prefix or a different domain again.
+  Never hardcode a domain, path prefix, or site name literal elsewhere; use `SITE_NAME`,
+  `SITE_URL`, `absoluteUrl()` or `assetPath()` from `lib/seo/site.ts` / `lib/utils/asset_path.ts`.
 - Full folder/file structure, the registry data shape and the tool doc set: `docs/architecture.md`.
 
 ## Naming
@@ -156,11 +159,18 @@ algorithms. One or two short lines. Never restate what the code plainly says.
 
 ## Docs
 
+Every doc below is the source of truth for its own topic; this file is only the short version.
+
 | File | What it holds |
 | --- | --- |
 | `docs/architecture.md` | Repo shape, routing, the registry, browser-first processing, and the full "adding a tool" / "adding a category" steps. |
 | `docs/tools.md` | Naming rules, the full URL table for every tool and category, and the slug uniqueness rule. |
-| `docs/{category}_tools.md` | One per category (`pdf`, `image`, `video`, `audio`, `text`, `developer`, `converters`, `utilities`, `ai`) — a checklist plus a feature table per tool. Update this whenever a tool's status or feature set changes. |
+| `docs/{category}_tools.md` | One per category (`pdf`, `image`, `video`, `audio`, `text`, `developer`, `converters`, `utilities`, `ai`, `math`) — a checklist plus a feature table per tool. Update this whenever a tool's status or feature set changes. |
 | `docs/seo.md` | Metadata, SEO checklist per tool, and the device/responsiveness checklist a tool must pass before shipping. |
 | `docs/git_workflow.md` | Branch prefixes, commit conventions, and the full branch to PR to merge flow with a diagram. |
-| `docs/deployment.md`, `docs/privacy.md`, `docs/terms.md` | Deploy process and the copy behind the live Privacy/Terms pages. |
+| `docs/deployment.md` | How and where the site deploys. |
+| `docs/privacy.md`, `docs/terms.md` | The copy behind the live Privacy/Terms pages. |
+| [`README.md`](README.md) | Project overview, tech stack, local setup, and where everything lives. Start here. |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | How to propose a change: branching, checks, and the new tool checklist, condensed. |
+| [`SECURITY.md`](SECURITY.md) | How to report a vulnerability privately. |
+| [`CHANGELOG.md`](CHANGELOG.md) | Notable changes per release. |

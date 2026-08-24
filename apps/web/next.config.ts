@@ -6,10 +6,12 @@ import { fileURLToPath } from 'node:url';
 // cannot be bundled for the browser as is. See lib/stubs/clean_css_stub.ts.
 const cleanCssStub = fileURLToPath(new URL('./lib/stubs/clean_css_stub.ts', import.meta.url));
 
-// The app is served at divyanshupatel.com/tools, so every route is authored
-// without the /tools prefix and Next adds it to URLs and assets.
+// The app is served at the root of its own domain (toolhub.divyanshupatel.com), so there
+// is no basePath prefix. If it ever moves back under a path (e.g. divyanshupatel.com/tools),
+// set basePath here AND update `SITE_BASE_PATH` in lib/seo/site.ts to match — every route,
+// asset and canonical URL in the app derives from that one constant, never a literal prefix.
 const config: NextConfig = {
-  basePath: '/tools',
+  basePath: '',
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: ['@tools/ui', '@tools/file_utils', '@tools/tool_engine'],

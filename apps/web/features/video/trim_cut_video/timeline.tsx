@@ -45,7 +45,6 @@ export function Timeline({
   segments,
   order,
   thumbnails,
-  _loadingThumbnails,
   disabled,
   currentTime,
   onSeek,

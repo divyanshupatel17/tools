@@ -57,21 +57,22 @@
   --radius-card: 1rem;
 }
 
-/* AMOLED: true black backgrounds so the panel can switch those pixels off. */
+/* AMOLED: every surface is pure black so the panel can switch those pixels fully off.
+   Cards and panels separate from the page by --border alone, not by a lighter fill. */
 [data-theme='dark'] {
   --brand-yellow: #ffc928;
   --brand-golden: #ffb524;
   --brand-deep-gold: #ffc142;
 
   --paper: #000000;
-  --cream: #0b0906;
+  --cream: #000000;
   --pale-yellow: #1a1409;
 
   --ink: #f7efdb;
   --soft-text: #a2937c;
 
-  --surface: #0a0906;
-  --border: #241e12;
+  --surface: #000000;
+  --border: #2e2716;
 
   --accent-pdf: #ef7365;
   --accent-image: #82c46e;
@@ -88,11 +89,11 @@
   --accent-tint: 22%;
   --tint-base: #000000;
 
-  --footer-top: #0e0b06;
-  --footer-mid: #070603;
+  --footer-top: #000000;
+  --footer-mid: #000000;
   --desert-sky: #000000;
 
-  --shadow-card: 0 2px 10px rgb(0 0 0 / 0.6);
+  --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.05);
 
   --success: #6cc47c;
   --warning: #e0b23d;
@@ -1215,5 +1216,42 @@
     left: 0;
     top: 0;
     width: 100%;
+  }
+}
+
+/* Universal search overlay: the scrim fades in while the bar itself lifts and grows slightly,
+   so it reads as rising above the dimmed page rather than just appearing on top of it. */
+@keyframes search-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes search-lift-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-search-scrim {
+  animation: search-scrim-in 0.18s ease-out;
+}
+
+.animate-search-lift {
+  animation: search-lift-in 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-search-scrim,
+  .animate-search-lift {
+    animation: none;
   }
 }

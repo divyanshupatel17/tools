@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Container } from './container';
-import { ToolCardGrid } from '@/components/tool_card/tool_card';
 import { RelatedToolsList } from '@/components/tool_card/related_tools_list';
 import { ToolWorkspace } from '@/components/tool_workspace/tool_workspace';
 import { getCategory } from '@/lib/tools/categories';
@@ -24,6 +23,7 @@ export async function toolMetadata(params: Promise<{ tool_slug: string }>): Prom
     description: tool.seo.description,
     path: toolPath(tool),
     keywords: tool.seo.keywords,
+    noindex: tool.status !== 'available',
   });
 }
 
@@ -34,8 +34,9 @@ export async function ToolPage({ params }: { params: Promise<{ tool_slug: string
   if (!tool || !category) notFound();
 
   const declaresSections = getCategorySections(category.id).length > 0;
-  const sectioned = declaresSections ? groupBySection(category.id, getToolsByCategory(category.id)) : [];
-  const related = sectioned.length === 0 ? getRelatedTools(tool) : [];
+  const sectioned = declaresSections
+    ? groupBySection(category.id, getToolsByCategory(category.id))
+    : toFlatGroup(getRelatedTools(tool));
 
   return (
     <>
@@ -81,16 +82,13 @@ export async function ToolPage({ params }: { params: Promise<{ tool_slug: string
             </div>
           </section>
         )}
-
-        {related.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-hand text-2xl">Related tools</h2>
-            <div className="mt-4">
-              <ToolCardGrid tools={related} />
-            </div>
-          </section>
-        )}
       </Container>
     </>
   );
+}
+
+/** Wraps a flat tool list as one unnamed group so a small, sectionless category still renders
+ * through RelatedToolsList's column/name-only layout instead of an icon grid. */
+function toFlatGroup(tools: ReturnType<typeof getRelatedTools>) {
+  return tools.length > 0 ? [{ section: { id: 'related', name: '', tagline: '' }, tools }] : [];
 }

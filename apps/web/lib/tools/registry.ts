@@ -61,12 +61,17 @@ const PDF_TOOLS = define('pdf', [
     description: 'Combine several PDF files into one document and reorder them before saving.',
     icon: 'Combine',
     popular: true,
-    popular_rank: 1,
+    popular_rank: 4,
     input_types: ['pdf'],
     output_types: ['pdf'],
     multiple_files: true,
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Merge PDF — Combine PDF Files Online',
+      description: 'Combine several PDF files into one document and reorder them before saving.',
+      keywords: ['merge pdf', 'combine pdf files', 'join pdf online', 'merge pdf free'],
+    },
   },
   {
     slug: 'split-pdf',
@@ -75,12 +80,16 @@ const PDF_TOOLS = define('pdf', [
     description:
       'Break a PDF into separate documents by page range or split every page into its own file.',
     icon: 'Scissors',
-    popular: true,
-    popular_rank: 6,
     input_types: ['pdf'],
     output_types: ['pdf', 'archive'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Split PDF — Break a PDF into Separate Files',
+      description:
+        'Break a PDF into separate documents by page range or split every page into its own file.',
+      keywords: ['split pdf', 'split pdf by page', 'extract pdf pages', 'divide pdf online'],
+    },
   },
   {
     slug: 'delete-pages',
@@ -91,6 +100,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Remove Pages from a PDF',
+      description: 'Delete the pages you do not want and download the shortened document.',
+      keywords: ['remove pdf pages', 'delete pages from pdf', 'delete pdf page online'],
+    },
   },
   {
     slug: 'extract-pages',
@@ -102,6 +116,12 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Extract Pages from a PDF',
+      description:
+        'Pull selected pages out of a PDF into a new document, leaving the original alone.',
+      keywords: ['extract pdf pages', 'pull pages from pdf', 'save pdf pages as new file'],
+    },
   },
   {
     slug: 'organize-pdf',
@@ -113,6 +133,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['pdf'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Organize PDF — Reorder and Rotate Pages',
+      description: 'Reorder, rotate and delete pages on one screen, then export the rebuilt PDF.',
+      keywords: ['organize pdf pages', 'reorder pdf pages', 'rotate pdf pages online'],
+    },
   },
   {
     slug: 'scan-to-pdf',
@@ -124,6 +149,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['pdf'],
     multiple_files: true,
     status: 'available',
+    seo: {
+      title: 'Scan to PDF — Turn Photos into a PDF',
+      description: 'Photograph pages with your camera and save them straight into a single PDF.',
+      keywords: ['scan to pdf', 'photo to pdf', 'camera scan pdf online'],
+    },
   },
 
   // 2. Optimize
@@ -136,11 +166,26 @@ const PDF_TOOLS = define('pdf', [
     icon: 'Minimize2',
     accent: 'developer',
     popular: true,
-    popular_rank: 2,
+    popular_rank: 3,
     input_types: ['pdf'],
     output_types: ['pdf'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Compress PDF to a Target Size — 100KB, 200KB, 500KB, 1MB',
+      description:
+        'Compress a PDF in your browser to a target size such as 100KB, 200KB, 500KB or 1MB, or by quality level. Text stays selectable and nothing is uploaded.',
+      keywords: [
+        'compress pdf to 100kb',
+        'compress pdf to 200kb',
+        'compress pdf to 500kb',
+        'compress pdf to 1mb',
+        'reduce pdf file size',
+        'shrink pdf online',
+        'pdf compressor',
+        'make pdf smaller',
+      ],
+    },
   },
   {
     slug: 'repair-pdf',
@@ -151,6 +196,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Repair a Damaged or Corrupt PDF',
+      description: 'Rebuild a damaged PDF so it opens again, recovering whatever is still readable.',
+      keywords: ['repair pdf', 'fix corrupt pdf', 'pdf wont open fix', 'recover pdf file'],
+    },
   },
   {
     slug: 'ocr-pdf',
@@ -161,6 +211,12 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf', 'text'],
     status: 'available',
+    seo: {
+      title: 'OCR PDF — Make a Scanned PDF Searchable',
+      description:
+        'Recognise the text in a scanned PDF so it can be searched, selected and copied.',
+      keywords: ['ocr pdf', 'make scanned pdf searchable', 'pdf text recognition online'],
+    },
   },
   {
     slug: 'flatten-pdf',
@@ -172,6 +228,12 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Flatten PDF Forms and Annotations',
+      description:
+        'Bake form fields, annotations and layers into the page so they can no longer be edited.',
+      keywords: ['flatten pdf', 'flatten pdf form', 'lock pdf form fields'],
+    },
   },
 
   // 3. Convert to PDF. Slugs keep the format people search for; names say what the tool covers.
@@ -182,13 +244,14 @@ const PDF_TOOLS = define('pdf', [
     description: 'Turn JPG, PNG, WebP, GIF and BMP files into one PDF, with page size and margins.',
     icon: 'ImagePlus',
     accent: 'audio',
-    popular: true,
-    popular_rank: 5,
     input_types: ['image'],
     output_types: ['pdf'],
     multiple_files: true,
     status: 'available',
-    seo: { title: 'JPG to PDF' },
+    seo: {
+      title: 'JPG to PDF',
+      keywords: ['jpg to pdf', 'image to pdf', 'convert images to pdf', 'png to pdf'],
+    },
   },
   {
     slug: 'word-to-pdf',
@@ -199,6 +262,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['document'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Word to PDF Converter',
+      description: 'Lay a DOCX document out as a PDF, text, headings, lists and tables included.',
+      keywords: ['word to pdf', 'docx to pdf', 'convert word document to pdf'],
+    },
   },
   {
     slug: 'powerpoint-to-pdf',
@@ -209,6 +277,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['document'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'PowerPoint to PDF Converter',
+      description: 'Lay the text from each slide out on its own PDF page, in slide order.',
+      keywords: ['powerpoint to pdf', 'pptx to pdf', 'convert ppt to pdf'],
+    },
   },
   {
     slug: 'excel-to-pdf',
@@ -220,6 +293,12 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['document'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Excel to PDF Converter',
+      description:
+        'Lay the first sheet of an XLSX workbook out as a table across as many pages as it needs.',
+      keywords: ['excel to pdf', 'xlsx to pdf', 'convert spreadsheet to pdf'],
+    },
   },
   {
     slug: 'html-to-pdf',
@@ -231,6 +310,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['pdf'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'HTML to PDF Converter',
+      description: 'Render pasted HTML into a paginated PDF with your choice of page size.',
+      keywords: ['html to pdf', 'convert html to pdf online', 'webpage to pdf'],
+    },
   },
   {
     slug: 'markdown-to-pdf',
@@ -242,6 +326,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['pdf'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Markdown to PDF Converter',
+      description: 'Turn Markdown into a typeset PDF with headings, lists, tables and code blocks.',
+      keywords: ['markdown to pdf', 'md to pdf', 'convert markdown to pdf online'],
+    },
   },
   {
     slug: 'ipynb-to-pdf',
@@ -255,7 +344,10 @@ const PDF_TOOLS = define('pdf', [
     multiple_files: true,
     worker_required: true,
     status: 'available',
-    seo: { title: 'Jupyter Notebook to PDF' },
+    seo: {
+      title: 'Jupyter Notebook to PDF',
+      keywords: ['ipynb to pdf', 'jupyter notebook to pdf', 'convert notebook to pdf'],
+    },
   },
   {
     slug: 'text-to-pdf',
@@ -266,6 +358,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['text'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Text to PDF Converter',
+      description: 'Lay plain text out into a PDF with a font size, margins and page numbering.',
+      keywords: ['text to pdf', 'txt to pdf', 'convert text file to pdf'],
+    },
   },
 
   // 4. Convert from PDF
@@ -279,7 +376,10 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['image', 'archive'],
     worker_required: true,
     status: 'available',
-    seo: { title: 'PDF to JPG' },
+    seo: {
+      title: 'PDF to JPG',
+      keywords: ['pdf to jpg', 'pdf to image', 'pdf to png', 'convert pdf to images'],
+    },
   },
   {
     slug: 'pdf-to-word',
@@ -288,11 +388,14 @@ const PDF_TOOLS = define('pdf', [
     description: 'Rebuild a PDF as an editable DOCX with its headings, paragraphs and lists.',
     icon: 'FileType',
     accent: 'text',
-    popular: true,
-    popular_rank: 4,
     input_types: ['pdf'],
     output_types: ['document'],
     status: 'available',
+    seo: {
+      title: 'PDF to Word Converter',
+      description: 'Rebuild a PDF as an editable DOCX with its headings, paragraphs and lists.',
+      keywords: ['pdf to word', 'pdf to docx', 'convert pdf to editable word document'],
+    },
   },
   {
     slug: 'pdf-to-powerpoint',
@@ -303,6 +406,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['document'],
     status: 'available',
+    seo: {
+      title: 'PDF to PowerPoint Converter',
+      description: 'Turn each PDF page into a picture slide in a PPTX deck.',
+      keywords: ['pdf to powerpoint', 'pdf to pptx', 'convert pdf to slides'],
+    },
   },
   {
     slug: 'pdf-to-excel',
@@ -313,6 +421,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['document'],
     status: 'available',
+    seo: {
+      title: 'PDF to Excel Converter',
+      description: 'Turn the text in a PDF into rows and columns in an XLSX workbook.',
+      keywords: ['pdf to excel', 'pdf to xlsx', 'convert pdf table to spreadsheet'],
+    },
   },
   {
     slug: 'pdf-to-pdfa',
@@ -324,6 +437,12 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'PDF to PDF/A Converter',
+      description:
+        'Rebuild a PDF with an embedded colour profile and PDF/A-2B metadata for long-term archiving.',
+      keywords: ['pdf to pdfa', 'pdf archival format', 'pdf/a converter online'],
+    },
   },
   {
     slug: 'pdf-to-markdown',
@@ -336,6 +455,12 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['text'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'PDF to Markdown Converter',
+      description:
+        'Extract a PDF as Markdown, guessing headings and lists from font size and bullets.',
+      keywords: ['pdf to markdown', 'pdf to md', 'convert pdf to markdown online'],
+    },
   },
   {
     slug: 'pdf-to-html',
@@ -347,6 +472,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['text'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'PDF to HTML Converter',
+      description: 'Convert a PDF into an HTML page you can open in any browser.',
+      keywords: ['pdf to html', 'convert pdf to webpage'],
+    },
   },
   {
     slug: 'pdf-to-text',
@@ -358,6 +488,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['text'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'PDF to Text Converter',
+      description: 'Pull the plain text out of a PDF, in reading order, with no formatting.',
+      keywords: ['pdf to text', 'pdf to txt', 'extract text from pdf'],
+    },
   },
 
   // 5. Edit
@@ -370,6 +505,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Rotate PDF Pages',
+      description: 'Turn pages 90, 180 or 270 degrees and fix documents that were scanned sideways.',
+      keywords: ['rotate pdf', 'rotate pdf pages online', 'fix sideways pdf'],
+    },
   },
   {
     slug: 'add-page-numbers',
@@ -380,6 +520,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Add Page Numbers to a PDF',
+      description: 'Stamp page numbers onto a PDF with a position, format and starting number.',
+      keywords: ['add page numbers to pdf', 'number pdf pages online'],
+    },
   },
   {
     slug: 'add-watermark',
@@ -390,6 +535,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Add a Watermark to a PDF',
+      description: 'Lay text or an image over every page, with control over opacity and rotation.',
+      keywords: ['add watermark to pdf', 'watermark pdf online', 'stamp pdf pages'],
+    },
   },
   {
     slug: 'crop-pdf',
@@ -400,6 +550,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Crop PDF Pages',
+      description: 'Trim the same margins off every page, or a page range you choose.',
+      keywords: ['crop pdf', 'trim pdf margins', 'crop pdf pages online'],
+    },
   },
   {
     slug: 'edit-pdf',
@@ -410,6 +565,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Edit PDF Online',
+      description: 'Drop new text boxes and images anywhere on a page and save them into the PDF.',
+      keywords: ['edit pdf', 'edit pdf online free', 'add text to pdf'],
+    },
   },
   {
     slug: 'pdf-forms',
@@ -421,6 +581,12 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Fill In a PDF Form',
+      description:
+        'Fill in an interactive PDF form field by field, then keep it editable or flatten it.',
+      keywords: ['fill pdf form', 'pdf form filler online'],
+    },
   },
 
   // 6. Security
@@ -433,6 +599,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Unlock PDF — Remove a PDF Password',
+      description: 'Remove a password you already know from a PDF you own.',
+      keywords: ['unlock pdf', 'remove pdf password', 'pdf password remover'],
+    },
   },
   {
     slug: 'protect-pdf',
@@ -443,6 +614,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Protect PDF with a Password',
+      description: 'Add a password so the PDF cannot be opened without it.',
+      keywords: ['protect pdf', 'password protect pdf online', 'add password to pdf'],
+    },
   },
   {
     slug: 'sign-pdf',
@@ -453,6 +629,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Sign a PDF Online',
+      description: 'Draw, type or upload a signature and place it anywhere on the document.',
+      keywords: ['sign pdf', 'esign pdf online', 'add signature to pdf'],
+    },
   },
   {
     slug: 'redact-pdf',
@@ -463,6 +644,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Redact a PDF',
+      description: 'Black out sensitive content and remove the text underneath, not just cover it.',
+      keywords: ['redact pdf', 'black out pdf text', 'pdf redaction online'],
+    },
   },
   {
     slug: 'compare-pdf',
@@ -474,6 +660,11 @@ const PDF_TOOLS = define('pdf', [
     output_types: ['pdf'],
     multiple_files: true,
     status: 'available',
+    seo: {
+      title: 'Compare Two PDFs',
+      description: 'Put two versions side by side and highlight what changed between them.',
+      keywords: ['compare pdf', 'pdf diff online', 'compare two pdf files'],
+    },
   },
   {
     slug: 'remove-metadata',
@@ -484,6 +675,11 @@ const PDF_TOOLS = define('pdf', [
     input_types: ['pdf'],
     output_types: ['pdf'],
     status: 'available',
+    seo: {
+      title: 'Remove PDF Metadata',
+      description: 'Strip the author, software and timestamps a PDF carries before you share it.',
+      keywords: ['remove pdf metadata', 'strip pdf metadata online'],
+    },
   },
 ]);
 
@@ -508,6 +704,13 @@ function conversion(from: string, to: string, description: string): ToolDraft {
     seo: {
       title: `${from} to ${to} Converter — Convert ${from} to ${to} Online`,
       description,
+      keywords: [
+        `${from} to ${to}`,
+        `${from.toLowerCase()} to ${to.toLowerCase()} converter`,
+        `convert ${from} to ${to}`,
+        `${from} to ${to} online`,
+        `${from} to ${to} free`,
+      ],
     },
   };
 }
@@ -518,29 +721,42 @@ const IMAGE_TOOLS = define('image', [
     slug: 'compress-image',
     status: 'available',
     section: 'optimize',
-    name: 'Compress Image',
+    name: 'Image Compressor',
     description:
       'Shrink JPG, PNG, WebP, AVIF, GIF and BMP files by quality or to a target size, with the before and after side by side.',
     icon: 'Minimize2',
+    popular: true,
+    popular_rank: 2,
     input_types: ['image'],
     output_types: ['image'],
     multiple_files: true,
     seo: {
-      title: 'Compress Image Online — JPG, PNG, WebP Compressor',
+      title: 'Compress Image to 10KB, 20KB, 50KB, 100KB or 200KB',
       description:
-        'Compress images in your browser. Pick a quality level or a target file size, keep the original dimensions, and compare the result before you download.',
+        'Compress a JPG, PNG or WebP to a target size such as 10KB, 20KB, 50KB, 100KB or 200KB, or by quality. Compare before and after, nothing is uploaded.',
+      keywords: [
+        'compress image to 10kb',
+        'compress image to 20kb',
+        'compress image to 50kb',
+        'compress image to 100kb',
+        'compress image to 200kb',
+        'reduce image size online',
+        'jpg compressor',
+        'png compressor',
+        'image compressor',
+      ],
     },
   },
   {
     slug: 'resize-image',
     status: 'available',
     section: 'optimize',
-    name: 'Resize Image',
+    name: 'Image Resizer',
     description:
       'Change image dimensions by exact pixels or by percentage, with the aspect ratio locked and a whole batch resized at once.',
     icon: 'Scaling',
     popular: true,
-    popular_rank: 3,
+    popular_rank: 6,
     input_types: ['image'],
     output_types: ['image'],
     multiple_files: true,
@@ -548,6 +764,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Resize Image Online — Resize JPG, PNG & WebP',
       description:
         'Resize images in your browser by exact pixels or by percentage. Lock the aspect ratio and resize a whole batch at once, each with its own before and after preview.',
+      keywords: ['resize image', 'resize image online', 'change image dimensions', 'image resizer'],
     },
   },
   {
@@ -564,6 +781,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Crop Image Online — JPG, PNG & WebP Image Cropper',
       description:
         'Crop an image in your browser. Drag a freeform selection, type exact dimensions, snap to a ratio such as 1:1, 4:3, 16:9 or 9:16, or cut a circle out of the middle.',
+      keywords: ['crop image', 'crop image online', 'crop photo to circle', 'image cropper'],
     },
   },
   {
@@ -581,6 +799,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Rotate & Flip Image Online — JPG, PNG & WebP',
       description:
         'Rotate and flip images in your browser. Turn by 90, 180 or 270 degrees or a custom angle, mirror horizontally or vertically, and apply it to a whole batch at once.',
+      keywords: ['rotate image', 'flip image online', 'mirror image'],
     },
   },
 
@@ -599,7 +818,8 @@ const IMAGE_TOOLS = define('image', [
     seo: {
       title: 'Convert Image Online — JPG, PNG, WebP & AVIF Converter',
       description:
-        'Convert images in your browser. Drop in JPG, PNG, WebP, AVIF, GIF, BMP, TIFF, HEIC, SVG or ICO, save out to any of those same formats, and download one file or the whole batch.',
+        'Convert between JPG, PNG, WebP, AVIF, GIF, BMP, TIFF, HEIC, SVG and ICO in your browser, and download one file or the whole batch.',
+      keywords: ['convert image', 'image format converter', 'image converter online'],
     },
   },
   conversion(
@@ -844,6 +1064,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Image Editor Online — Edit Photos Free',
       description:
         'Edit an image in your browser. Draw on it, add text, shapes and overlays, adjust brightness, contrast, saturation and blur, then add a border or background and save.',
+      keywords: ['image editor', 'edit photo online free', 'online photo editor'],
     },
   },
   {
@@ -861,6 +1082,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Add Watermark to Image Online — Text & Logo Watermark',
       description:
         'Add a text or logo watermark to an image in your browser. Set the position, opacity, rotation and size, or repeat it across the whole picture.',
+      keywords: ['watermark image', 'add watermark to photo', 'logo watermark online'],
     },
   },
   {
@@ -877,6 +1099,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Meme Generator — Create Memes Online Free',
       description:
         'Make a meme in your browser. Upload a picture, add top and bottom captions or as many text boxes as you like, set the font size, and download the result.',
+      keywords: ['meme generator', 'make a meme online free', 'meme maker'],
     },
   },
   {
@@ -894,6 +1117,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Photo Collage Maker — Create Collages Online',
       description:
         'Build a photo collage in your browser. Pick a grid layout, adjust the spacing, borders, background colour and aspect ratio, and export the finished picture.',
+      keywords: ['collage maker', 'photo collage online', 'picture grid maker'],
     },
   },
   {
@@ -910,6 +1134,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Screenshot Beautifier — Create Beautiful Screenshots',
       description:
         'Make a screenshot presentable in your browser. Add a background, padding, rounded corners, a shadow and a window frame, then export it ready to share.',
+      keywords: ['screenshot beautifier', 'beautify screenshot online', 'screenshot background'],
     },
   },
 
@@ -928,6 +1153,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Blur Image Online — Blur Faces, Text & Private Information',
       description:
         'Blur or pixelate part of an image in your browser. Draw a box over each face, name or number you want hidden, choose how strong to make it, and save the result.',
+      keywords: ['blur image', 'blur face in photo online', 'pixelate image'],
     },
   },
   {
@@ -944,6 +1170,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Image Metadata Viewer & Remover — View or Remove EXIF',
       description:
         'Read the EXIF data hidden in a photo, including camera, date, GPS location, orientation, dimensions and colour profile, then download a clean copy with it removed.',
+      keywords: ['image metadata viewer', 'remove exif data', 'view photo exif online'],
     },
   },
 
@@ -963,6 +1190,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Image to Text OCR — Extract Text from Images Online',
       description:
         'Pull the text out of a JPG, PNG, WebP or TIFF with OCR that runs entirely in your browser. Copy what it finds or download it as a text or markdown file.',
+      keywords: ['image to text', 'ocr image online', 'extract text from picture'],
     },
   },
   {
@@ -979,6 +1207,7 @@ const IMAGE_TOOLS = define('image', [
       title: 'Color Palette Extractor — Extract Colors from Image',
       description:
         'Extract a colour palette from an image in your browser. See the dominant colours as HEX, RGB and HSL, click any pixel to sample it, and copy the value.',
+      keywords: ['color palette extractor', 'extract colors from image', 'color picker from photo'],
     },
   },
 
@@ -1006,6 +1235,20 @@ const VIDEO_TOOLS = define('video', [
     worker_required: true,
     status: 'available',
     section: 'edit-optimize',
+    seo: {
+      title: 'Compress Video to 10MB, 25MB, 50MB or 100MB',
+      description:
+        'Compress an MP4 or MOV in your browser to a target size such as 10MB, 25MB, 50MB or 100MB, or by quality and bitrate. Preview before and after, nothing is uploaded.',
+      keywords: [
+        'compress video to 10mb',
+        'compress video to 25mb',
+        'compress video to 50mb',
+        'compress video to 100mb',
+        'reduce video file size',
+        'video compressor',
+        'shrink video online',
+      ],
+    },
   },
   {
     slug: 'resize-crop-video',
@@ -1018,6 +1261,11 @@ const VIDEO_TOOLS = define('video', [
     worker_required: true,
     status: 'available',
     section: 'edit-optimize',
+    seo: {
+      title: 'Resize & Crop Video Online',
+      description: 'Scale to a resolution or a social media preset, or crop to a new aspect ratio.',
+      keywords: ['resize video', 'crop video online', 'video aspect ratio converter'],
+    },
   },
   {
     slug: 'trim-cut-video',
@@ -1031,6 +1279,12 @@ const VIDEO_TOOLS = define('video', [
     worker_required: true,
     status: 'available',
     section: 'edit-optimize',
+    seo: {
+      title: 'Trim & Cut Video Online',
+      description:
+        'Cut to a start and end point, remove or keep several segments, split into parts, and preview the result before exporting.',
+      keywords: ['trim video', 'cut video online', 'video cutter free'],
+    },
   },
   {
     slug: 'convert-video',
@@ -1044,6 +1298,12 @@ const VIDEO_TOOLS = define('video', [
     worker_required: true,
     status: 'available',
     section: 'convert-create',
+    seo: {
+      title: 'Convert Video Online — MP4, WebM, MOV & More',
+      description:
+        'Convert between MP4, WebM, MOV, AVI, MKV and other common formats, or pull out just the audio as MP3, WAV or another audio format.',
+      keywords: ['convert video', 'video converter online', 'mp4 to webm', 'video to mp3'],
+    },
   },
   {
     slug: 'gif-maker',
@@ -1057,6 +1317,12 @@ const VIDEO_TOOLS = define('video', [
     worker_required: true,
     status: 'available',
     section: 'convert-create',
+    seo: {
+      title: 'Video to GIF Maker',
+      description:
+        'Turn a video into a GIF. Convert the whole clip, or drag the trim handles to pick exactly the part you want, then set the frame rate and size.',
+      keywords: ['video to gif', 'mp4 to gif', 'gif maker online'],
+    },
   },
   {
     slug: 'screen-recorder',
@@ -1070,6 +1336,12 @@ const VIDEO_TOOLS = define('video', [
     worker_required: true,
     status: 'available',
     section: 'record',
+    seo: {
+      title: 'Screen & Camera Recorder Online',
+      description:
+        'Record your screen, camera or both with a presentation preset and a draggable webcam bubble. Test devices first, then trim and pick a format.',
+      keywords: ['screen recorder online', 'record screen and webcam', 'free screen recorder'],
+    },
   },
 ]);
 
@@ -1085,6 +1357,11 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Audio Converter — MP3, WAV, AAC, OGG, FLAC',
+      description: 'Convert audio between MP3, WAV, M4A/AAC, OGG/Vorbis and FLAC.',
+      keywords: ['audio converter', 'mp3 to wav', 'convert audio online free'],
+    },
   },
   {
     slug: 'compress-audio',
@@ -1097,6 +1374,18 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Compress Audio to 1MB, 5MB, 10MB or a Target Size',
+      description:
+        'Compress an MP3 or WAV in your browser to a target size such as 1MB, 5MB or 10MB, or by bitrate and sample rate. Nothing is uploaded.',
+      keywords: [
+        'compress audio to 1mb',
+        'compress mp3 to 5mb',
+        'reduce audio file size',
+        'mp3 compressor',
+        'audio compressor',
+      ],
+    },
   },
   {
     slug: 'video-to-audio',
@@ -1109,6 +1398,12 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Video to Audio Converter — Extract MP3 from Video',
+      description:
+        'Extract audio from MP4, MOV, WebM, MKV, AVI and FLV as MP3, WAV, M4A/AAC, OGG, FLAC or AIFF.',
+      keywords: ['video to audio', 'extract audio from video', 'mp4 to mp3'],
+    },
   },
   {
     slug: 'trim-audio',
@@ -1121,6 +1416,12 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Audio Trimmer & Cutter Online',
+      description:
+        'Trim, cut multiple sections, delete parts, split, reorder and fade in or out on a waveform.',
+      keywords: ['trim audio', 'cut mp3 online', 'audio cutter free'],
+    },
   },
   {
     slug: 'merge-audio',
@@ -1134,6 +1435,12 @@ const AUDIO_TOOLS = define('audio', [
     worker_required: true,
     multiple_files: true,
     status: 'available',
+    seo: {
+      title: 'Audio Merger & Joiner Online',
+      description:
+        'Merge multiple files, reorder clips, add gaps or crossfades, and set per clip volume.',
+      keywords: ['merge audio files', 'join mp3 online', 'combine audio tracks'],
+    },
   },
   {
     slug: 'volume-booster',
@@ -1145,6 +1452,11 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Volume Booster & Audio Normalizer',
+      description: 'Raise or lower volume, adjust gain and normalize an audio file.',
+      keywords: ['increase mp3 volume online', 'audio normalizer', 'boost audio volume'],
+    },
   },
   {
     slug: 'audio-speed-pitch',
@@ -1157,6 +1469,12 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Audio Speed & Pitch Changer',
+      description:
+        'Change speed and tempo, shift pitch, or slow down and speed up without changing pitch.',
+      keywords: ['change audio speed', 'audio pitch changer', 'slow down audio online'],
+    },
   },
   {
     slug: 'reverse-audio',
@@ -1168,6 +1486,11 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Reverse an Audio File Online',
+      description: 'Reverse an entire audio file and preview it before downloading.',
+      keywords: ['reverse audio', 'reverse mp3 online'],
+    },
   },
   {
     slug: 'voice-recorder',
@@ -1180,6 +1503,11 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Online Voice Recorder',
+      description: 'Record from your microphone, pause and resume, then play back and download.',
+      keywords: ['voice recorder online', 'record audio in browser', 'free online voice recorder'],
+    },
   },
   {
     slug: 'audio-metadata-editor',
@@ -1192,6 +1520,11 @@ const AUDIO_TOOLS = define('audio', [
     output_types: ['audio'],
     worker_required: true,
     status: 'available',
+    seo: {
+      title: 'Audio Metadata / MP3 Tag Editor',
+      description: 'Edit MP3 tags: title, artist, album, genre, year, track number and artwork.',
+      keywords: ['edit mp3 tags', 'mp3 metadata editor online', 'id3 tag editor'],
+    },
   },
 ]);
 
@@ -1207,6 +1540,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Word & Character Counter',
+      description:
+        'Count words, characters, sentences, paragraphs and lines, plus reading and speaking time.',
+      keywords: ['word counter', 'character counter online', 'count words in text'],
+    },
   },
   {
     slug: 'text-analyzer',
@@ -1218,6 +1557,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Text Statistics & Word Frequency Analyzer',
+      description:
+        'Break down word frequency, unique and repeated words, average word length and keyword density.',
+      keywords: ['text analyzer', 'word frequency counter', 'keyword density checker'],
+    },
   },
 
   // 2. Convert & Transform
@@ -1231,6 +1576,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Case Converter — Upper, Lower, Title, camelCase',
+      description:
+        'Switch text between sentence case, title case, UPPERCASE, lowercase, camelCase, snake_case, kebab case and CONSTANT_CASE.',
+      keywords: ['case converter', 'text to uppercase', 'camelcase converter'],
+    },
   },
   {
     slug: 'slug-generator',
@@ -1241,6 +1592,11 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'URL Slug Generator',
+      description: 'Turn a title into a clean, lowercase URL slug.',
+      keywords: ['slug generator', 'url slug generator online', 'text to slug'],
+    },
   },
   {
     slug: 'text-reverser',
@@ -1251,6 +1607,11 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Text Reverser Online',
+      description: 'Reverse whole text, individual words, letters or the order of lines.',
+      keywords: ['reverse text', 'text reverser online', 'reverse words'],
+    },
   },
   {
     slug: 'text-sorter',
@@ -1262,6 +1623,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Sort & Shuffle Lines of Text',
+      description:
+        'Sort lines alphabetically, numerically or naturally, shuffle them randomly, or drop duplicate lines.',
+      keywords: ['sort lines alphabetically', 'shuffle text lines', 'text sorter online'],
+    },
   },
 
   // 3. Find & Clean
@@ -1275,6 +1642,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Find & Replace Text Online',
+      description:
+        'Find and replace text with case sensitive, whole word and regular expression matching.',
+      keywords: ['find and replace text online', 'regex find and replace'],
+    },
   },
   {
     slug: 'text-cleaner',
@@ -1286,6 +1659,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Text Cleaner — Remove Extra Spaces & Formatting',
+      description:
+        'Strip extra spaces, blank lines, invisible characters, emojis, accents, smart quotes and HTML tags from pasted text.',
+      keywords: ['remove extra spaces from text', 'text cleaner online', 'strip html tags from text'],
+    },
   },
   {
     slug: 'line-editor',
@@ -1296,6 +1675,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Line Editor — Add Prefixes, Suffixes & Line Numbers',
+      description:
+        'Add a prefix, suffix or line numbers, and keep or remove lines that match a search.',
+      keywords: ['add line numbers to text', 'add prefix to each line', 'line editor online'],
+    },
   },
 
   // 4. Split & Combine
@@ -1309,6 +1694,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text', 'archive'],
     status: 'available',
+    seo: {
+      title: 'Text Splitter & Joiner Online',
+      description:
+        'Split text by newline, comma, space or a custom delimiter, or join a list back into one line.',
+      keywords: ['text splitter online', 'split text by delimiter', 'join lines of text'],
+    },
   },
   {
     slug: 'duplicate-lines',
@@ -1319,6 +1710,12 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Find & Remove Duplicate Lines',
+      description:
+        'Highlight, count and remove duplicate lines while keeping the first or last occurrence.',
+      keywords: ['remove duplicate lines', 'find duplicate lines online'],
+    },
   },
 
   // 5. Compare & Format
@@ -1331,6 +1728,11 @@ const TEXT_TOOLS = define('text', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Text Diff Checker Online',
+      description: 'Compare two blocks of text and highlight what was added, removed and changed.',
+      keywords: ['text diff checker', 'compare two texts online', 'diff checker'],
+    },
   },
   {
     slug: 'markdown-formatter',
@@ -1341,6 +1743,11 @@ const TEXT_TOOLS = define('text', [
     status: 'available',
     input_types: ['text'],
     output_types: ['text'],
+    seo: {
+      title: 'Markdown Formatter & Live Preview',
+      description: 'Tidy Markdown formatting and preview the rendered result side by side.',
+      keywords: ['markdown formatter', 'markdown preview online', 'markdown editor'],
+    },
   },
 ]);
 
@@ -1356,6 +1763,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Code Formatter & Beautifier Online',
+      description:
+        'Format and beautify code in dozens of languages, from JavaScript and Python to JSON and SQL, with syntax highlighting.',
+      keywords: ['code formatter', 'beautify code online', 'json formatter'],
+    },
   },
   {
     slug: 'code-minifier',
@@ -1366,6 +1779,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Code Minifier — HTML, CSS, JS, JSON',
+      description: 'Minify HTML, CSS, JavaScript and JSON to shrink file size before shipping.',
+      keywords: ['code minifier', 'minify javascript online', 'minify css online'],
+    },
   },
   {
     slug: 'code-diff',
@@ -1377,6 +1795,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Code Diff Checker Online',
+      description:
+        'Compare two versions of code or text side by side with an option to ignore whitespace.',
+      keywords: ['code diff checker', 'compare code online'],
+    },
   },
 
   // 2. JSON & Data Tools
@@ -1390,6 +1814,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['json', 'text'],
     output_types: ['json'],
     status: 'available',
+    seo: {
+      title: 'JSON Formatter & Validator',
+      description:
+        'Pretty print, minify and validate JSON with a collapsible tree view and the exact line of any error.',
+      keywords: ['json formatter', 'json validator online', 'pretty print json'],
+    },
   },
   {
     slug: 'json-yaml-xml-converter',
@@ -1400,6 +1830,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['json', 'text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'JSON, YAML & XML Converter',
+      description: 'Convert between JSON, YAML and XML in either direction.',
+      keywords: ['json to yaml', 'yaml to json', 'json to xml converter'],
+    },
   },
   {
     slug: 'csv-viewer',
@@ -1410,6 +1845,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'CSV Viewer & Converter',
+      description: 'View a CSV file as a sortable table and convert it to and from JSON.',
+      keywords: ['csv viewer online', 'csv to json', 'view csv file online'],
+    },
   },
   {
     slug: 'base64-converter',
@@ -1420,6 +1860,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Base64 Encoder & Decoder',
+      description:
+        'Encode text or a file to Base64, or decode Base64 back to text or the original file.',
+      keywords: ['base64 encode', 'base64 decode online', 'base64 converter'],
+    },
   },
 
   // 3. Web & Markup Tools
@@ -1432,6 +1878,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'HTML Encoder, Decoder & Preview',
+      description: 'Encode, decode, escape, strip and preview HTML in one place.',
+      keywords: ['html encoder decoder', 'html escape online', 'strip html tags'],
+    },
   },
   {
     slug: 'url-encoder-decoder',
@@ -1442,6 +1893,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'URL Encoder & Decoder',
+      description:
+        'Percent encode text for a URL or query string, or decode it back to readable text.',
+      keywords: ['url encoder', 'url decoder online', 'percent encode text'],
+    },
   },
   {
     slug: 'url-parser',
@@ -1452,6 +1909,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'URL Parser Online',
+      description: 'Break a URL down into its protocol, host, path, query parameters and hash.',
+      keywords: ['url parser', 'parse url online', 'url breakdown tool'],
+    },
   },
 
   // 4. Encoding & Security Utilities
@@ -1464,6 +1926,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Hash Generator — MD5, SHA1, SHA256',
+      description: 'Generate MD5, SHA1, SHA256, SHA384 and SHA512 hashes from text or a file.',
+      keywords: ['md5 hash generator', 'sha256 online', 'hash generator'],
+    },
   },
   {
     slug: 'jwt-decoder',
@@ -1475,6 +1942,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['json'],
     status: 'available',
+    seo: {
+      title: 'JWT Decoder Online',
+      description:
+        'Inspect the header, payload and expiry of a JSON Web Token, decoded entirely in the browser.',
+      keywords: ['jwt decoder', 'decode jwt token online'],
+    },
   },
   {
     slug: 'uuid-generator',
@@ -1485,6 +1958,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'UUID Generator — Bulk UUID v4',
+      description: 'Generate version 4 UUIDs in bulk with uppercase, lowercase and hyphen options.',
+      keywords: ['uuid generator', 'generate uuid online', 'guid generator'],
+    },
   },
   {
     slug: 'url-query-string',
@@ -1496,6 +1974,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['text'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'URL Query String Tool',
+      description:
+        'Convert a query string to JSON and back, then add or edit parameters with automatic URL encoding.',
+      keywords: ['query string to json', 'url query string parser'],
+    },
   },
 
   // 5. API & Network
@@ -1508,6 +1992,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'HTTP Status Code Lookup',
+      description: 'Look up any HTTP status code to see its meaning, category and common use.',
+      keywords: ['http status codes', 'http status code list', 'what is status code 404'],
+    },
   },
   {
     slug: 'mime-type-lookup',
@@ -1518,6 +2007,11 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'MIME Type Lookup',
+      description: 'Look up a MIME type by file extension or a file extension by MIME type.',
+      keywords: ['mime type lookup', 'file extension to mime type'],
+    },
   },
 
   // 6. Developer Generators
@@ -1531,6 +2025,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Random Test Data Generator',
+      description:
+        'Generate realistic test data such as names, emails, numbers, dates and UUIDs, exported as JSON or CSV.',
+      keywords: ['random data generator', 'fake data generator', 'mock data generator online'],
+    },
   },
   {
     slug: 'lorem-ipsum',
@@ -1541,6 +2041,12 @@ const DEVELOPER_TOOLS = define('developer', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Lorem Ipsum Generator',
+      description:
+        'Generate placeholder paragraphs, sentences or words for a mockup, with optional HTML output.',
+      keywords: ['lorem ipsum generator', 'placeholder text generator'],
+    },
   },
 ]);
 
@@ -1552,6 +2058,11 @@ const CONVERTER_TOOLS = define('converters', [
     icon: 'ArrowLeftRight',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Unit Converter',
+      description: 'Convert between metric and imperial units across length, area, volume and speed.',
+      keywords: ['unit converter', 'metric to imperial converter'],
+    },
   },
   {
     slug: 'time-converter',
@@ -1560,6 +2071,11 @@ const CONVERTER_TOOLS = define('converters', [
     icon: 'Clock',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Time Converter — Time Zones & Units',
+      description: 'Convert a time between time zones and between seconds, minutes, hours and days.',
+      keywords: ['time zone converter', 'time converter online'],
+    },
   },
   {
     slug: 'currency-converter',
@@ -1570,6 +2086,11 @@ const CONVERTER_TOOLS = define('converters', [
     output_types: ['text'],
     // Exchange rates cannot be computed offline; this tool will fetch published rates.
     client_only: false,
+    seo: {
+      title: 'Currency Converter',
+      description: 'Convert between currencies using recent exchange rates.',
+      keywords: ['currency converter', 'exchange rate converter online'],
+    },
   },
   {
     slug: 'temperature-converter',
@@ -1578,6 +2099,11 @@ const CONVERTER_TOOLS = define('converters', [
     icon: 'Thermometer',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Temperature Converter — Celsius, Fahrenheit, Kelvin',
+      description: 'Convert between Celsius, Fahrenheit and Kelvin.',
+      keywords: ['celsius to fahrenheit', 'temperature converter'],
+    },
   },
   {
     slug: 'length-converter',
@@ -1587,6 +2113,12 @@ const CONVERTER_TOOLS = define('converters', [
     icon: 'Ruler',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Length Converter',
+      description:
+        'Convert between millimetres, centimetres, metres, kilometres, inches, feet and miles.',
+      keywords: ['length converter', 'cm to inches', 'feet to meters'],
+    },
   },
   {
     slug: 'weight-converter',
@@ -1595,6 +2127,11 @@ const CONVERTER_TOOLS = define('converters', [
     icon: 'Weight',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Weight Converter',
+      description: 'Convert between grams, kilograms, tonnes, ounces, pounds and stones.',
+      keywords: ['weight converter', 'kg to lbs', 'pounds to kilograms'],
+    },
   },
   {
     slug: 'data-converter',
@@ -1603,6 +2140,11 @@ const CONVERTER_TOOLS = define('converters', [
     icon: 'HardDrive',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Data Size Converter',
+      description: 'Convert between bytes, kilobytes, megabytes, gigabytes and terabytes.',
+      keywords: ['data size converter', 'mb to gb converter', 'kb to mb'],
+    },
   },
 ]);
 
@@ -1613,9 +2155,17 @@ const UTILITY_TOOLS = define('utilities', [
     description:
       'Create a styled QR code for a link, contact card, Wi-Fi network and more, then download it as PNG or SVG.',
     icon: 'QrCode',
+    popular: true,
+    popular_rank: 5,
     input_types: ['text'],
     output_types: ['image'],
     status: 'available',
+    seo: {
+      title: 'QR Code Generator — Free & Styled',
+      description:
+        'Create a styled QR code for a link, contact card, Wi-Fi network and more, then download it as PNG or SVG.',
+      keywords: ['qr code generator', 'free qr code maker', 'wifi qr code generator'],
+    },
   },
   {
     slug: 'random-generator',
@@ -1624,6 +2174,11 @@ const UTILITY_TOOLS = define('utilities', [
     icon: 'Dices',
     input_types: ['none'],
     output_types: ['text'],
+    seo: {
+      title: 'Random Number & List Generator',
+      description: 'Draw random numbers, pick from a list or shuffle items.',
+      keywords: ['random number generator', 'random picker online', 'shuffle list online'],
+    },
   },
   {
     slug: 'stopwatch',
@@ -1633,6 +2188,11 @@ const UTILITY_TOOLS = define('utilities', [
     input_types: ['none'],
     output_types: ['none'],
     status: 'available',
+    seo: {
+      title: 'Online Stopwatch with Lap Splits',
+      description: 'Time something with lap splits, accurate even in a background tab.',
+      keywords: ['online stopwatch', 'stopwatch with laps'],
+    },
   },
   {
     slug: 'timer',
@@ -1642,6 +2202,11 @@ const UTILITY_TOOLS = define('utilities', [
     input_types: ['none'],
     output_types: ['none'],
     status: 'available',
+    seo: {
+      title: 'Online Countdown Timer',
+      description: 'Set a countdown with a sound and a notification when it finishes.',
+      keywords: ['online timer', 'countdown timer online'],
+    },
   },
 ]);
 
@@ -1651,13 +2216,20 @@ const AI_TOOLS = define('ai', [
     name: 'Gemini Watermark Remover',
     description: 'Remove the Gemini sparkle watermark from an image automatically.',
     icon: 'Sparkles',
+    popular: true,
+    popular_rank: 1,
     input_types: ['image'],
     output_types: ['image'],
     status: 'available',
     seo: {
       title: 'Gemini Watermark Remover — Remove the Gemini Sparkle Mark',
       description:
-        'Remove the Gemini sparkle watermark from an image in your browser. Detection is automatic and removal is an exact reverse of the blend Gemini used to add the mark, not a blur.',
+        'Remove the Gemini sparkle watermark from an image in your browser. Detection is automatic and removal exactly reverses the blend Gemini used, not a blur.',
+      keywords: [
+        'remove gemini watermark',
+        'gemini sparkle watermark remover',
+        'remove ai watermark from image',
+      ],
     },
   },
   {
@@ -1669,9 +2241,10 @@ const AI_TOOLS = define('ai', [
     output_types: ['video'],
     status: 'available',
     seo: {
-      title: 'Gemini Video Watermark Remover — Remove the Gemini Sparkle Mark',
+      title: 'Gemini Video Watermark Remover',
       description:
         'Remove the Gemini sparkle watermark from a video in your browser. Every frame is detected and restored automatically, with audio kept unchanged.',
+      keywords: ['remove gemini watermark from video', 'gemini video watermark remover'],
     },
   },
 ]);
@@ -1685,6 +2258,11 @@ const MATH_TOOLS = define('math', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Online Calculator',
+      description: 'A keyboard-friendly calculator with a running history of your entries.',
+      keywords: ['online calculator', 'basic calculator online'],
+    },
   },
   {
     slug: 'scientific-calculator',
@@ -1695,6 +2273,12 @@ const MATH_TOOLS = define('math', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Scientific Calculator Online',
+      description:
+        'Trigonometric, logarithmic, exponential and other advanced functions, with degree and radian modes.',
+      keywords: ['scientific calculator online', 'trig calculator'],
+    },
   },
   {
     slug: 'graphing-calculator',
@@ -1704,6 +2288,11 @@ const MATH_TOOLS = define('math', [
     input_types: ['none'],
     output_types: ['image'],
     status: 'available',
+    seo: {
+      title: 'Graphing Calculator Online',
+      description: 'Plot one or more functions on a 2D graph, pan and zoom, and trace exact values.',
+      keywords: ['graphing calculator online', 'plot function graph', 'function grapher'],
+    },
   },
   {
     slug: 'programmer-calculator',
@@ -1713,6 +2302,12 @@ const MATH_TOOLS = define('math', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Programmer Calculator — Binary, Hex, Octal',
+      description:
+        'Convert and compute across binary, octal, decimal and hexadecimal, with bitwise operators.',
+      keywords: ['programmer calculator', 'binary to hex converter', 'hex calculator online'],
+    },
   },
   {
     slug: 'matrix-calculator',
@@ -1722,6 +2317,11 @@ const MATH_TOOLS = define('math', [
     input_types: ['none'],
     output_types: ['text'],
     status: 'available',
+    seo: {
+      title: 'Matrix Calculator Online',
+      description: 'Add, multiply, invert, transpose and find the determinant of matrices.',
+      keywords: ['matrix calculator', 'matrix multiplication calculator', 'matrix inverse calculator'],
+    },
   },
   {
     slug: '3d-graphing-calculator',
@@ -1731,6 +2331,12 @@ const MATH_TOOLS = define('math', [
     input_types: ['none'],
     output_types: ['image'],
     status: 'available',
+    seo: {
+      title: '3D Graphing Calculator Online',
+      description:
+        'Plot a surface from a two variable function and rotate the view in three dimensions.',
+      keywords: ['3d graphing calculator', '3d function plotter online'],
+    },
   },
 ]);
 
@@ -1827,9 +2433,13 @@ export function searchTools(query: string, limit = 12): readonly Tool[] {
 
   const scored = TOOLS.map((tool) => {
     const name = tool.name.toLowerCase();
+    const keywords = tool.seo.keywords?.map((keyword) => keyword.toLowerCase()) ?? [];
     let score = 0;
     if (name === needle) score = 100;
+    else if (keywords.includes(needle)) score = 90;
     else if (name.startsWith(needle)) score = 80;
+    else if (keywords.some((keyword) => keyword.includes(needle) || needle.includes(keyword)))
+      score = 70;
     else if (name.includes(needle)) score = 60;
     else if (tool.slug.includes(needle.replace(/\s+/g, '-'))) score = 50;
     else if (tool.description.toLowerCase().includes(needle)) score = 20;

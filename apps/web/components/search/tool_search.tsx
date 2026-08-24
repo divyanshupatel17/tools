@@ -20,11 +20,23 @@ const PHASE_ICON = {
 
 export function ToolSearch({
   placeholder = 'Search a tool (e.g. merge PDF, compress image, mp4 to mp3)',
+  autoFocus = false,
+  onNavigate,
+}: {
+  placeholder?: string;
+  autoFocus?: boolean;
+  /** Called when a result is clicked, so an overlay caller can close itself. */
+  onNavigate?: () => void;
 }) {
   const listId = useId();
   const [query, setQuery] = useState('');
   const [applied, setApplied] = useState('');
   const debounce = useRef(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocus) inputRef.current?.focus();
+  }, [autoFocus]);
 
   const trimmed = query.trim();
   const results = useMemo(() => searchTools(applied), [applied]);
@@ -59,6 +71,7 @@ export function ToolSearch({
       <div className="border-border bg-surface shadow-card flex h-14 items-center gap-3 rounded-full border pr-2 pl-5 sm:h-[60px] sm:pl-7">
         <input
           id={HERO_SEARCH_ID}
+          ref={inputRef}
           type="text"
           role="combobox"
           value={query}
@@ -100,6 +113,7 @@ export function ToolSearch({
                     href={toolPath(tool)}
                     role="option"
                     aria-selected={false}
+                    onClick={onNavigate}
                     className="hover:bg-cream flex items-center gap-3 px-5 py-2.5"
                   >
                     <span

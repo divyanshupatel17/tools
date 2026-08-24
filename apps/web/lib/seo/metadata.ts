@@ -6,15 +6,25 @@ interface PageMetadataInput {
   description: string;
   path: string;
   keywords?: readonly string[];
+  /** True for a "Coming soon" page with no real content yet — kept crawlable but out of the
+   * index and off the sitemap so it can't compete with or dilute pages that actually work. */
+  noindex?: boolean;
 }
 
-export function buildMetadata({ title, description, path, keywords }: PageMetadataInput): Metadata {
+export function buildMetadata({
+  title,
+  description,
+  path,
+  keywords,
+  noindex,
+}: PageMetadataInput): Metadata {
   const url = absoluteUrl(path);
   return {
     title,
     description,
     ...(keywords?.length ? { keywords: [...keywords] } : {}),
     alternates: { canonical: url },
+    ...(noindex ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type: 'website',
       url,

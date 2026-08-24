@@ -15,7 +15,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     })),
-    ...TOOLS.map((tool) => ({
+    // "Coming soon" tools have no real content yet and are marked noindex (see toolMetadata) —
+    // excluded here too so the sitemap never points Google at a page it's told not to index.
+    ...TOOLS.filter((tool) => tool.status === 'available').map((tool) => ({
       url: absoluteUrl(toolPath(tool)),
       lastModified: now,
       changeFrequency: 'monthly' as const,

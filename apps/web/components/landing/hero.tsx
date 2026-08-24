@@ -1,5 +1,5 @@
 import { DoodleField } from './doodle_field';
-import { ToolSearch } from '@/components/search/tool_search';
+import { HeroSearchTrigger } from '@/components/search/hero_search_trigger';
 import { Art } from '@/components/ui/art';
 import { Doodle } from '@/components/ui/doodle';
 
@@ -85,7 +85,7 @@ export function Hero() {
         </p>
 
         <div className="mt-6 w-full sm:mt-7">
-          <ToolSearch />
+          <HeroSearchTrigger />
         </div>
 
         <p className="font-hand text-muted mt-4 flex items-center gap-2 text-[17px]">

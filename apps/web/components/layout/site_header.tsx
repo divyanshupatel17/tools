@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { MainNav } from '@/components/navigation/main_nav';
 import { HeaderSearchButton } from '@/components/search/header_search_button';
+import { SearchOverlay } from '@/components/search/search_overlay';
 import { ThemeToggle } from '@/components/theme/theme_toggle';
 import { Art } from '@/components/ui/art';
 import { OWNER_SITE } from '@/lib/landing/contact';
@@ -25,15 +26,17 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <MainNav className="ml-auto hidden md:block" />
+        <MainNav className="ml-auto hidden lg:block" />
 
-        <div className="ml-auto flex shrink-0 items-center gap-0.5 md:ml-4">
+        <div className="ml-auto flex shrink-0 items-center gap-0.5 lg:ml-4">
           <HeaderSearchButton />
           <ThemeToggle />
         </div>
       </div>
 
-      <MainNav className="border-border/60 border-t px-3 pb-1.5 md:hidden [&_ul]:justify-center" />
+      <MainNav className="border-border/60 border-t px-3 pb-1.5 lg:hidden [&_ul]:justify-center" />
+
+      <SearchOverlay />
     </header>
   );
 }

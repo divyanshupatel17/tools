@@ -109,16 +109,10 @@ function slideBlocks(slideXml: string): DocBlock[] {
   return blocks;
 }
 
-/** Reads every slide's shapes, in slide order, into the same `DocBlock[]` model
- * `renderBlocksToPdf` consumes — one PDF page per slide via an explicit `pagebreak` block,
- * since a slide is a hard boundary the way a flowing document's pages are not. The title
- * placeholder becomes a heading, other placeholder paragraphs become a bulleted list, and
- * `<a:rPr b="1"/>`/`i="1"` runs carry bold/italic the same way `docx_reader.ts` reads Word's
- * `w:b`/`w:i`. Shape position, size, images and any design are not read: this is an outline
- * export, the text a slide contains, not a picture of it. `<a:pPr lvl>` sub-bullet nesting is
- * also not read — `DocBlock`'s `list` variant has no depth field (docx_reader.ts flattens
- * Word's ListParagraph the same way), so every bulleted paragraph on a slide lands as one flat
- * list regardless of its indentation level. */
+/** Reads every slide's shapes into the same `DocBlock[]` model `renderBlocksToPdf` consumes, one
+ * PDF page per slide. This is a text outline export only: shape position, size, images and
+ * design are not read, and `<a:pPr lvl>` sub-bullet nesting collapses to one flat list per slide
+ * (`DocBlock`'s `list` variant has no depth field). */
 export async function readPptxSlides(bytes: Uint8Array): Promise<DocBlock[]> {
   const files = await readOoxmlPackage(bytes);
   const slidePaths = await orderedSlidePaths(files);

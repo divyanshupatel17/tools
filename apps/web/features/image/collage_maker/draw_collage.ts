@@ -17,11 +17,8 @@ export interface FreeCollageItem {
 
 export interface GridCollageCell {
   image: ImageBitmap;
-  /**
-   * Which part of the image shows when it is wider or taller than its cell, as fractions of
-   * the room the crop has to pan: 0.5, 0.5 is centered (the old fixed behavior), 0 is the
-   * image's own left or top edge, 1 its right or bottom edge.
-   */
+  /** Fraction of the crop's pan room shown when the image overflows its cell: 0.5,0.5 is
+   * centered, 0 is the image's left/top edge, 1 its right/bottom edge. */
   focal: { x: number; y: number };
 }
 

@@ -25,7 +25,6 @@ export function ToolSearch({
 }: {
   placeholder?: string;
   autoFocus?: boolean;
-  /** Called when a result is clicked, so an overlay caller can close itself. */
   onNavigate?: () => void;
 }) {
   const listId = useId();
@@ -43,7 +42,6 @@ export function ToolSearch({
 
   useEffect(() => () => window.clearTimeout(debounce.current), []);
 
-  // A short beat before the results land, so the button reads as doing the work.
   function onChange(value: string) {
     setQuery(value);
     window.clearTimeout(debounce.current);

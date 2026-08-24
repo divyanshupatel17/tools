@@ -1,18 +1,13 @@
 /**
- * Real, measured per pixel alpha values of the Gemini sparkle watermark, for every size/era
- * this tool's position catalog can select (see `size_catalog.ts`).
+ * Real, measured per pixel alpha values of the Gemini sparkle watermark, one per size/era in
+ * `size_catalog.ts`. Calibrated by GargantuaX/gemini-watermark-remover (MIT licensed) by
+ * rendering the mark over solid black and reading it back (`alpha = max(R,G,B) / 255`); vendored
+ * verbatim (base64 `Float32Array` buffers) with attribution, per the MIT license, rather than
+ * re-derived locally.
  *
- * Calibrated by GargantuaX/gemini-watermark-remover (MIT licensed) by rendering the actual
- * watermark over a solid black background and reading the composited pixel back: on pure black,
- * `composited = white_logo * alpha + black * (1 - alpha) = 255 * alpha`, so `alpha =
- * max(R,G,B) / 255` is the mark's real per pixel opacity. This is genuine captured data, not a
- * synthetic shape — vendored here verbatim (base64 encoded `Float32Array` buffers) with
- * attribution, per the MIT license, rather than re-derived from a single local sample.
- *
- * Outline variants ('96-outline-light' / '96-outline-dark') exist upstream for a subpixel edge
- * refinement pass this port does not implement yet (see docs/gemini_watermark_remover_approach.md
- * "Explicitly deferred"); they are not vendored here since nothing in this file's core algorithm
- * uses them.
+ * Outline variants ('96-outline-light'/'-dark') exist upstream for a subpixel edge refinement
+ * this port doesn't implement (see docs/gemini_watermark_remover_approach.md), so they aren't
+ * vendored here.
  */
 
 const EMBEDDED_ALPHA_MAP_LENGTHS: Record<string, number> = {

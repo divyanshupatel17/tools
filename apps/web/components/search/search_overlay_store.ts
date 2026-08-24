@@ -1,11 +1,6 @@
 'use client';
 
-/**
- * Module-level singleton rather than React context: the trigger (header button, hero bar) and
- * the overlay itself live in different, disconnected parts of the tree (header vs. hero, or
- * header vs. any other page), so a context provider would have to wrap the whole layout for no
- * benefit over a plain subscribable store.
- */
+// Module-level singleton rather than React context: trigger and overlay live in disconnected parts of the tree, so a provider would just wrap the whole layout for no benefit.
 type Listener = () => void;
 
 let isOpen = false;

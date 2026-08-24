@@ -1,20 +1,9 @@
 'use client';
 
-/**
- * Runs Tesseract (WASM, via tesseract.js) over each page image and asks it for its own
- * "sandwich PDF" output (`output: { pdf: true }`) — a single-page PDF with the page image plus
- * an invisible, positioned text layer Tesseract itself lays out from its word bounding boxes.
- * Building that text layer by hand (mapping every word's bbox into PDF points, choosing a font
- * size per word) would just be re-implementing what Tesseract already does correctly for this
- * exact job, so this leans on it instead of pdf-lib for the text layer. This app's processor
- * then only has to stitch the resulting one-page PDFs together with pdf-lib.
- *
- * One worker is created and reused across every page (loading the language model once), and
- * only English is loaded — recognising other languages would need their own traineddata
- * download, which is out of scope for now. The Tesseract engine, worker script and language
- * data are fetched from Tesseract's own CDN on first use (not bundled with this app); nothing
- * about the document being processed is ever sent anywhere.
- */
+/** Asks Tesseract for its own "sandwich PDF" output (`{ pdf: true }`) — page image plus an
+ * invisible positioned text layer — rather than hand-building the text layer from word bboxes.
+ * One worker is reused across pages (English only); the engine/model load from Tesseract's CDN
+ * on first use, but the document itself is never sent anywhere. */
 export async function ocrPagesToPdfs(
   images: readonly Uint8Array[],
   onPage?: (done: number, total: number) => void,

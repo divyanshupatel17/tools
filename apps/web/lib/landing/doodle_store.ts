@@ -130,10 +130,8 @@ function makeMark(slot: string): DoodleMark {
   };
 }
 
-/**
- * Two frames, not one: the browser has to paint the hidden state before flipping the
- * class, otherwise it coalesces both values and the mark appears with no transition.
- */
+/** Two frames, not one: the browser must paint the hidden state before flipping the class,
+ * or it coalesces both values and the mark appears with no transition. */
 function revealAll() {
   window.cancelAnimationFrame(revealFrame);
   revealFrame = window.requestAnimationFrame(() => {
@@ -166,10 +164,7 @@ function swapOne() {
   }, FADE_MS);
 }
 
-/**
- * A fresh scatter on every page load, drifting one mark at a time. Kept in a module
- * store so the arrangement is decided on the client and never baked into the HTML.
- */
+/** Kept in a module store so the scatter is decided client side and never baked into the HTML. */
 export function startDoodleField(options: DoodleFieldOptions = {}): () => void {
   readers += 1;
 

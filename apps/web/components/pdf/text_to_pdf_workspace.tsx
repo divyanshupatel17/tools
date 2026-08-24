@@ -23,7 +23,6 @@ interface Result {
 }
 
 export interface TextToPdfWorkspaceProps {
-  /** Registry processor id, e.g. "pdf.text-to-pdf". */
   processorId: string;
   actionIcon: ComponentType<{ 'aria-hidden'?: boolean; className?: string }>;
   actionLabel: string;

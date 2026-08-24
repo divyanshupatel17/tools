@@ -87,8 +87,7 @@ export async function ToolPage({ params }: { params: Promise<{ tool_slug: string
   );
 }
 
-/** Wraps a flat tool list as one unnamed group so a small, sectionless category still renders
- * through RelatedToolsList's column/name-only layout instead of an icon grid. */
+// Wraps a flat tool list as one unnamed group so RelatedToolsList's column layout applies even without declared sections.
 function toFlatGroup(tools: ReturnType<typeof getRelatedTools>) {
   return tools.length > 0 ? [{ section: { id: 'related', name: '', tagline: '' }, tools }] : [];
 }

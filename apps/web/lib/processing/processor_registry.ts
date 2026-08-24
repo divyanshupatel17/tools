@@ -57,8 +57,7 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'pdf.pdf-to-pdfa': () => import('@/features/pdf/pdf_to_pdfa/processor'),
   'pdf.edit-pdf': () => import('@/features/pdf/edit_pdf/processor'),
 
-  // Image tools. Every conversion route below points at the one shared Convert Image
-  // processor; the target format arrives in `options`, so there is no second code path.
+  // Every image.*-to-* route shares the Convert Image processor; the target format arrives via options.
   'image.compress-image': () => import('@/features/image/compress_image/processor'),
   'image.resize-image': () => import('@/features/image/resize_image/processor'),
   'image.crop-image': () => import('@/features/image/crop_image/processor'),
@@ -131,7 +130,6 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'video.gif-maker': () => import('@/features/video/gif_maker/processor'),
   'video.screen-recorder': () => import('@/features/video/screen_recorder/processor'),
 
-  // Audio tools.
   'audio.convert-audio': () => import('@/features/audio/convert_audio/processor'),
   'audio.compress-audio': () => import('@/features/audio/compress_audio/processor'),
   'audio.video-to-audio': () => import('@/features/audio/video_to_audio/processor'),
@@ -143,7 +141,6 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'audio.voice-recorder': () => import('@/features/audio/voice_recorder/processor'),
   'audio.audio-metadata-editor': () => import('@/features/audio/audio_metadata_editor/processor'),
 
-  // Text tools.
   'text.word-counter': () => import('@/features/text/word_counter/processor'),
   'text.text-analyzer': () => import('@/features/text/text_analyzer/processor'),
   'text.case-converter': () => import('@/features/text/case_converter/processor'),
@@ -158,7 +155,6 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'text.text-diff': () => import('@/features/text/text_diff/processor'),
   'text.markdown-formatter': () => import('@/features/text/markdown_formatter/processor'),
 
-  // Developer tools.
   'developer.code-formatter': () => import('@/features/developer/code_formatter/processor'),
   'developer.code-minifier': () => import('@/features/developer/code_minifier/processor'),
   'developer.code-diff': () => import('@/features/developer/code_diff/processor'),
@@ -179,17 +175,14 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'developer.random-data-generator': () => import('@/features/developer/random_data_generator/processor'),
   'developer.lorem-ipsum': () => import('@/features/developer/lorem_ipsum_generator/processor'),
 
-  // Utilities.
   'utilities.stopwatch': () => import('@/features/utilities/stopwatch/processor'),
   'utilities.timer': () => import('@/features/utilities/timer/processor'),
   'utilities.qr-generator': () => import('@/features/utilities/qr_generator/processor'),
 
-  // AI tools.
   'ai.gemini-watermark-remover': () => import('@/features/ai/gemini_watermark_remover/processor'),
   'ai.gemini-video-watermark-remover': () =>
     import('@/features/ai/gemini_video_watermark_remover/processor'),
 
-  // Math.
   'math.calculator': () => import('@/features/math/calculator/processor'),
   'math.scientific-calculator': () => import('@/features/math/scientific_calculator/processor'),
   'math.graphing-calculator': () => import('@/features/math/graphing_calculator/processor'),

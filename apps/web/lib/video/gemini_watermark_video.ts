@@ -1,20 +1,9 @@
 /**
- * Removes the Gemini sparkle watermark from every frame of a video: detect the mark's position
- * and a single seed alpha gain once from a handful of sampled frames (voting/median across them,
- * since a single frame can be unrepresentative), then walk every frame, apply the same reverse
- * alpha blend the still image path uses at that fixed gain, and run the same residual cleanup
- * pass the reference project treats as standard.
- *
- * Demuxing, decoding, encoding and muxing all run through `mediabunny` (MPL 2.0), a WebCodecs
- * based media library, the same approach `.local/gemini-watermark-remover`'s video export uses
- * (`src/video/videoExport.js`). This keeps the whole pipeline in the browser with no FFmpeg
- * involved for the pixel work; audio is copied through as encoded packets, never re-encoded.
- *
- * This mirrors the reference project's *default* export path exactly: a fixed seed gain for the
- * whole video (`adaptiveAlpha: false` upstream), a low confidence skip per frame, and the default
- * soft residual cleanup pass. Not ported: the opt-in adaptive per frame gain refinement, the AI
- * denoise backends, the Veo text watermark family, multi track handling, low confidence override,
- * and multi file batch processing. See `docs/gemini_watermark_remover_approach.md`.
+ * Mirrors the reference project's *default* video export path only (fixed seed gain, low
+ * confidence skip, soft residual cleanup) — adaptive per frame gain, AI denoise, Veo watermarks,
+ * multi track and batch processing are not ported; see docs/gemini_watermark_remover_approach.md.
+ * Runs entirely through `mediabunny` (WebCodecs, MPL 2.0) instead of FFmpeg, so audio passes
+ * through as encoded packets, never re-encoded.
  */
 
 import {

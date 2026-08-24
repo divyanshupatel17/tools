@@ -10,11 +10,8 @@ export interface SiteStat {
 
 const inIndianDigits = (value: number) => value.toLocaleString('en-IN');
 
-/**
- * Headline figures for the landing page. Only the tool count is derived from real
- * data — visitors, files processed and uptime are static placeholders and must be
- * wired to analytics and uptime monitoring before they mean anything.
- */
+/** Only the tool count is real data; visitors, files processed and uptime are placeholders
+ * until wired to analytics/uptime monitoring. */
 export const PLACEHOLDER_VISITORS = 1_245_678;
 export const PLACEHOLDER_FILES_PROCESSED = 9_876_543;
 export const PLACEHOLDER_UPTIME = '99.9%';

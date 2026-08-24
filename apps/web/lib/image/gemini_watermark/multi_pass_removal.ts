@@ -1,17 +1,11 @@
 /**
- * Repeats the reverse alpha blend up to a few times, since some Gemini output has the mark
- * composited at more than one opacity layer and a single pass leaves a faint residual behind.
- * Stops as soon as the residual correlation with the template drops low enough, or immediately
- * if a pass looks unsafe (pixels collapsing to pure black that were not already close to it).
+ * Repeats the reverse alpha blend a few times — a multi-layer composited mark leaves residual
+ * after one pass — stopping once the residual correlation drops low enough or a pass looks
+ * unsafe (pixels collapsing toward pure black).
  *
- * Loosely based on `multiPassRemoval.js` in GargantuaX/gemini-watermark-remover (MIT licensed).
- * That version also hard rejects a pass whose region ends up darker or flatter than a reference
- * region just above the mark, as a guard against overshoot. This port drops that check: it
- * depends on repair passes this port does not implement to recover a false reject, so as a bare
- * gate it only discards otherwise correct removals whenever the real scene is unevenly lit
- * around the mark (confirmed against `v1.png`, where the area above the mark is brighter than
- * the shadowed desk corner the mark actually sits on, tripping the check on a removal that had
- * already driven the residual correlation from 0.97 to 0.03).
+ * Loosely based on `multiPassRemoval.js` in GargantuaX/gemini-watermark-remover (MIT licensed);
+ * drops its overshoot guard (rejecting a pass darker than a reference region above the mark),
+ * which false-rejected valid removals whenever the real scene was unevenly lit.
  */
 
 import { removeWatermark } from './remove_watermark';

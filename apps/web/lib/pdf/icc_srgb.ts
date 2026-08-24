@@ -1,12 +1,7 @@
-/**
- * A minimal, hand-built ICC v2.1 sRGB display profile (ICC.1:2001-04 §6), for embedding as a
- * PDF `/OutputIntent`'s `/DestOutputProfile`. PDF/A requires every output intent to reference a
- * real ICC profile — there is no npm package for this and no way to fetch third-party binary
- * profile bytes into a browser bundle honestly, so this constructs one from the spec directly,
- * matrix/curve values included, the same way the well-known "sRGB IEC61966-2.1" reference
- * profile most tools ship is built. Only the eight tags a display profile actually needs are
- * included (desc, wtpt, rXYZ/gXYZ/bXYZ, rTRC/gTRC/bTRC, cprt) — nothing decorative.
- */
+/** Hand-built ICC v2.1 sRGB display profile (ICC.1:2001-04 §6) for a PDF/A `/OutputIntent`,
+ * since there's no npm package for this and no honest way to bundle third-party profile bytes.
+ * Only the eight tags a display profile needs are included: desc, wtpt, rXYZ/gXYZ/bXYZ,
+ * rTRC/gTRC/bTRC, cprt. */
 
 function be32(value: number): number[] {
   return [(value >>> 24) & 0xff, (value >>> 16) & 0xff, (value >>> 8) & 0xff, value & 0xff];
@@ -58,9 +53,8 @@ function xyzTag(x: number, y: number, z: number): number[] {
   return padTo4([...sig('XYZ '), ...be32(0), ...s15Fixed16(x), ...s15Fixed16(y), ...s15Fixed16(z)]);
 }
 
-/** `curveType` ('curv') with a single gamma entry — a pure power-law approximation of sRGB's
- * actual piecewise transfer function, the same simplification most minimal embedded profiles
- * use; precise colourimetry is not the point here, a structurally valid, plausible profile is. */
+/** `curveType` ('curv') with a single gamma entry — a power-law approximation of sRGB's actual
+ * piecewise transfer function, good enough since exact colourimetry isn't the goal here. */
 function gammaCurveTag(gamma: number): number[] {
   const u8Fixed8 = Math.round(gamma * 256) & 0xffff;
   return padTo4([...sig('curv'), ...be32(0), ...be32(1), ...be16(u8Fixed8)]);

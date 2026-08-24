@@ -1,11 +1,6 @@
-/**
- * Peak, RMS and an ITU-R BS.1770 style integrated loudness estimate, computed client side from
- * decoded PCM so the Volume Booster's info panel and its clipping math both come from the same
- * real numbers rather than a guess. The K-weighting filter coefficients below are the BS.1770-4
- * reference pair (defined at 48kHz); applying them unadjusted at other sample rates is a small,
- * accepted approximation, and this estimate skips the standard's gating step, so it's labelled
- * "Estimated" wherever it's shown rather than claimed as a certified LUFS reading.
- */
+/** ITU-R BS.1770 style loudness estimate: K-weighting coefficients below are the BS.1770-4
+ * reference pair (48kHz), applied unadjusted at other rates and skipping the gating step —
+ * labelled "Estimated" wherever shown, not a certified LUFS reading. */
 
 export interface AudioStats {
   peak_db: number;

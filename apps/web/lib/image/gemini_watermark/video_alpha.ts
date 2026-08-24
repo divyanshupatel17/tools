@@ -1,15 +1,9 @@
 /**
- * Builds an alpha template for a video watermark candidate's logo size, from the same real
- * calibrated base maps the still image path uses (`embedded_alpha_maps.ts`). Video candidate
- * sizes rarely match a calibrated size exactly, so this resizes by area averaging (not bilinear
- * point sampling like `interpolateAlphaMap`, which loses too much shape at these smaller sizes)
- * and then sharpens the resized edges back up, matching what the source watermark actually looks
- * like at that scale.
+ * Builds an alpha template for a video candidate's logo size from the same calibrated base maps
+ * the still image path uses (`embedded_alpha_maps.ts`), resized by area averaging — not bilinear
+ * point sampling like `interpolateAlphaMap`, which loses too much shape at these smaller sizes.
  *
- * Ported from the relevant parts of `videoWatermarkDetector.js` in
- * GargantuaX/gemini-watermark-remover (MIT licensed): `resizeAlphaMapArea`,
- * `resolveVideoAlphaEdgeBoost`, `enhanceVideoAlphaEdges`, `getVideoAlphaMap`. The alpha shape
- * auto tuning and outline/dark polarity variants this port does not use are left out.
+ * Ported from `videoWatermarkDetector.js` in GargantuaX/gemini-watermark-remover (MIT licensed).
  */
 
 import { getEmbeddedAlphaMap } from './embedded_alpha_maps';

@@ -16,12 +16,8 @@ function splitTableRow(line: string): string[] {
   return inner.split('|').map((cell) => cell.trim());
 }
 
-/**
- * A small, forgiving GFM-subset parser: headings, unordered/ordered lists, fenced code
- * blocks, pipe tables, blockquotes, horizontal rules and paragraphs, with inline `**bold**`,
- * `*italic*`, `~~strikethrough~~`, `` `code` `` and `[text](url)` links resolved via
- * `markdown_inline.ts`. Images are not resolved, the markup is left as literal text.
- */
+/** A forgiving GFM-subset parser (headings, lists, fenced code, pipe tables, blockquotes, hr,
+ * paragraphs). Images are not resolved; the markup is left as literal text. */
 export function parseMarkdownToBlocks(source: string): DocBlock[] {
   const lines = source.replace(/\r\n/g, '\n').split('\n');
   const blocks: DocBlock[] = [];
@@ -42,7 +38,7 @@ export function parseMarkdownToBlocks(source: string): DocBlock[] {
         codeLines.push(lines[index]!);
         index += 1;
       }
-      index += 1; // skip closing fence
+      index += 1;
       blocks.push({ type: 'code', lines: codeLines });
       continue;
     }
@@ -84,7 +80,7 @@ export function parseMarkdownToBlocks(source: string): DocBlock[] {
       TABLE_DIVIDER.test(lines[index + 1]!.trim())
     ) {
       const rows: InlineSpan[][][] = [splitTableRow(line).map((cell) => parseInlineMarkdown(cell))];
-      index += 2; // header + divider
+      index += 2;
       while (index < lines.length && TABLE_ROW.test(lines[index]!.trim())) {
         rows.push(splitTableRow(lines[index]!).map((cell) => parseInlineMarkdown(cell)));
         index += 1;
@@ -112,7 +108,6 @@ export function parseMarkdownToBlocks(source: string): DocBlock[] {
       continue;
     }
 
-    // Paragraph: consume until a blank line or the start of another block type.
     const paragraphLines = [line.trim()];
     index += 1;
     while (

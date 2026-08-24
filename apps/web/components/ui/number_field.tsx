@@ -10,24 +10,13 @@ export interface NumberFieldProps {
   disabled?: boolean;
   className?: string;
   id?: string;
-  /**
-   * Lets the field hold a fractional value like `1.5` or `55.5`. Defaults to whole numbers
-   * only. Turn this on anywhere a person would reasonably type a fraction — a target file size
-   * foremost, since "1.5 MB" is a completely ordinary target and clamping it to "1" or "2" is
-   * not what anyone asked for.
-   */
+  // Without this the field silently rejects the decimal point, wrong for a fractional target like "1.5 MB".
   allowDecimal?: boolean;
   'aria-label'?: string;
-  /** Passed straight to the underlying input, e.g. for a grid that wires up arrow key navigation. */
   onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
-/**
- * A number input that stays editable while the user is typing: the field can go empty
- * or hold a partial value (including a trailing "." with `allowDecimal`) without the parent
- * snapping it back, so backspace works. It only clamps to `min`/`max` and reports a final
- * value once the field loses focus.
- */
+// Stays editable while typing: the field can go empty or hold a partial value without the parent snapping it back; clamps to min/max only on blur.
 export const NumberField = forwardRef<HTMLInputElement, NumberFieldProps>(function NumberField(
   { value, onChange, min, max, disabled, className, id, allowDecimal = false, onKeyDown, ...aria },
   ref,

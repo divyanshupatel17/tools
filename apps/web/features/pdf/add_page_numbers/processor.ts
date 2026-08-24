@@ -52,8 +52,7 @@ const addPageNumbers: ToolProcessor<AddPageNumbersOptions> = async (input, conte
     let x: number;
     let y: number;
     if (isCustomPosition(position)) {
-      // Fractional coordinates are page-relative, origin bottom left, same space as pdf-lib points.
-      // The point marks the text's visual center, matching the drag handle's centered anchor in the preview.
+      // Position marks the text's visual center, matching the drag handle's centered anchor in the preview.
       x = position.x * width - textWidth / 2;
       y = position.y * height - font_size * 0.35;
     } else {

@@ -1,12 +1,10 @@
 /**
- * Ties the pieces together: look up the plausible watermark positions for this image size from
- * the catalog, score each one against its real alpha template, keep the best one that clears the
- * confidence gate, and remove it with the exact inverse blend (repeated if a residual remains).
+ * Ties the pieces together: catalog lookup, correlation scoring against the real alpha
+ * template, and inverse blend removal (repeated if a residual remains).
  *
- * This intentionally implements only the core pipeline described in
- * `docs/gemini_watermark_remover_approach.md` — the catalog lookup, the real templates, the
- * correlation gate and multi pass removal — not the long tail of narrowly scoped rescue passes
- * the upstream project has accumulated. See that document before extending this.
+ * Intentionally implements only the core pipeline from
+ * `docs/gemini_watermark_remover_approach.md`, not the upstream project's long tail of
+ * narrowly scoped rescue passes. See that doc before extending this.
  */
 
 import { classifyStandardWatermarkSignal } from './decision_policy';
@@ -38,8 +36,7 @@ function resolveAlphaMap(config: WatermarkConfig): Float32Array | null {
   const embedded = getEmbeddedAlphaMap(key);
   if (embedded) return embedded;
 
-  // No exact embedded map for this size (a near official projected candidate, most often):
-  // interpolate from the closest calibrated size in the same family.
+  // No exact embedded map (a projected candidate, most often): interpolate from the closest calibrated size.
   const baseKey = config.logoSize >= 72 ? '96' : '48';
   const base = getEmbeddedAlphaMap(baseKey);
   if (!base) return null;
@@ -64,7 +61,6 @@ function isPositionInBounds(position: WatermarkPosition, width: number, height: 
   );
 }
 
-/** Scores every plausible catalog position and returns the best direct match, if any. */
 function findBestCandidate(imageData: ImageData): ScoredCandidate | null {
   const { width, height } = imageData;
   const defaultConfig = detectWatermarkConfig(width, height);
@@ -96,10 +92,9 @@ function findBestCandidate(imageData: ImageData): ScoredCandidate | null {
 const VIDEO_FALLBACK_MIN_CONFIDENCE = 0.18;
 
 /**
- * Falls back to the video frame catalog when nothing in the still image catalog matches: a frame
- * pulled from Gemini video output uses video specific sizes/margins (`video_size_catalog.ts`) and
- * has its watermark alpha attenuated by re encoding, so it needs a gain estimated from that
- * frame's own background rather than the still image path's fixed strength blend.
+ * Fallback when the still image catalog has no match: a video sourced frame uses video specific
+ * sizes/margins and has its alpha attenuated by re encoding, so removal needs a gain estimated
+ * from the frame's own background rather than a fixed strength blend.
  */
 function findBestVideoCandidate(imageData: ImageData) {
   const candidates = resolveVideoWatermarkCandidates(imageData.width, imageData.height);
@@ -131,16 +126,13 @@ function removeWithVideoCandidate(
 }
 
 /**
- * Detects and removes the Gemini sparkle watermark from `imageData` (mutated copies only; the
- * input is never modified). Returns the original pixels unchanged, with `found: false`, when
- * nothing in either catalog clears its confidence gate — this never forces a guess.
+ * Detects and removes the Gemini sparkle watermark from `imageData` (never mutates the input).
+ * Returns `found: false` unchanged when nothing clears the confidence gate — never a guess.
  *
- * The still image catalog only ever contains Gemini's own official output sizes exactly; for any
- * other size (most often a frame pulled from a Gemini video) its "match" is a projected guess
- * that can land close enough to a real, but differently attenuated, video watermark to pass the
- * direct match gate and then over subtract at the still image path's fixed strength. So an exact
- * catalog size trusts the still image path outright, but anything else prefers the video path
- * (which estimates its own blend strength from the image) whenever it also finds a match.
+ * An exact still-image catalog size trusts that path outright; any other size gets a projected
+ * still-image "match" that can pass the gate but over subtract, since it's often really a
+ * differently attenuated video watermark — so non-exact sizes prefer the video path (which
+ * estimates its own blend strength) whenever it also finds a match.
  */
 export function removeGeminiWatermark(imageData: ImageData): GeminiWatermarkResult {
   const { width, height } = imageData;

@@ -22,10 +22,8 @@ export type CompressResponse =
   | { type: 'done'; bytes: ArrayBuffer; images_recompressed: number; images_total: number }
   | { type: 'error'; message: string };
 
-/** Reference points kept from the old three-step presets: the longest edge a photo is
- * downsampled to at the extremes of the quality range. A low quality choice is for a
- * scanned document going by email, not an archive copy, so it is allowed to downsample
- * further than a high quality choice. */
+/** Longest edge a photo downsamples to at each quality extreme; low quality (email-bound
+ * scans) is allowed to downsample further than high quality (archive copies). */
 const PRESETS: Record<CompressLevel, { quality: number; maxDimension: number }> = {
   low: { quality: 0.82, maxDimension: 2200 },
   medium: { quality: 0.65, maxDimension: 1600 },
@@ -45,14 +43,8 @@ function maxDimensionForQuality(quality: number): number {
 const post = (message: CompressResponse, transfer?: Transferable[]) =>
   (self as unknown as DedicatedWorkerGlobalScope).postMessage(message, transfer ?? []);
 
-/**
- * Recompressing every embedded raster correctly requires decoding its colour space (DeviceGray,
- * CMYK, Indexed, ICC-based...), and a soft mask's own image object is required by spec to carry
- * `ColorSpace /DeviceGray`. Re-encoding as a browser JPEG always produces DeviceRGB output, so
- * touching anything but a plain 8-bit DeviceRGB JPEG would corrupt the colours or break a mask.
- * Restricting to that one, extremely common case (a photo or scanned page) keeps every rewrite
- * provably safe instead of merely "usually fine".
- */
+/** Browser JPEG re-encoding always outputs 8-bit DeviceRGB, which would corrupt any other
+ * colour space (CMYK, Indexed, soft masks) — only rewrite streams already in that format. */
 function isRecompressibleJpeg(dict: PDFDict): boolean {
   const subtype = dict.lookup(PDFName.of('Subtype'));
   if (subtype !== PDFName.of('Image')) return false;

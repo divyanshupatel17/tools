@@ -1,20 +1,10 @@
 'use client';
 
 /**
- * PDF Standard Security Handler, revision 6 (AES-256), per ISO 32000-2 Annex. This is the
- * modern handler — every current reader (Acrobat, Chrome/Firefox's built-in viewers, Preview)
- * supports it; the legacy RC4 / AES-128 handlers (revisions 2-4) are not implemented, since
- * they exist only for backward compatibility with pre-2017 readers.
- *
- * Everything here is built on Web Crypto's native AES-CBC and SHA-256/384/512 — no bundled
- * crypto library. AES-CBC in the browser always applies PKCS#7 padding and there is no way to
- * turn that off, but three places in the spec (the U/O password-validation hashes wrapping the
- * file key, and the /Perms block) are defined as *unpadded* CBC/ECB on data that is already a
- * whole number of blocks. `ecbEncryptBlock` derives a raw single-block AES-ECB primitive from
- * CBC-with-a-zero-IV (the first block of CBC-with-zero-IV *is* ECB of that block; the padding
- * block Web Crypto tacks on afterwards is simply discarded), and `cbcNoPadding{En,De}crypt`
- * build unpadded multi-block CBC out of that ECB primitive. General string/stream content, by
- * contrast, genuinely does use padded CBC per spec, so that path calls Web Crypto directly.
+ * PDF Standard Security Handler r6 (AES-256, ISO 32000-2 Annex) — legacy RC4/AES-128 handlers
+ * not implemented. Built on Web Crypto's AES-CBC/SHA-2, which only exposes *padded* CBC; three
+ * spec-required unpadded ECB/CBC operations (U/O hash wrapping, /Perms) are instead derived from
+ * CBC-encrypt-with-zero-IV — see `ecbEncryptBlock`.
  */
 
 const ZERO_IV = new Uint8Array(16);

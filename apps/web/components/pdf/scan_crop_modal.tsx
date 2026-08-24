@@ -64,12 +64,8 @@ function rectFromQuad(quad: readonly [Point, Point, Point, Point]): Rect {
   return { x, y, w: Math.max(...xs) - x, h: Math.max(...ys) - y };
 }
 
-/**
- * Crops one scanned image: freeform rectangle, ratio-locked rectangle, or a four-corner
- * perspective quad ("Auto detect" seeds it from `detectDocumentCorners`, then the user drags
- * corners to fix it up). All three modes share one canvas loaded once on mount; only the last
- * apply step differs (`applyRectCrop` vs. `applyPerspectiveCrop`), both fully on-device.
- */
+// All three crop modes share one canvas loaded once on mount; only the apply step differs
+// (applyRectCrop vs. applyPerspectiveCrop).
 export function ScanCropModal({ file, onApply, onCancel }: ScanCropModalProps) {
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
   const [mode, setMode] = useState<Mode>('perspective');
@@ -78,8 +74,8 @@ export function ScanCropModal({ file, onApply, onCancel }: ScanCropModalProps) {
   const [rect, setRect] = useState<Rect | null>(null);
   const [applying, setApplying] = useState(false);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  // Mirrors naturalSizeRef for render-time reads (aspect ratio, corner percentages): a ref read
-  // during render is a lint error (react-hooks/refs) and can go stale across concurrent renders.
+  // Mirrors the naturalSize ref for render-time reads: reading a ref during render is a lint
+  // error and can go stale across concurrent renders.
   const [naturalSizeState, setNaturalSizeState] = useState({ width: 0, height: 0 });
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);

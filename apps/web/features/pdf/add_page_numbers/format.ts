@@ -8,7 +8,7 @@ export type PageNumberPosition =
 
 export type PageNumberFormat = 'n' | 'n-of-total' | 'page-n' | 'roman';
 
-/** Points, matching pdf-lib's coordinate space — shared so the preview matches the export exactly. */
+/** Shared with the preview so it matches pdf-lib's point coordinate space exactly. */
 export const PAGE_NUMBER_MARGIN_PT = 28;
 
 const ROMAN_TABLE: Array<[number, string]> = [

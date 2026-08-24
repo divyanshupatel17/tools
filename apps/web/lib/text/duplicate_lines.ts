@@ -25,9 +25,8 @@ function normalizeKey(line: string, options: DuplicateOptions): string {
   return key;
 }
 
-/** Marks every line as a duplicate or not, keeping the original order and count intact — for
- * highlighting duplicates in place, not removing them. An empty line, when Ignore Empty Lines
- * is on, is never compared against anything, including other empty lines. */
+/** Marks duplicates in place without removing lines. With Ignore Empty Lines on, an empty line
+ * is never compared against anything, including other empty lines. */
 export function markDuplicates(text: string, options: DuplicateOptions = {}): DuplicateLineInfo[] {
   const lines = text === '' ? [] : text.split('\n');
   const ignoreEmpty = options.ignore_empty_lines ?? false;
@@ -38,8 +37,7 @@ export function markDuplicates(text: string, options: DuplicateOptions = {}): Du
   const counts = new Map<string, number>();
   for (const key of keys) if (key !== null) counts.set(key, (counts.get(key) ?? 0) + 1);
 
-  // Whichever occurrence should survive is visited first in this order, so it's the one that
-  // reads as "already seen" once for its key — everything visited afterwards is the duplicate.
+  // The occurrence that should survive is visited first, so later visits are the duplicates.
   const order = keepFirst
     ? lines.map((_, index) => index)
     : lines.map((_, index) => index).reverse();

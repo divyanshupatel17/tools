@@ -12,11 +12,7 @@ import {
   subscribeSearchOverlay,
 } from './search_overlay_store';
 
-/**
- * The one search surface for the whole site: the navbar button and the homepage hero bar are
- * both just triggers (see header_search_button.tsx and hero_search_trigger.tsx) that call
- * openSearchOverlay() — this is what actually opens, lifted above a dimmed, blurred page.
- */
+// The one search surface for the whole site; header_search_button.tsx and hero_search_trigger.tsx just call openSearchOverlay() to open it.
 export function SearchOverlay() {
   const open = useSyncExternalStore(
     subscribeSearchOverlay,
@@ -25,8 +21,7 @@ export function SearchOverlay() {
   );
   const pathname = usePathname();
 
-  // A result click navigates via <Link>, which changes the path without unmounting this
-  // portal — close explicitly so the overlay doesn't sit open over the new page.
+  // <Link> navigation changes the path without unmounting this portal — close explicitly.
   useEffect(() => {
     closeSearchOverlay();
   }, [pathname]);

@@ -11,12 +11,10 @@ export type CaseId =
 
 export interface CaseOption {
   id: CaseId;
-  /** The case's own name, shown verbatim — some of these are punctuated by definition
-   * (snake_case, kebab-case, CONSTANT_CASE), which is the format's identity, not prose. */
+  /** Shown verbatim — some (snake_case, kebab-case, CONSTANT_CASE) are punctuated by
+   * definition, not prose, so never "fix" the punctuation here. */
   label: string;
-  /** Two character monogram shown in the case's icon badge. */
   monogram: string;
-  /** Base file name (no extension) used when a single case's result is downloaded. */
   fileName: string;
 }
 
@@ -32,8 +30,7 @@ export const CASE_OPTIONS: readonly CaseOption[] = [
   { id: 'constant', label: 'CONSTANT_CASE', monogram: 'C_', fileName: 'CONSTANT_CASE' },
 ];
 
-// A sentence ends at ./!/? followed by whitespace, or at a line break; captured so the
-// delimiters themselves pass through untouched while the text either side gets capitalized.
+// Captured so delimiters pass through untouched while text either side gets capitalized.
 const SENTENCE_BOUNDARY = /([.!?]+\s+|\n+)/;
 
 function capitalizeFirstLetter(segment: string): string {
@@ -52,9 +49,8 @@ function toTitleCase(text: string): string {
   return text.toLowerCase().replace(/[a-z]/, (ch) => ch).replace(/\b[a-z]/g, (ch) => ch.toUpperCase());
 }
 
-/** Splits one line into words: camelCase/PascalCase boundaries, snake/kebab separators, and
- * any other punctuation all count as breaks, so pasting an existing identifier normalizes
- * cleanly into any other case. */
+/** camelCase/PascalCase boundaries, snake/kebab separators, and other punctuation all count
+ * as word breaks, so pasting an existing identifier normalizes cleanly into any other case. */
 function tokenizeLine(line: string): string[] {
   return line
     .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
@@ -92,8 +88,7 @@ function toConstantWords(words: readonly string[]): string {
   return words.map((word) => word.toUpperCase()).join('_');
 }
 
-/** Runs an identifier style case per line, so a pasted list of phrases becomes a list of
- * identifiers — one per line — rather than one giant run-on identifier. */
+/** Runs per line, so a pasted list of phrases becomes a list of identifiers, not one run-on. */
 function convertIdentifierCase(text: string, build: (words: readonly string[]) => string): string {
   return text
     .split('\n')

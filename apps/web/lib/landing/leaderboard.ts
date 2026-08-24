@@ -3,11 +3,8 @@ export interface LeaderboardRow {
   score: number;
 }
 
-/**
- * The runner keeps a personal best in localStorage. There is no backend, so the
- * weekly board and the all-time figure are a static sample until one exists —
- * swap this module for a fetch when scores are actually recorded somewhere.
- */
+/** No backend yet: weekly board and all-time figure are a static sample until scores are
+ * actually recorded somewhere and this becomes a fetch. */
 export const WEEKLY_TOP_5: readonly LeaderboardRow[] = [
   { name: 'CodeWithHarry', score: 45876 },
   { name: 'devSam', score: 41234 },

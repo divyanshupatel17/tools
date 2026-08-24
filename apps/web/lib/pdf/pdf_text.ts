@@ -12,12 +12,8 @@ type PdfjsTextModule = typeof import('pdfjs-dist/legacy/build/pdf.mjs');
 
 let pdfjsText: Promise<PdfjsTextModule> | null = null;
 
-/**
- * The legacy build works in both the browser and Node (so this file is unit-testable). In a
- * browser, pdf.js insists on a real `Worker` and throws without a configured `workerSrc`; in
- * Node there is no `Worker` global, so it falls back to running on the main thread regardless
- * of this setting, which is what makes running the same loader under Vitest safe.
- */
+/** The legacy build works in both browser and Node (unit-testable). In Node there's no `Worker`
+ * global, so pdf.js falls back to the main thread regardless of `workerSrc`. */
 function loadPdfjsText(): Promise<PdfjsTextModule> {
   pdfjsText ??= import('pdfjs-dist/legacy/build/pdf.mjs').then((library) => {
     // Only the browser has a `Worker` global to spawn; setting `workerSrc` in Node makes
@@ -65,11 +61,8 @@ function toPdfTextItem(raw: RawTextItem): PdfTextItem {
   return { text: raw.str, x: e, y: f, width: raw.width ?? 0, fontSize: fontSize || 12 };
 }
 
-/**
- * Groups text runs into lines by y-position: pdf.js reports one item per run of same-style
- * text, not per visual line, so consecutive runs at (nearly) the same baseline are merged.
- * `hasEOL` closes a line even when nothing follows it on the page.
- */
+/** pdf.js reports one item per run of same-style text, not per visual line, so runs at
+ * (nearly) the same baseline are merged; `hasEOL` closes a line early. */
 function groupIntoLines(items: readonly unknown[]): PdfTextLine[] {
   const lines: PdfTextLine[] = [];
   let currentText = '';
@@ -108,12 +101,8 @@ function groupIntoLines(items: readonly unknown[]): PdfTextLine[] {
   return lines;
 }
 
-/**
- * Reads every page's text in the order pdf.js exposes it, which is reading order for
- * ordinary single-column pages but can interleave columns or floated boxes on complex
- * layouts — a known limitation of extracting from the content stream rather than a real
- * layout engine.
- */
+/** Reads text in pdf.js's content-stream order, which matches reading order for simple
+ * single-column pages but can interleave columns or floated boxes on complex layouts. */
 export async function extractPdfText(
   file: File,
   signal?: AbortSignal,
@@ -141,14 +130,8 @@ export async function extractPdfText(
   }
 }
 
-/**
- * Reads every page's text items with their raw PDF.js positions, ungrouped, for tools that need
- * real column geometry rather than the flattened `PdfTextLine[]` `extractPdfText` produces —
- * currently PDF to Excel's position-based column clustering
- * (`features/pdf/pdf_to_excel/processor.ts`). Shares the same pdf.js loader and page-iteration
- * shape as `extractPdfText` so both readers behave identically for worker setup, abort handling
- * and progress reporting.
- */
+/** Reads raw, ungrouped pdf.js text items for tools needing real column geometry rather than
+ * the flattened `PdfTextLine[]` from `extractPdfText` (e.g. PDF to Excel's column clustering). */
 export async function extractPdfTextItems(
   file: File,
   signal?: AbortSignal,

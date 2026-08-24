@@ -5,7 +5,6 @@ export interface CollageLayout {
   cols: number;
 }
 
-/** Grid layouts offered in the control panel, from a single frame up to a full nine cell grid. */
 export const LAYOUTS: readonly CollageLayout[] = [
   { id: '1x1', label: '1 × 1', rows: 1, cols: 1 },
   { id: '1x2', label: '1 × 2', rows: 1, cols: 2 },
@@ -20,8 +19,7 @@ export const LAYOUTS: readonly CollageLayout[] = [
 
 export const DEFAULT_LAYOUT_ID = '2x2';
 
-/** Long edge of the exported collage in pixels. Shared so the workspace can state the exact
- *  export size in its caption instead of guessing at it. */
+/** Must stay in sync with the workspace, which states this exact export size in its caption. */
 export const EXPORT_LONG_EDGE = 2000;
 
 export function findLayout(id: string | undefined): CollageLayout {
@@ -30,10 +28,7 @@ export function findLayout(id: string | undefined): CollageLayout {
   );
 }
 
-/**
- * The tightest preset grid that holds `count` pictures with as few empty cells as possible,
- * so a fresh collage starts sized to what was actually uploaded instead of a fixed 2 x 2.
- */
+/** Picks the tightest preset grid holding `count` pictures, tie-broken toward the squarest shape. */
 export function autoLayoutFor(count: number): CollageLayout {
   if (count <= 0) return findLayout(DEFAULT_LAYOUT_ID);
   const fitting = LAYOUTS.filter((item) => item.rows * item.cols >= count);
@@ -73,7 +68,6 @@ export function findAspectRatio(id: string | undefined): AspectRatioOption {
   );
 }
 
-/** Resolves the finished canvas size in pixels for a layout, aspect choice and long edge length. */
 export function computeCanvasSize(
   layout: CollageLayout,
   aspectRatioId: string | undefined,

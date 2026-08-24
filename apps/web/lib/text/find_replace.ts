@@ -13,8 +13,7 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-/** Builds the pattern `findMatches`/`replaceAll` search with. Throws with a message fit to show
- * the user directly when Regular expression is on and the pattern itself is invalid. */
+/** Throws a message fit to show the user directly when Regular expression is on and invalid. */
 export function buildFindPattern(find: string, options: FindReplaceOptions): RegExp {
   const flags = options.case_sensitive ? 'g' : 'gi';
   if (options.regex) {
@@ -40,8 +39,8 @@ export function findMatches(
   let match: RegExpExecArray | null;
   while ((match = pattern.exec(text))) {
     matches.push({ index: match.index, length: match[0].length });
-    // A pattern that can match an empty string (e.g. "a*") would otherwise loop forever at
-    // the same index, since exec() never advances lastIndex on its own for a zero length match.
+    // A pattern that can match empty (e.g. "a*") would loop forever: exec() never advances
+    // lastIndex on its own for a zero length match.
     if (match[0].length === 0) pattern.lastIndex += 1;
   }
   return matches;
@@ -64,8 +63,8 @@ export function replaceAll(
   return result + text.slice(cursor);
 }
 
-/** Replaces only the first match at or after `fromIndex`, wrapping around to the start of the
- * text if every match is before it — mirrors what "Find Next" already selected. */
+/** Replaces the first match at or after `fromIndex`, wrapping to the start if every match is
+ * before it — mirrors what "Find Next" already selected. */
 export function replaceOne(
   text: string,
   find: string,

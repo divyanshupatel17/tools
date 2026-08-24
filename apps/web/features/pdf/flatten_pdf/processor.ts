@@ -4,12 +4,8 @@ import { replaceExtension } from '@tools/file_utils';
 
 export type FlattenPdfOptions = Record<string, unknown>;
 
-/**
- * Bakes every AcroForm field's current appearance into its page's content stream and removes
- * the interactive fields and widget annotations, via pdf-lib's `form.flatten()`. What is left
- * looks identical but can no longer be filled in — the same one-way operation a print-to-PDF
- * would produce, done without leaving the browser.
- */
+// pdf-lib's form.flatten() bakes each field's current appearance into the page content and
+// removes the interactive widgets, so the output can no longer be filled in.
 const flattenPdf: ToolProcessor<FlattenPdfOptions> = async (input, context) => {
   const file = input.files[0];
   if (!file) throw new ProcessorError('missing_file', 'Add a PDF to flatten.');

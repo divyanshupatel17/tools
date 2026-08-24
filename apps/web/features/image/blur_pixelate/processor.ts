@@ -34,11 +34,8 @@ const MAX_BYTES = 60 * 1024 * 1024;
 
 const MAX_STRENGTH = 20;
 
-/**
- * Block size as a fraction of the region's own smaller side, not a fixed pixel count, so a
- * region drawn on a small preview canvas and the same region applied at full export resolution
- * look equally pixelated. Strength 1 gives a barely blocky look; strength 20 is heavily blocky.
- */
+/** Block size scales with the region's own smaller side, not a fixed pixel count, so a small
+ * preview canvas and full export resolution look equally pixelated. */
 function pixelateBlockSize(strength: number, regionWidth: number, regionHeight: number): number {
   const base = Math.min(regionWidth, regionHeight);
   const fraction = 0.03 + (Math.min(MAX_STRENGTH, Math.max(1, strength)) / 10) * 0.22;
@@ -58,12 +55,8 @@ function blurRadius(
   return Math.max(1, base * fraction);
 }
 
-/**
- * Genuinely destroys the pixels under each region: pixelate downsamples the region to a small
- * canvas and draws it back up with smoothing disabled, blur draws the region through the canvas
- * `filter` property. Both replace the region's pixels in place; nothing is merely painted over
- * the top, so the source detail cannot be recovered from the exported file.
- */
+/** Both effects replace the region's pixels in place (downsample+redraw for pixelate, canvas
+ * `filter` for blur) rather than painting over them, so source detail is not recoverable. */
 export function renderRegions(
   source: CanvasImageSource,
   width: number,

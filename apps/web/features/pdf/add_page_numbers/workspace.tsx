@@ -40,7 +40,7 @@ interface Result {
   pages: number;
 }
 
-/** Converts a preset to a fractional page position, origin bottom left, so switching into drag mode starts near the preset. */
+/** So switching to drag mode starts near the previously chosen preset. */
 function presetToFraction(
   preset: PageNumberPosition,
   pageSize: { width: number; height: number } | null,

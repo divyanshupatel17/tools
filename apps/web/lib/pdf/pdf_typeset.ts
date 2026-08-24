@@ -23,11 +23,9 @@ export type DocBlock =
   | { type: 'blockquote'; lines: InlineSpan[][] }
   /** Small gray label line, e.g. a notebook cell's "In [1]" / "Out[1]" marker. */
   | { type: 'caption'; text: string }
-  /** A raster image, embedded and scaled to fit within one page (e.g. a notebook's plot output). */
   | { type: 'image'; bytes: Uint8Array; format: 'png' | 'jpeg' }
-  /** Forces a new page regardless of remaining space — for a source with its own real page or
-   * slide boundaries (PowerPoint to PDF, one PDF page per slide), where letting content flow
-   * across pages the way body text does would lose that boundary. */
+  /** Forces a new page even if space remains, to preserve a source's own page/slide boundaries
+   * (e.g. PowerPoint to PDF) that flowing text across pages would otherwise lose. */
   | { type: 'pagebreak' };
 
 export type TypesetPageSize = 'a4' | 'letter';
@@ -105,7 +103,6 @@ class Typesetter {
       this.drawLine(line, font, fonts, size, x, color);
   }
 
-  /** Wraps and draws inline-styled spans (bold/italic/code), one already-wrapped line per call to `drawInlineLine`. */
   drawSpansWrapped(
     spans: readonly InlineSpan[],
     fonts: UnicodeFonts,
@@ -165,13 +162,8 @@ class Typesetter {
   }
 }
 
-/**
- * Typesets a generic block model (produced by a Markdown or HTML parser) into a PDF, using
- * embedded Unicode fonts (`unicode_font.ts`) rather than pdf-lib's WinAnsi-only standard fonts,
- * so arrows, smart quotes and non-Latin text never throw a "WinAnsi cannot encode" error, and
- * inline styling (`**bold**`, `*italic*`, `` `code` ``) draws in the matching font instead of
- * as literal markup.
- */
+/** Uses embedded Unicode fonts (`unicode_font.ts`) instead of pdf-lib's WinAnsi-only standard
+ * fonts, since WinAnsi throws on arrows, smart quotes and non-Latin text. */
 export async function renderBlocksToPdf(
   blocks: readonly DocBlock[],
   options: TypesetOptions,

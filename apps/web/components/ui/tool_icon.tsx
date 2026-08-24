@@ -179,7 +179,6 @@ const ICONS: Record<string, LucideIcon> = {
   Wrench,
 };
 
-/** Resolves the registry's `icon` string to a lucide icon, falling back to a wrench. */
 export function ToolIcon({ name, className }: { name: string; className?: string }) {
   const Icon = ICONS[name] ?? Wrench;
   return <Icon aria-hidden className={cn('size-5', className)} />;

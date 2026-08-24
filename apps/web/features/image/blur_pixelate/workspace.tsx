@@ -176,8 +176,6 @@ export function BlurPixelateWorkspace() {
     return regions.map((item) => item.region);
   }
 
-  // Re-paints the live preview with the real blur or pixelate effect, not a placeholder, on
-  // every option, region and mode change.
   useEffect(() => {
     const canvas = canvasRef.current;
     const size = displaySize;
@@ -389,8 +387,6 @@ export function BlurPixelateWorkspace() {
             </div>
           )}
 
-          {/* Only the marked areas mode is interactive. Whole image mode renders no overlay at
-              all, so no drag handler can fire while it is selected. */}
           {mode === 'regions' && displaySize && (
             <div
               ref={overlayRef}

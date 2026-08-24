@@ -5,10 +5,8 @@ export interface MarkdownRenderResult {
   html: string;
   /** Source line for each task checkbox, in document order — see `lib/text/markdown/tasks.ts`. */
   task_lines: number[];
-  /** Raw Mermaid source for each ```mermaid fence, in document order. The HTML already contains
-   * a placeholder `<div data-mermaid-index="N">` for each one; the caller renders the actual
-   * diagram into that element once Mermaid itself has loaded — see
-   * `renderMermaidDiagrams` below. */
+  /** Raw Mermaid source for each ```mermaid fence, in document order; the HTML already has a
+   * placeholder `<div data-mermaid-index="N">` for each, rendered by `renderMermaidDiagrams`. */
   mermaid_blocks: string[];
 }
 
@@ -30,14 +28,9 @@ function slugify(text: string): string {
     .replace(/\s+/g, '-');
 }
 
-/**
- * Builds the whole rendering pipeline once and reuses it: markdown-it plus every plugin this
- * tool needs (footnotes, heading anchors, emoji shortcodes, LaTeX via KaTeX, GFM task lists and
- * GitHub style alerts, syntax highlighted and Mermaid aware code fences) and a DOMPurify pass on
- * the resulting HTML. Everything here is a heavy, rarely needed library, so it is loaded lazily
- * on first render rather than at module load — the same lazy boundary pattern
- * `lib/processing/processor_registry.ts` uses for FFmpeg and pdf-lib.
- */
+/** Everything here is a heavy, rarely needed library, so it's loaded lazily on first render
+ * rather than at module load — the same lazy boundary `lib/processing/processor_registry.ts`
+ * uses for FFmpeg and pdf-lib. */
 async function buildEngine(): Promise<MarkdownEngine> {
   const [
     { default: MarkdownItCtor },
@@ -62,10 +55,8 @@ async function buildEngine(): Promise<MarkdownEngine> {
   let mermaidBlocks: string[] = [];
 
   const md = new MarkdownItCtor({
-    // Raw HTML blocks/inline (tables, <kbd>, <sub>/<sup>, <abbr>, <mark>, <u>, aligned <div>s —
-    // all common in real world markdown) need to reach the DOM as elements, not escaped text.
-    // DOMPurify below is what actually makes this safe: it strips anything dangerous (script
-    // tags, event handler attributes, javascript: URLs) from the rendered HTML afterwards.
+    // Raw HTML passes through unescaped; DOMPurify below is what makes this safe by stripping
+    // anything dangerous from the rendered HTML afterwards.
     html: true,
     linkify: true,
     typographer: false,
@@ -87,10 +78,8 @@ async function buildEngine(): Promise<MarkdownEngine> {
     },
   });
 
-  // footnote and emoji's own type declarations resolve markdown-it through a `require()`
-  // specifier, which TypeScript ends up treating as a structurally distinct (if identical at
-  // runtime) `MarkdownIt` type from the ESM import above — a known dual module format quirk,
-  // not a real incompatibility. `md.use`'s own typing is loose enough to need only this cast.
+  // footnote/emoji's types resolve markdown-it via require(), which TS treats as a distinct
+  // (if identical at runtime) MarkdownIt type from the ESM import above — hence the cast.
   md.use(footnote as unknown as (md: MarkdownIt) => void);
   md.use(emojiFull as unknown as (md: MarkdownIt) => void);
   md.use(anchor, {
@@ -136,14 +125,10 @@ export function loadMarkdownEngine(): Promise<MarkdownEngine> {
   return enginePromise;
 }
 
-/**
- * Renders every ```mermaid fence's placeholder (see `MarkdownRenderResult.mermaid_blocks`) into
- * real SVG inside `container`. Runs after the sanitized HTML is already in the DOM: Mermaid
- * generates its own trusted SVG from parsed diagram syntax, so this bypasses DOMPurify by design
- * rather than round tripping generated markup back through a sanitizer built for arbitrary HTML.
- * A block whose syntax Mermaid rejects shows its own inline error, not a blank space, and never
- * fails the rest of the preview.
- */
+/** Runs after the sanitized HTML is already in the DOM: Mermaid generates trusted SVG from
+ * parsed diagram syntax, so this deliberately bypasses DOMPurify rather than round tripping it
+ * back through a sanitizer built for arbitrary HTML. A rejected diagram shows its own inline
+ * error and never fails the rest of the preview. */
 export async function renderMermaidDiagrams(
   container: HTMLElement,
   blocks: readonly string[],
@@ -154,9 +139,8 @@ export async function renderMermaidDiagrams(
     startOnLoad: false,
     theme: 'neutral',
     securityLevel: 'strict',
-    // Mermaid's own default error handling inserts a "bomb" error graphic straight into
-    // `document.body`, outside any container this function controls. Suppressing it and
-    // validating with `parse()` first keeps a bad diagram's failure inside its own placeholder.
+    // Mermaid's default error handling inserts a "bomb" graphic into document.body, outside
+    // this function's container — suppress it so a bad diagram's failure stays in its placeholder.
     suppressErrorRendering: true,
   });
 

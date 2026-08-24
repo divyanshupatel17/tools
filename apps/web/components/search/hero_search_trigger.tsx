@@ -3,11 +3,7 @@
 import { Search } from 'lucide-react';
 import { openSearchOverlay } from './search_overlay_store';
 
-/**
- * Looks exactly like the search bar it replaces, but is a trigger, not a live input: clicking
- * it opens the same SearchOverlay the navbar button opens, so there is one search experience
- * (lifted above a dimmed page) everywhere on the site, not a second inline one just here.
- */
+// A trigger, not a live input: clicking opens the same SearchOverlay the navbar button opens, keeping one search experience site wide.
 export function HeroSearchTrigger() {
   return (
     <button

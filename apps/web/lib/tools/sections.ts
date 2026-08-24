@@ -1,10 +1,7 @@
 import type { Tool, ToolCategoryId, ToolSection } from './tool_types';
 
-/**
- * Sections split a large category into blocks a person can scan. Only categories big
- * enough to need them are listed; everything else renders as one flat grid.
- * Order here is the order on the page.
- */
+/** Splits a large category into scannable blocks; order here is the page order. Categories
+ * not listed render as one flat grid. */
 export const CATEGORY_SECTIONS: Partial<Record<ToolCategoryId, readonly ToolSection[]>> = {
   pdf: [
     {
@@ -171,12 +168,8 @@ export interface CategoryCrossLinkGroup {
   links: readonly CategoryCrossLink[];
 }
 
-/**
- * Jobs a visitor looks for in one category whose only implementation lives in another. These
- * point at real registry entries and render as ordinary tool tiles: giving them their own
- * registry entries would mint a second canonical URL competing with the real page for the
- * same search.
- */
+/** Jobs searched from one category but implemented in another; point at the real registry entry
+ * rather than minting a second URL that would compete with it in search. */
 export const CATEGORY_CROSS_LINKS: Partial<Record<ToolCategoryId, CategoryCrossLinkGroup>> = {
   image: {
     name: 'PDF Tools',
@@ -202,11 +195,8 @@ export function getCategorySections(category: ToolCategoryId): readonly ToolSect
   return CATEGORY_SECTIONS[category] ?? [];
 }
 
-/**
- * Splits a category's tools into its declared sections. Anything without a section, or in
- * a category that declares none, comes back in a single unnamed block so no tool is ever
- * silently dropped from a listing.
- */
+/** Splits a category's tools into its declared sections; anything unsectioned comes back in one
+ * unnamed block so no tool is ever silently dropped. */
 export function groupBySection(
   category: ToolCategoryId,
   tools: readonly Tool[],

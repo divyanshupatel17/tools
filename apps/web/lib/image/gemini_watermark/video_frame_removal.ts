@@ -1,17 +1,10 @@
 /**
- * Per frame detection and removal for video sourced Gemini watermarks: scores every video
- * catalog candidate against a frame, and removes the chosen one using an alpha gain estimated
- * fresh from that frame's own background luma rather than a fixed strength.
+ * Adaptive per-frame gain removal for video sourced watermarks: video re-encoding (deblocking,
+ * chroma subsampling) attenuates the mark's real alpha, so the still image path's fixed strength
+ * blend (`remove_watermark.ts`) over-subtracts and clips toward black — this estimates gain fresh
+ * from each frame's own background luma instead.
  *
- * Video re encoding (deblocking, chroma subsampling, bitrate ladders) attenuates the mark's real
- * alpha, so the still image path's fixed strength inverse blend (`remove_watermark.ts`) over
- * subtracts on a video sourced frame and clips the result toward black. This adaptive gain search
- * is what the reference project uses instead for anything that came out of a video.
- *
- * Ported from the relevant parts of `videoWatermarkDetector.js` in
- * GargantuaX/gemini-watermark-remover (MIT licensed): `scoreCandidateOnFrame`,
- * `estimateFrameAlphaGain`, `computeBackgroundMeanFromImageData`, `scoreGainAgainstBackground`,
- * `createRestoredVideoRoi`.
+ * Ported from `videoWatermarkDetector.js` in GargantuaX/gemini-watermark-remover (MIT licensed).
  */
 
 import { computeRegionGradientCorrelation, computeRegionSpatialCorrelation } from './correlation';

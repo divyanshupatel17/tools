@@ -13,10 +13,7 @@ const ACCENT_VAR: Record<ToolAccent, string> = {
   math: 'var(--accent-math)',
 };
 
-/**
- * Icon tiles are the accent colour softened against the page rather than a second
- * hardcoded shade, so light and dark themes both stay in the palette.
- */
+/** Icon tiles soften the accent colour rather than use a second hardcoded shade, so both themes stay in palette. */
 export function accentStyle(accent: ToolAccent): React.CSSProperties {
   const colour = ACCENT_VAR[accent];
   return {

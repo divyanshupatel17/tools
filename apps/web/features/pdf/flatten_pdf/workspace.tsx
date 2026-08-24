@@ -23,8 +23,6 @@ interface Result {
   fields: number;
 }
 
-/** Bakes form field values into the page and removes the fields — see
- * `features/pdf/flatten_pdf/processor.ts`. Irreversible: the output can no longer be filled in. */
 export function FlattenPdfWorkspace() {
   const [file, setFile] = useState<File | null>(null);
   const [notice, setNotice] = useState<string | null>(null);

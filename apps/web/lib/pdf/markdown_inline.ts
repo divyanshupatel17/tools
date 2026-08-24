@@ -1,11 +1,7 @@
 import type { InlineSpan } from './pdf_typeset';
 
-/**
- * Matches the first inline marker in a string, trying longer/more specific markers before
- * shorter ones so `**bold**` is never misread as two `*italic*` spans. Nesting (e.g. bold
- * inside italic) is not resolved — the innermost/first marker found wins and its content is
- * taken literally, which keeps this a single linear scan rather than a real parser.
- */
+/** Tries longer/more specific markers before shorter ones so `**bold**` isn't misread as two
+ * `*italic*` spans. Nesting is not resolved — the first marker found wins, content taken literally. */
 const INLINE_MARKER = new RegExp(
   [
     '`([^`]+)`', // 1: inline code

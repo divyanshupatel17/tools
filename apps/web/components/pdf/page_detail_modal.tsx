@@ -11,9 +11,8 @@ import { Button } from '@/components/ui/button';
 
 export interface PageDetailModalProps {
   file: File;
-  /** Page to scroll to and render first; the rest of the document loads in around it. */
   pageIndex: number;
-  /** Per-page rotation in degrees, keyed by 0-based page index. */
+  /** Rotation degrees keyed by 0-based page index. */
   rotations?: Record<number, number>;
   onClose: () => void;
 }
@@ -23,20 +22,12 @@ type PageSlot = { status: 'pending' } | { status: 'ready'; src: string } | { sta
 const PENDING: PageSlot = { status: 'pending' };
 
 /**
- * A scrollable, full-document popup: every page renders in place (not just the one the
- * user clicked), re-rasterised from the source PDF rather than upscaling a thumbnail, so
- * scrolling up or down never needs a second click to "view the next page in detail". A page
- * that fails to render shows its own inline notice — it never takes the rest of the popup
- * down with it, the way one malformed page used to fail the whole document.
- *
- * Non-PDF files (a scanned or uploaded image) skip pdf.js entirely and render straight from
- * an object URL, inside the same dialog chrome, so every tool can open this modal on either
- * a PDF or a plain image without building its own preview.
+ * Every page re-rasterises from the source PDF rather than upscaling a thumbnail; a page that
+ * fails to render shows its own inline notice instead of failing the whole popup.
  */
 export function PageDetailModal({ file, pageIndex, rotations, onClose }: PageDetailModalProps) {
-  // `file.type` is unreliable for this (a HEIC picked on Windows commonly reports an empty
-  // MIME type), so the real image formats are sniffed from magic bytes instead. `null` means
-  // still detecting; only a definite true or false picks which branch renders.
+  // file.type is unreliable (HEIC on Windows often reports empty MIME), so format is sniffed
+  // from magic bytes; null means still detecting.
   const [isImage, setIsImage] = useState<boolean | null>(null);
 
   const [pages, setPages] = useState<PageSlot[]>([]);
@@ -57,8 +48,8 @@ export function PageDetailModal({ file, pageIndex, rotations, onClose }: PageDet
     };
   }, [file]);
 
-  // HEIC and TIFF cannot be painted by the browser's own image decoder, so createPreviewUrl
-  // rasterises those through decodeImage() first; everything else is the raw file, unchanged.
+  // HEIC/TIFF can't be painted by the browser's native decoder, so createPreviewUrl rasterises
+  // them via decodeImage() first; other formats pass through unchanged.
   useEffect(() => {
     if (isImage !== true) return;
     let cancelled = false;
@@ -86,9 +77,8 @@ export function PageDetailModal({ file, pageIndex, rotations, onClose }: PageDet
     const controller = new AbortController();
     const loaded = new Set<string>();
     urls.current = loaded;
-    // Dev's Strict Mode mounts every effect twice (mount, cleanup, mount): the first run gets
-    // aborted almost immediately, but an in-flight page render can still finish and call back
-    // after that. `live` stops that stale run from writing state over the real, second run.
+    // React Strict Mode double-mounts effects; `live` stops a stale first-run render from
+    // writing state after the second mount takes over.
     let live = true;
 
     readPdfPagesFrom(
@@ -128,9 +118,8 @@ export function PageDetailModal({ file, pageIndex, rotations, onClose }: PageDet
     };
   }, [file, pageIndex, isImage]);
 
-  // Every page above the target has to finish rendering (or fail trying) before we scroll to
-  // it, or its placeholder-to-image height jump (240px min-height vs. the real render) shifts
-  // the page out from under the viewport a moment after we land on it.
+  // Wait for every page above the target to finish (or fail) before scrolling, or its
+  // placeholder-to-image height jump shifts the target out of view right after landing on it.
   useEffect(() => {
     if (isImage) return;
     if (scrolled.current) return;
@@ -152,10 +141,8 @@ export function PageDetailModal({ file, pageIndex, rotations, onClose }: PageDet
     return () => window.removeEventListener('keydown', onKey);
   }, [onClose]);
 
-  // Portaled straight to <body>: any ancestor the caller happens to render this inside (most
-  // often the sticky control panel aside) can establish its own stacking context, which would
-  // otherwise trap this dialog's z-index and let ordinary z-indexed page content (drag handles,
-  // view buttons) paint on top of it despite z-50.
+  // Portaled to <body> so an ancestor's stacking context (e.g. the sticky control panel) can't
+  // trap this dialog's z-index behind other page content.
   return createPortal(
     <div
       role="dialog"

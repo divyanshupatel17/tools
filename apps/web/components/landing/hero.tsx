@@ -10,11 +10,7 @@ interface Mascot {
   className: string;
 }
 
-/**
- * Never mirrored. Each character is drawn head-up and roughly centred, so anchoring
- * it past an edge already reads as leaning around that edge; flipping one side only
- * swaps which slice survives the clip and makes that character look pasted in.
- */
+// Never mirror these: each character is drawn head-up and centred, so flipping one swaps which slice survives the clip and looks pasted in.
 const MASCOTS: Mascot[] = [
   {
     src: '/images/mascot-girl.webp',
@@ -44,16 +40,13 @@ const MASCOTS: Mascot[] = [
 
 export function Hero() {
   return (
-    // z-30 keeps the search results above the sections that follow in the document.
-    // No grain here: a blended overlay on one section alone draws a seam against the next.
+    // z-30 keeps search results above the sections that follow.
     <section className="bg-paper relative z-30 pt-6 pb-10 sm:pt-10 sm:pb-14">
-      {/* Masked at the foot so the characters dissolve instead of being sliced flat
-          by the section boundary, which drew a hard line across the page. */}
+      {/* Masked at the foot so characters dissolve instead of being sliced flat at the section boundary. */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 overflow-hidden [mask-image:linear-gradient(to_bottom,black_80%,transparent_99%)]"
       >
-        {/* Doodles sit behind the characters, so a mark never lands on a face. */}
         <DoodleField />
 
         {MASCOTS.map((mascot) => (

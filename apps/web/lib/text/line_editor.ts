@@ -64,8 +64,8 @@ function filterLines(lines: readonly string[], options: LineEditorOptions): stri
   return [...lines];
 }
 
-/** Filters lines first, then adds a prefix, a suffix and/or line numbers to whatever survives
- * — numbering counts the kept lines themselves, not their original position in the source. */
+/** Filters first, then numbers whatever survives — numbering counts kept lines, not their
+ * original position in the source. */
 export function editLines(text: string, options: LineEditorOptions): string {
   const filtered = filterLines(text.split('\n'), options);
   const format = options.number_format ?? 'plain';

@@ -1,14 +1,10 @@
 /**
- * Ports the reference project's default residual cleanup pass — `applySoftResidualCleanup` in
- * `videoCleanupBackends.js`, default path only (`highQuality=false`, `protectStructure=false`).
+ * Reference project's default residual cleanup pass (`applySoftResidualCleanup` in
+ * `videoCleanupBackends.js`, default path only) — inpaints the watermark footprint and blends it
+ * back with the surrounding texture, since re-encoding distorts the mark's real footprint enough
+ * that a faint trace survives the alpha blend alone.
  *
- * The reference project runs this after every processed video frame's alpha blend, unconditionally
- * (`DEFAULT_RESIDUAL_CLEANUP_STRENGTH = 1.5`, always on unless explicitly disabled). It exists
- * because the blend alone never fully erases a re encoded watermark: the alpha template is only an
- * approximation, and video re encoding (deblocking, chroma subsampling) distorts the mark's real
- * footprint just enough that a faint trace survives the blend. This inpaints the watermark's
- * footprint (weighted by a gradient map built from the alpha template) and blends it back in with
- * the surrounding texture preserved, rather than leaving the raw blend output untouched.
+ * Ported from GargantuaX/gemini-watermark-remover (MIT licensed).
  */
 
 interface RegionPosition {

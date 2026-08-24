@@ -2,8 +2,7 @@ import type { DocBlock, InlineSpan } from '@/lib/pdf/pdf_typeset';
 
 const MAX_IMPORT_BYTES = 25 * 1024 * 1024;
 
-// Anything that is plain source text once opened: prose formats, data formats, and every
-// mainstream programming and markup language. Read straight with File#text(), no extraction.
+// Plain source text once opened — read straight with File#text(), no extraction needed.
 const PLAIN_TEXT_EXTENSIONS = new Set([
   'txt', 'text', 'md', 'markdown', 'csv', 'tsv', 'log', 'rtf',
   'json', 'jsonc', 'xml', 'yaml', 'yml', 'ini', 'toml', 'env', 'conf', 'cfg',
@@ -56,8 +55,7 @@ function spansToText(spans: readonly InlineSpan[]): string {
   return spans.map((span) => span.text).join('');
 }
 
-/** Flattens the same `DocBlock[]` model the PDF export tools build back into plain text:
- * headings and paragraphs as lines, list items prefixed with a dash, table rows tab separated. */
+/** Flattens the same `DocBlock[]` model the PDF export tools build back into plain text. */
 function docxBlocksToPlainText(blocks: readonly DocBlock[]): string {
   const parts: string[] = [];
   for (const block of blocks) {
@@ -74,12 +72,8 @@ function docxBlocksToPlainText(blocks: readonly DocBlock[]): string {
   return parts.join('\n\n');
 }
 
-/**
- * Reads any supported file into plain text: PDFs through pdf.js, Word documents through the
- * same OOXML reader the PDF category's Word tools use, and everything else — plain text, data
- * formats, and every mainstream programming language — straight through `File#text()`. Only
- * the extracted text is ever shown; the original file is never rendered or previewed.
- */
+/** Reads any supported file into plain text (PDFs via pdf.js, Word via the OOXML reader,
+ * everything else via `File#text()`). Only the extracted text is shown; the file itself never is. */
 export async function importTextFile(file: File): Promise<string> {
   if (file.size > MAX_IMPORT_BYTES) {
     throw new Error('That file is larger than 25 MB. Try a smaller file.');

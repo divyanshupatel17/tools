@@ -96,13 +96,8 @@ function pushOutput(blocks: DocBlock[], output: NotebookOutput): void {
   if (plain !== undefined) pushCodeText(blocks, label, joinSource(plain));
 }
 
-/**
- * Reads a .ipynb (nbformat 4) JSON document into the shared typesetting block model used by
- * every "to PDF" converter: markdown cells go through the Markdown parser, code cells become a
- * labelled code block, and each output renders immediately below it in source order (stdout /
- * stderr, tracebacks with ANSI codes stripped, rendered PNG/JPEG images, HTML tables such as a
- * pandas DataFrame, or a plain text repr), matching how the notebook itself reads top to bottom.
- */
+/** Converts nbformat 4 JSON into the shared typesetting block model: each cell's outputs
+ * (stdout/stderr, tracebacks, PNG/JPEG, HTML tables, plain text repr) render below it in order. */
 export function parseIpynbToBlocks(json: string): DocBlock[] {
   let notebook: Notebook;
   try {

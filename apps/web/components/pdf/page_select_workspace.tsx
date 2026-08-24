@@ -28,9 +28,7 @@ interface Result {
 }
 
 export interface PageSelectWorkspaceProps {
-  /** Registry processor id, e.g. "pdf.delete-pages". */
   processorId: string;
-  /** "delete" removes the selected pages; "extract" keeps only the selected pages. */
   mode: 'delete' | 'extract';
   actionIcon: ComponentType<{ 'aria-hidden'?: boolean; className?: string }>;
   actionLabel: string;

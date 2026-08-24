@@ -10,16 +10,10 @@ export type PdfFont = Awaited<
   ReturnType<Awaited<ReturnType<PdfLibModule['PDFDocument']['create']>>['embedFont']>
 >;
 
-/**
- * pdf-lib's `StandardFonts` (Helvetica, Courier, ...) use WinAnsi encoding — a ~220-character
- * Windows-1252 subset. Anything outside it (arrows, smart quotes, most symbols, any non-Latin
- * script) throws "WinAnsi cannot encode" at draw time, so every "build a PDF from user text"
- * tool embeds real Unicode fonts instead. Noto Sans covers Latin/Cyrillic/Greek plus general
- * punctuation; Noto Sans Symbols / Symbols 2 cover arrows, math and dingbats, which Noto
- * deliberately ships as separate fonts rather than folding into Sans. A character in neither
- * (CJK, Arabic, emoji, ...) falls back to "?" rather than crashing the whole document — see
- * `resolveGlyphFont`.
- */
+/** pdf-lib's `StandardFonts` use WinAnsi encoding and throw on anything outside it (arrows,
+ * smart quotes, non-Latin scripts), so real Unicode fonts are embedded instead. Noto Sans
+ * Symbols/Symbols 2 cover arrows and dingbats separately from Sans; CJK/Arabic/emoji fall back
+ * to "?" — see `resolveGlyphFont`. */
 export interface LoadedFont {
   pdf: PdfFont;
   raw: FontkitFont;
@@ -132,7 +126,6 @@ interface Run {
 
 const LINK_COLOR: readonly [number, number, number] = [0.11, 0.38, 0.85];
 
-/** Registers a clickable URI link annotation over the given text rectangle. */
 function addLinkAnnotation(
   page: PdfPage,
   url: string,
@@ -155,8 +148,7 @@ function addLinkAnnotation(
   else page.node.set(PDFName.of('Annots'), context.obj([ref]));
 }
 
-/** Splits `text` into runs of consecutive characters that share the same resolved font,
- * substituting `?` for any character no loaded font can render. */
+/** Splits `text` into runs sharing a resolved font, substituting `?` for unrenderable chars. */
 function splitRuns(text: string, primary: LoadedFont, fonts: UnicodeFonts): Run[] {
   const runs: Run[] = [];
   for (const char of text) {
@@ -185,8 +177,8 @@ export function measureUnicodeText(
   );
 }
 
-/** Unicode-aware replacement for `page.drawText`, drawing each font run in turn. `rotate` and
- * `opacity` apply to every run identically (a watermark's use case), not per-run. */
+/** Unicode-aware replacement for `page.drawText`. `rotate`/`opacity` apply to every run
+ * identically (a watermark's use case), not per-run. */
 export function drawUnicodeText(
   page: PdfPage,
   text: string,
@@ -253,12 +245,8 @@ export function wrapUnicodeText(
   return lines.length > 0 ? lines : [''];
 }
 
-// ---------------------------------------------------------------------------------------------
-// Span-aware layout: used where text carries inline styling (bold/italic/code), i.e. Markdown
-// and HTML to PDF's paragraph, heading, list and table content. Wrapping has to happen below
-// the span boundary (a bold word can sit mid-sentence), so a "word" here is a run of non-space
-// `RenderChar`s that may itself mix styles when spans abut with no space between them.
-// ---------------------------------------------------------------------------------------------
+// Wrapping happens below the span boundary (a bold word can sit mid-sentence), so a "word" here
+// is a run of non-space `RenderChar`s that may itself mix styles when spans abut with no space.
 
 interface RenderChar {
   char: string;
@@ -353,12 +341,8 @@ export function measureInlineLine(line: WrappedLine, size: number): number {
   return measureRenderChars(line, size);
 }
 
-/**
- * Wraps styled inline spans to `maxWidth`, returning each output line pre-resolved (style and
- * glyph fallback both already applied) and ready for `drawInlineLine`/`measureInlineLine`. A
- * single unbreakable word wider than `maxWidth` is split by character, same as the plain-text
- * wrapper.
- */
+/** Wraps styled inline spans to `maxWidth`, pre-resolving style and glyph fallback per line. A
+ * single unbreakable word wider than `maxWidth` is split by character. */
 export function wrapInlineSpans(
   spans: readonly InlineSpan[],
   fonts: UnicodeFonts,

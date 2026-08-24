@@ -1211,9 +1211,8 @@ const IMAGE_TOOLS = define('image', [
     },
   },
 
-  // Images to PDF and PDF to images live under /pdf only. A second copy here would compete
-  // with them in search and split the traffic for the same job; the Image Tools page links
-  // across to them instead. See CATEGORY_CROSS_LINKS in lib/tools/sections.ts.
+  // Images<->PDF intentionally live under /pdf only (avoids splitting search traffic); see
+  // CATEGORY_CROSS_LINKS in sections.ts for the Image Tools page link across.
 ]);
 
 /**

@@ -14,7 +14,6 @@ export interface MimeEntry {
 export const CATEGORY_ORDER: MimeCategory[] = ['Images', 'Documents', 'Web/Markup', 'Audio/Video', 'Archives'];
 
 export const MIME_TYPES: MimeEntry[] = [
-  // Images
   { extension: 'jpg', mimeType: 'image/jpeg', category: 'Images', description: 'JPEG Image', standard: 'ISO/IEC 10918', compressed: true, binary: true, charset: null },
   { extension: 'jpeg', mimeType: 'image/jpeg', category: 'Images', description: 'JPEG Image', standard: 'ISO/IEC 10918', compressed: true, binary: true, charset: null },
   { extension: 'png', mimeType: 'image/png', category: 'Images', description: 'Portable Network Graphics', standard: 'RFC 2083', compressed: true, binary: true, charset: null },
@@ -27,7 +26,6 @@ export const MIME_TYPES: MimeEntry[] = [
   { extension: 'tif', mimeType: 'image/tiff', category: 'Images', description: 'TIFF Image', standard: 'Adobe TIFF 6.0', compressed: false, binary: true, charset: null },
   { extension: 'avif', mimeType: 'image/avif', category: 'Images', description: 'AVIF Image', standard: 'AOM AVIF Spec', compressed: true, binary: true, charset: null },
 
-  // Documents
   { extension: 'pdf', mimeType: 'application/pdf', category: 'Documents', description: 'PDF Document', standard: 'ISO 32000', compressed: false, binary: true, charset: null },
   { extension: 'txt', mimeType: 'text/plain', category: 'Documents', description: 'Plain Text', standard: 'N/A', compressed: false, binary: false, charset: 'UTF-8' },
   { extension: 'json', mimeType: 'application/json', category: 'Documents', description: 'JSON Document', standard: 'RFC 8259', compressed: false, binary: false, charset: 'UTF-8' },
@@ -39,7 +37,6 @@ export const MIME_TYPES: MimeEntry[] = [
   { extension: 'md', mimeType: 'text/markdown', category: 'Documents', description: 'Markdown File', standard: 'CommonMark', compressed: false, binary: false, charset: 'UTF-8' },
   { extension: 'rtf', mimeType: 'application/rtf', category: 'Documents', description: 'RTF Document', standard: 'Microsoft RTF', compressed: false, binary: false, charset: 'UTF-8' },
 
-  // Web / Markup
   { extension: 'html', mimeType: 'text/html', category: 'Web/Markup', description: 'HTML Document', standard: 'WHATWG HTML Living Standard', compressed: false, binary: false, charset: 'UTF-8' },
   { extension: 'htm', mimeType: 'text/html', category: 'Web/Markup', description: 'HTML Document', standard: 'WHATWG HTML Living Standard', compressed: false, binary: false, charset: 'UTF-8' },
   { extension: 'css', mimeType: 'text/css', category: 'Web/Markup', description: 'CSS Stylesheet', standard: 'W3C CSS', compressed: false, binary: false, charset: 'UTF-8' },
@@ -47,7 +44,6 @@ export const MIME_TYPES: MimeEntry[] = [
   { extension: 'php', mimeType: 'application/x-php', category: 'Web/Markup', description: 'PHP Script', standard: 'N/A', compressed: false, binary: false, charset: 'UTF-8' },
   { extension: 'rss', mimeType: 'application/rss+xml', category: 'Web/Markup', description: 'RSS Feed', standard: 'RSS 2.0 Spec', compressed: false, binary: false, charset: 'UTF-8' },
 
-  // Audio / Video
   { extension: 'mp4', mimeType: 'video/mp4', category: 'Audio/Video', description: 'MP4 Video', standard: 'ISO/IEC 14496-14', compressed: true, binary: true, charset: null },
   { extension: 'mp3', mimeType: 'audio/mpeg', category: 'Audio/Video', description: 'MP3 Audio', standard: 'ISO/IEC 11172-3', compressed: true, binary: true, charset: null },
   { extension: 'wav', mimeType: 'audio/wav', category: 'Audio/Video', description: 'WAV Audio', standard: 'Microsoft/IBM RIFF', compressed: false, binary: true, charset: null },
@@ -58,7 +54,6 @@ export const MIME_TYPES: MimeEntry[] = [
   { extension: 'flac', mimeType: 'audio/flac', category: 'Audio/Video', description: 'FLAC Audio', standard: 'IETF FLAC Format', compressed: true, binary: true, charset: null },
   { extension: 'mkv', mimeType: 'video/x-matroska', category: 'Audio/Video', description: 'MKV Video', standard: 'Matroska Spec', compressed: true, binary: true, charset: null },
 
-  // Archives
   { extension: 'zip', mimeType: 'application/zip', category: 'Archives', description: 'ZIP Archive', standard: 'PKWARE APPNOTE', compressed: true, binary: true, charset: null },
   { extension: 'rar', mimeType: 'application/x-rar-compressed', category: 'Archives', description: 'RAR Archive', standard: 'RARLAB (proprietary)', compressed: true, binary: true, charset: null },
   { extension: '7z', mimeType: 'application/x-7z-compressed', category: 'Archives', description: '7Z Archive', standard: '7 Zip / LZMA SDK', compressed: true, binary: true, charset: null },

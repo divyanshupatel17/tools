@@ -1,12 +1,11 @@
 /**
  * Gemini's official output size catalog and the watermark geometry each size carries.
- *
  * Ported from `geminiSizeCatalog.js` in GargantuaX/gemini-watermark-remover (MIT licensed).
- * Gemini does not place its watermark at a position found by scanning the image: it renders at
- * a small, fixed set of official output dimensions, and the watermark size and margin are a
- * deterministic function of which one was used. This is the lookup table for that, plus the
- * handful of known alternate configs (a different era's watermark, a wider margin variant)
- * Gemini has been observed to use for the same official size.
+ *
+ * Gemini renders at a small, fixed set of official output dimensions where watermark size and
+ * margin are a deterministic function of the size used, rather than a position found by
+ * scanning — plus a handful of known alternate configs Gemini has been observed to use for the
+ * same official size.
  */
 
 export interface WatermarkConfig {

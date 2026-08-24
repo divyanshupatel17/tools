@@ -1,7 +1,7 @@
 # Utilities: planning
 
 Single source of truth for what the Utilities category will contain. Registry entries live in
-`apps/web/lib/tools/registry.ts`. Utilities has **5 tools**, no declared sections
+`apps/web/lib/tools/registry.ts`. Utilities has **4 tools**, no declared sections
 (`lib/tools/sections.ts`) — small enough to render as one flat grid. None are built yet; follow
 `docs/architecture.md`'s "Adding a tool" steps as each one starts.
 
@@ -16,7 +16,6 @@ new tool here that might actually belong elsewhere.
 ## Checklist
 
 - [x] QR Generator — `qr-generator`
-- [ ] Password Generator — `password-generator`
 - [ ] Random Generator — `random-generator`
 - [x] Stopwatch — `stopwatch`
 - [x] Timer — `timer`
@@ -36,16 +35,7 @@ new tool here that might actually belong elsewhere.
 
 SEO: QR Code Generator, Free QR Code Maker.
 
-### 2. Password Generator — `password-generator`
-
-| Feature | Details |
-| --- | --- |
-| Length | Adjustable, generated locally, never sent anywhere. |
-| Character sets | Uppercase, lowercase, numbers, symbols, each toggled independently. |
-
-SEO: Password Generator, Strong Password Generator.
-
-### 3. Random Generator — `random-generator`
+### 2. Random Generator — `random-generator`
 
 | Feature | Details |
 | --- | --- |
@@ -55,7 +45,7 @@ SEO: Password Generator, Strong Password Generator.
 
 SEO: Random Number Generator, Random Picker.
 
-### 4. Stopwatch — `stopwatch`
+### 3. Stopwatch — `stopwatch`
 
 | Feature | Details |
 | --- | --- |
@@ -71,7 +61,7 @@ SEO: Random Number Generator, Random Picker.
 
 SEO: Online Stopwatch, Stopwatch Timer.
 
-### 5. Timer — `timer`
+### 4. Timer — `timer`
 
 | Feature | Details |
 | --- | --- |
@@ -84,7 +74,7 @@ SEO: Online Timer, Countdown Timer.
 
 ## Shared conventions to build against
 
-- Nothing in this category ever sends anything typed here anywhere; a password or a random
-  value is generated and read locally only.
+- Nothing in this category ever sends anything typed here anywhere; a random value is generated
+  and read locally only.
 - No hyphens or dashes in user facing text. Control panel copy stays a label plus a short
   caveat, never a paragraph of engineering explanation.

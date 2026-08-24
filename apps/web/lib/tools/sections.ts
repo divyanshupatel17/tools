@@ -125,11 +125,6 @@ export const CATEGORY_SECTIONS: Partial<Record<ToolCategoryId, readonly ToolSect
       name: 'Record',
       tagline: 'Capture your screen, camera or both.',
     },
-    {
-      id: 'advanced-editing',
-      name: 'Advanced Editing',
-      tagline: 'Multi clip editing and subtitles.',
-    },
   ],
   developer: [
     {

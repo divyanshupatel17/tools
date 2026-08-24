@@ -170,7 +170,7 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | WebP to PNG | `/tools/webp-to-png` | Available |
 | WebP to TIFF | `/tools/webp-to-tiff` | Available |
 
-### Video Tools — `/tools/video` — 8 tools
+### Video Tools — `/tools/video` — 6 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
@@ -180,8 +180,6 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Resize & Crop Video | `/tools/resize-crop-video` | Available |
 | Screen & Camera Recorder | `/tools/screen-recorder` | Available |
 | Trim & Cut Video | `/tools/trim-cut-video` | Available |
-| Video Editor | `/tools/video-editor` | Planned |
-| Subtitles & Captions | `/tools/video-subtitles` | Planned |
 
 ### Audio Tools — `/tools/audio` — 10 tools
 
@@ -251,12 +249,11 @@ if this drifts from the live registry, regenerate it rather than hand editing ro
 | Unit Converter | `/tools/unit-converter` | Planned |
 | Weight Converter | `/tools/weight-converter` | Planned |
 
-### Utilities — `/tools/utilities` — 5 tools
+### Utilities — `/tools/utilities` — 4 tools
 
 | Tool | URL | Status |
 | --- | --- | --- |
-| Password Generator | `/tools/password-generator` | Planned |
-| QR Generator | `/tools/qr-generator` | Planned |
+| QR Generator | `/tools/qr-generator` | Available |
 | Random Generator | `/tools/random-generator` | Planned |
 | Stopwatch | `/tools/stopwatch` | Available |
 | Timer | `/tools/timer` | Available |

@@ -1071,29 +1071,6 @@ const VIDEO_TOOLS = define('video', [
     status: 'available',
     section: 'record',
   },
-  {
-    slug: 'video-editor',
-    name: 'Video Editor',
-    description:
-      'Merge clips, add music, text, images and filters, then adjust speed, volume and rotation before exporting.',
-    icon: 'Clapperboard',
-    input_types: ['video'],
-    output_types: ['video'],
-    multiple_files: true,
-    worker_required: true,
-    section: 'advanced-editing',
-  },
-  {
-    slug: 'video-subtitles',
-    name: 'Subtitles & Captions',
-    description:
-      'Add subtitles from an SRT or VTT file, generate them automatically, style and time them, then burn them into the video.',
-    icon: 'Captions',
-    input_types: ['video'],
-    output_types: ['video', 'text'],
-    worker_required: true,
-    section: 'advanced-editing',
-  },
 ]);
 
 const AUDIO_TOOLS = define('audio', [
@@ -1639,14 +1616,6 @@ const UTILITY_TOOLS = define('utilities', [
     input_types: ['text'],
     output_types: ['image'],
     status: 'available',
-  },
-  {
-    slug: 'password-generator',
-    name: 'Password Generator',
-    description: 'Generate strong passwords locally with control over length and character sets.',
-    icon: 'KeyRound',
-    input_types: ['none'],
-    output_types: ['text'],
   },
   {
     slug: 'random-generator',

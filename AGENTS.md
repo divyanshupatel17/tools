@@ -1,7 +1,6 @@
 # AGENTS.md
 
-Rules for `divyanshupatel_tools_app`. Workspace defaults live in `D:\Projects\STRUCTURE.md`.
-This file is the short version; `docs/` holds the full detail behind almost every rule below —
+Rules for ToolHub. This file is the short version; `docs/` holds the full detail behind almost every rule below —
 check it before assuming, especially `docs/architecture.md` and `docs/tools.md`.
 
 ## Architecture

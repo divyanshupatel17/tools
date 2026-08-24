@@ -275,6 +275,7 @@ export function ScreenRecorderWorkspace() {
   // back through the speakers.
   useEffect(() => {
     if (!micStream) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setMicLevel(0);
       return;
     }

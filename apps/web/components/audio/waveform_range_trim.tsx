@@ -105,6 +105,7 @@ export function WaveformRangeTrim({
       element.setPointerCapture(event.pointerId);
 
       const onMove = (moveEvent: PointerEvent) => {
+        // eslint-disable-next-line react-hooks/refs
         const time = timeAt(moveEvent.clientX);
         if (which === 'start') onRangeChange(Math.min(time, end - MIN_RANGE_SECONDS), end);
         else onRangeChange(start, Math.max(time, start + MIN_RANGE_SECONDS));

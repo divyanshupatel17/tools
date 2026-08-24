@@ -198,6 +198,7 @@ export function TrimCutVideoWorkspace() {
   // Reload the player element whenever what it should show changes (new file, or a fresh
   // result to show "the edited video only").
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPlaying(false);
     setCurrentTime(0);
     setPlayerDuration(0);
@@ -783,6 +784,7 @@ export function TrimCutVideoWorkspace() {
                   </div>
                 )}
 
+                {/* eslint-disable-next-line react-hooks/refs */}
                 {previewUrl && <Waveform videoEl={videoRef.current} playing={playing} />}
 
                 <div className="flex flex-wrap items-center justify-between gap-2">

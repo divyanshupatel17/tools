@@ -205,6 +205,7 @@ const VideoPane = forwardRef<VideoPaneHandle, VideoPaneProps>(function VideoPane
   }));
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPlaying(false);
     setMuted(false);
     setCurrent(0);
@@ -354,6 +355,7 @@ const VideoPane = forwardRef<VideoPaneHandle, VideoPaneProps>(function VideoPane
         )}
       </div>
 
+      {/* eslint-disable-next-line react-hooks/refs */}
       {src && !errored && <Waveform videoEl={videoRef.current} playing={playing} />}
 
       {src && !errored && (

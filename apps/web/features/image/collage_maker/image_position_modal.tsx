@@ -49,6 +49,7 @@ export function ImagePositionModal({
 
   useEffect(() => {
     const url = URL.createObjectURL(file);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSrc(url);
     return () => URL.revokeObjectURL(url);
   }, [file]);

@@ -14,6 +14,7 @@ export default tseslint.config(
       '**/playwright-report/**',
       '**/test-results/**',
       '.local/**',
+      '**/ffmpeg-core.js',
     ],
   },
   js.configs.recommended,

@@ -145,7 +145,10 @@ export function CollageMakerWorkspace() {
   const imageById = useMemo(() => new Map(images.map((image) => [image.id, image])), [images]);
   const busy = progress !== null;
 
-  useEffect(() => { setCells((previous) => Array.from({ length: cellCount }, (_, index) => previous[index] ?? null)); }, [cellCount]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setCells((previous) => Array.from({ length: cellCount }, (_, index) => previous[index] ?? null));
+  }, [cellCount]);
 
   function clearResult(): void { setResult([]); }
 

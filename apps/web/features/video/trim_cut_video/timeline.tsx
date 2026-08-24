@@ -45,7 +45,7 @@ export function Timeline({
   segments,
   order,
   thumbnails,
-  loadingThumbnails,
+  _loadingThumbnails,
   disabled,
   currentTime,
   onSeek,
@@ -228,15 +228,17 @@ export function Timeline({
           )}
 
           {(() => {
-            let offset = 0;
+            const offsets = orderedClips.reduce((acc: number[], clip) => [...acc, (acc[acc.length - 1] ?? 0) + (clip.end - clip.start)], []);
+            // eslint-disable-next-line react-hooks/refs
             return orderedClips.map((clip, index) => {
+              const offset = offsets[index - 1] ?? 0;
               const left = (offset / totalKept) * 100;
               const width = ((clip.end - clip.start) / totalKept) * 100;
-              offset += clip.end - clip.start;
               const sourceIndex = segments.findIndex((segment) => segment.id === clip.id);
               const clipThumbnails = thumbnails
                 .map((src, i) => ({ src, time: thumbnailTime(i, thumbnails.length, duration) }))
                 .filter((frame) => frame.time >= clip.start && frame.time < clip.end);
+              // eslint-disable-next-line react-hooks/refs
               const trackWidthPx = trackRef.current?.getBoundingClientRect().width ?? 0;
               const pixelsPerSecond = totalKept > 0 ? trackWidthPx / totalKept : 0;
 

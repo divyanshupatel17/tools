@@ -59,6 +59,7 @@ export function RangeTrim({
       element.setPointerCapture(event.pointerId);
 
       const onMove = (moveEvent: PointerEvent) => {
+        // eslint-disable-next-line react-hooks/refs
         const time = timeAt(moveEvent.clientX);
         if (which === 'start') onChange(Math.min(time, end - MIN_RANGE_SECONDS), end);
         else onChange(start, Math.max(time, start + MIN_RANGE_SECONDS));

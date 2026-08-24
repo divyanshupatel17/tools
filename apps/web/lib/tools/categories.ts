@@ -142,6 +142,21 @@ export const TOOL_CATEGORIES: readonly ToolCategory[] = [
       keywords: ['ai tools', 'remove ai watermark'],
     },
   },
+  {
+    id: 'math',
+    name: 'Math Tools',
+    slug: 'math',
+    tagline: 'Calculate, graph and work with matrices',
+    description:
+      'Calculators for everyday arithmetic, scientific and programmer work, plus 2D and 3D graphing and matrix operations, all computed locally in your browser.',
+    icon: 'Sigma',
+    seo: {
+      title: 'Math Tools',
+      description:
+        'Free math tools that run in your browser: a basic and scientific calculator, a graphing and 3D graphing calculator, a programmer calculator and a matrix calculator.',
+      keywords: ['calculator', 'scientific calculator', 'graphing calculator', 'matrix calculator'],
+    },
+  },
 ] as const;
 
 const CATEGORY_BY_ID = new Map<ToolCategoryId, ToolCategory>(

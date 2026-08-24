@@ -188,6 +188,14 @@ export const PROCESSORS: Record<string, ProcessorLoader> = {
   'ai.gemini-watermark-remover': () => import('@/features/ai/gemini_watermark_remover/processor'),
   'ai.gemini-video-watermark-remover': () =>
     import('@/features/ai/gemini_video_watermark_remover/processor'),
+
+  // Math.
+  'math.calculator': () => import('@/features/math/calculator/processor'),
+  'math.scientific-calculator': () => import('@/features/math/scientific_calculator/processor'),
+  'math.graphing-calculator': () => import('@/features/math/graphing_calculator/processor'),
+  'math.programmer-calculator': () => import('@/features/math/programmer_calculator/processor'),
+  'math.matrix-calculator': () => import('@/features/math/matrix_calculator/processor'),
+  'math.3d-graphing-calculator': () => import('@/features/math/graphing_calculator_3d/processor'),
 };
 
 export function hasProcessor(id: string): boolean {

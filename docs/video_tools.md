@@ -1,15 +1,14 @@
 # Video tools: state
 
 Single source of truth for what the Video category contains. Registry entries live in
-`apps/web/lib/tools/registry.ts`. Video has **8 tools total** — each tool below is one registry
+`apps/web/lib/tools/registry.ts`. Video has **6 tools total** — each tool below is one registry
 entry, one processor, one workspace. The feature lists below are options inside that one
 workspace, not separate tools or registry entries. The category does declare display sections
-(`lib/tools/sections.ts`) grouping those 8 tools for the related tools list: Edit & Optimize,
-Convert & Create, Record, Advanced Editing.
+(`lib/tools/sections.ts`) grouping those 6 tools for the related tools list: Edit & Optimize,
+Convert & Create, Record.
 
 Compress Video, Resize & Crop Video, Trim & Cut Video, Convert Video, GIF Maker and Screen &
-Camera Recorder are `status: 'available'`; Video Editor and Subtitles & Captions are
-`status: 'planned'`. Follow `docs/architecture.md`'s "Adding a tool" steps as each one starts.
+Camera Recorder are all `status: 'available'`.
 
 Everything runs in the browser through FFmpeg compiled to WebAssembly (`@ffmpeg/ffmpeg`), self
 hosted from `public/ffmpeg/` (copied from the `@ffmpeg/core` package — see
@@ -31,8 +30,6 @@ the other; off, each plays independently, e.g. to compare two different moments.
 - [x] Convert Video — `convert-video`
 - [x] GIF Maker — `gif-maker` (video to GIF only; images to GIF, the GIF editor and GIF to video are not built yet)
 - [x] Screen & Camera Recorder — `screen-recorder`
-- [ ] Video Editor — `video-editor`
-- [ ] Subtitles & Captions — `video-subtitles`
 
 ## 1. Compress Video — `compress-video`
 
@@ -117,34 +114,10 @@ muxed client side into a downloadable file.
 | Camera styling | Border and drop shadow; background removal or blur behind the camera feed. |
 | Controls | Pause and resume mid recording without ending the session. |
 
-## 7. Video Editor — `video-editor`
-
-The general purpose multi clip editor; accepts more than one input file.
-
-| Feature | Details |
-| --- | --- |
-| Merge | Combine several clips into one timeline, in the order they are added. |
-| Overlays | Add music or audio tracks, text, images, logos, stickers and shapes. |
-| Filters | Brightness, contrast, saturation and blur, applied per clip or globally. |
-| Playback | Speed, reverse, rotate, flip. |
-| Audio | Mute, volume and fade, per clip. |
-| Loop | Repeat the whole export a set number of times or for a set duration. |
-
-## 8. Subtitles & Captions — `video-subtitles`
-
-| Feature | Details |
-| --- | --- |
-| Import | SRT or VTT file, matched to the video's timeline. |
-| Auto generation | Speech to text run in the browser produces a first pass subtitle track. |
-| Editor | Adjust cue text and timing by hand before exporting. |
-| Export | Download the SRT / VTT alongside the video, or burn the captions into the frames. |
-| Styling | Font, size, colour, background and position of the burned in captions. |
-| Video / audio to text | The same speech to text engine used stand alone, for a plain transcript. |
-
 ## Shared conventions to build against
 
-- Timeline based tools (Trim & Cut, Video Editor, Subtitles & Captions) share one scrubber
-  component once built, the same way PDF tools share `page_grid.tsx`.
+- Timeline based tools (Trim & Cut) share one scrubber component, the same way PDF tools share
+  `page_grid.tsx`.
 - Every result offers a view action and a download action, same as PDF and Image, through
   whatever the video equivalent of `page_detail_modal.tsx` becomes.
 - A live preview is required wherever an option is tuned by eye (crop rectangle, caption

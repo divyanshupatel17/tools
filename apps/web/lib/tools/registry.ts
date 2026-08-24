@@ -1071,29 +1071,6 @@ const VIDEO_TOOLS = define('video', [
     status: 'available',
     section: 'record',
   },
-  {
-    slug: 'video-editor',
-    name: 'Video Editor',
-    description:
-      'Merge clips, add music, text, images and filters, then adjust speed, volume and rotation before exporting.',
-    icon: 'Clapperboard',
-    input_types: ['video'],
-    output_types: ['video'],
-    multiple_files: true,
-    worker_required: true,
-    section: 'advanced-editing',
-  },
-  {
-    slug: 'video-subtitles',
-    name: 'Subtitles & Captions',
-    description:
-      'Add subtitles from an SRT or VTT file, generate them automatically, style and time them, then burn them into the video.',
-    icon: 'Captions',
-    input_types: ['video'],
-    output_types: ['video', 'text'],
-    worker_required: true,
-    section: 'advanced-editing',
-  },
 ]);
 
 const AUDIO_TOOLS = define('audio', [
@@ -1641,26 +1618,10 @@ const UTILITY_TOOLS = define('utilities', [
     status: 'available',
   },
   {
-    slug: 'password-generator',
-    name: 'Password Generator',
-    description: 'Generate strong passwords locally with control over length and character sets.',
-    icon: 'KeyRound',
-    input_types: ['none'],
-    output_types: ['text'],
-  },
-  {
     slug: 'random-generator',
     name: 'Random Generator',
     description: 'Draw random numbers, pick from a list or shuffle items.',
     icon: 'Dices',
-    input_types: ['none'],
-    output_types: ['text'],
-  },
-  {
-    slug: 'calculator',
-    name: 'Calculator',
-    description: 'A keyboard-friendly calculator with a running history of your entries.',
-    icon: 'Calculator',
     input_types: ['none'],
     output_types: ['text'],
   },
@@ -1715,6 +1676,64 @@ const AI_TOOLS = define('ai', [
   },
 ]);
 
+const MATH_TOOLS = define('math', [
+  {
+    slug: 'calculator',
+    name: 'Basic Calculator',
+    description: 'A keyboard-friendly calculator with a running history of your entries.',
+    icon: 'Calculator',
+    input_types: ['none'],
+    output_types: ['text'],
+    status: 'available',
+  },
+  {
+    slug: 'scientific-calculator',
+    name: 'Scientific Calculator',
+    description:
+      'Trigonometric, logarithmic, exponential and other advanced functions, with degree and radian modes.',
+    icon: 'FunctionSquare',
+    input_types: ['none'],
+    output_types: ['text'],
+    status: 'available',
+  },
+  {
+    slug: 'graphing-calculator',
+    name: 'Graphing Calculator',
+    description: 'Plot one or more functions on a 2D graph, pan and zoom, and trace exact values.',
+    icon: 'LineChart',
+    input_types: ['none'],
+    output_types: ['image'],
+    status: 'available',
+  },
+  {
+    slug: 'programmer-calculator',
+    name: 'Programmer Calculator',
+    description: 'Convert and compute across binary, octal, decimal and hexadecimal, with bitwise operators.',
+    icon: 'Binary',
+    input_types: ['none'],
+    output_types: ['text'],
+    status: 'available',
+  },
+  {
+    slug: 'matrix-calculator',
+    name: 'Matrix Calculator',
+    description: 'Add, multiply, invert, transpose and find the determinant of matrices.',
+    icon: 'Grid3x3',
+    input_types: ['none'],
+    output_types: ['text'],
+    status: 'available',
+  },
+  {
+    slug: '3d-graphing-calculator',
+    name: '3D Graphing Calculator',
+    description: 'Plot a surface from a two variable function and rotate the view in three dimensions.',
+    icon: 'Box',
+    input_types: ['none'],
+    output_types: ['image'],
+    status: 'available',
+  },
+]);
+
 export const TOOLS: readonly Tool[] = [
   ...PDF_TOOLS,
   ...IMAGE_TOOLS,
@@ -1725,6 +1744,7 @@ export const TOOLS: readonly Tool[] = [
   ...CONVERTER_TOOLS,
   ...UTILITY_TOOLS,
   ...AI_TOOLS,
+  ...MATH_TOOLS,
 ];
 
 const TOOL_BY_PATH = new Map(TOOLS.map((tool) => [`${tool.category}/${tool.slug}`, tool]));

@@ -1,4 +1,5 @@
 import { safeFileName } from '@tools/file_utils';
+import { logDownloadResult } from '@/lib/firebase/tool_events';
 
 /** Triggers a browser download and releases the object URL on the next frame. */
 export function downloadBlob(blob: Blob, fileName: string): void {
@@ -10,4 +11,5 @@ export function downloadBlob(blob: Blob, fileName: string): void {
   anchor.click();
   anchor.remove();
   requestAnimationFrame(() => URL.revokeObjectURL(url));
+  logDownloadResult();
 }

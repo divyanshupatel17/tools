@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Caveat_Brush, JetBrains_Mono, Nunito_Sans } from 'next/font/google';
+import { Suspense } from 'react';
 import '@/styles/globals.css';
+import { FirebaseAnalytics } from '@/components/analytics/firebase_analytics';
 import { LandingFooter } from '@/components/landing/landing_footer';
 import { SiteHeader } from '@/components/layout/site_header';
 import { ThemeScript } from '@/components/theme/theme_script';
@@ -59,6 +61,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main id="main">{children}</main>
         <LandingFooter />
+        <Suspense fallback={null}>
+          <FirebaseAnalytics />
+        </Suspense>
       </body>
     </html>
   );

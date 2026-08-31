@@ -1,4 +1,5 @@
 import type { ToolProcessor } from '@tools/tool_engine';
+import { logToolError, logToolUsed } from '@/lib/firebase/tool_events';
 
 /**
  * A processor with its options type erased. Each implementation declares its own options
@@ -195,9 +196,28 @@ export function hasProcessor(id: string): boolean {
   return id in PROCESSORS;
 }
 
+/**
+ * Loads a tool's implementation and wraps it so every one of its ~165 call sites gets
+ * `tool_used`/`tool_error` analytics for free, instead of each workspace instrumenting its
+ * own try/catch around the processor call.
+ */
 export async function loadProcessor(id: string): Promise<ToolProcessor> {
   const loader = PROCESSORS[id];
   if (!loader) throw new Error(`No processor registered for "${id}"`);
   const loaded = await loader();
-  return loaded.default;
+  const processor = loaded.default;
+
+  logToolUsed(id);
+
+  return async (input, context) => {
+    try {
+      return await processor(input, context);
+    } catch (error) {
+      // A user cancelling (AbortController) is not a failure worth counting as an error.
+      if (!(error instanceof DOMException && error.name === 'AbortError')) {
+        logToolError(id, error);
+      }
+      throw error;
+    }
+  };
 }

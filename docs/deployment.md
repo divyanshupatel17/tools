@@ -14,8 +14,14 @@ pnpm build
 pnpm start    # http://localhost:3000
 ```
 
-No environment variables are required. `NEXT_PUBLIC_SITE_ORIGIN` is optional and only overrides
-the canonical origin used in metadata, the sitemap and robots.
+`NEXT_PUBLIC_SITE_ORIGIN` is optional and only overrides the canonical origin used in metadata,
+the sitemap and robots.
+
+Firebase Analytics needs the `NEXT_PUBLIC_FIREBASE_*` variables listed in
+[`apps/web/.env.example`](../apps/web/.env.example), copied into `apps/web/.env.local` for local
+development. Without them the app still runs; `lib/firebase/analytics.ts` just never
+initialises Firebase, so nothing is sent. Values come from Firebase console → Project settings
+→ General → Your apps → ToolHub Web → SDK setup and configuration.
 
 ## Vercel project settings
 

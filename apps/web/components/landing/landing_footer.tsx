@@ -1,4 +1,5 @@
 import { Heart, Lightbulb, Mail, ScrollText, Star } from 'lucide-react';
+import Link from 'next/link';
 import { DinoGame } from './dino_game';
 import { RunnerScores } from './runner_scores';
 import { Art } from '@/components/ui/art';
@@ -12,11 +13,11 @@ import {
   REPO_URL,
   SOCIAL_LINKS,
 } from '@/lib/landing/contact';
-import { SITE_NAME, absoluteUrl } from '@/lib/seo/site';
+import { SITE_NAME } from '@/lib/seo/site';
 
 const DOC_LINKS = [
-  { label: 'Terms of Service', href: absoluteUrl('/terms') },
-  { label: 'Privacy Policy', href: absoluteUrl('/privacy') },
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
 ];
 
 const PROJECT_LINKS = [
@@ -119,9 +120,9 @@ export function LandingFooter() {
             <ul className="mt-3 space-y-1.5">
               {DOC_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-ink/75 hover:text-ink text-sm">
+                  <Link href={link.href} className="text-ink/75 hover:text-ink text-sm">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

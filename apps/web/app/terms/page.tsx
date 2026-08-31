@@ -10,12 +10,17 @@ export const metadata: Metadata = buildMetadata({
   path: '/terms',
 });
 
+const LAST_UPDATED = 'August 31, 2026';
+
 export default function TermsPage() {
   return (
     <Container className="py-16 sm:py-20">
-      <h1 className="font-hand text-ink text-4xl">Terms</h1>
+      <div className="mx-auto max-w-2xl">
+        <h1 className="font-hand text-ink text-4xl">Terms</h1>
+        <p className="text-soft-text mt-2 text-sm">Last updated {LAST_UPDATED}</p>
+      </div>
 
-      <div className="text-soft-text mt-8 max-w-2xl space-y-8 text-sm leading-relaxed sm:text-base">
+      <div className="text-soft-text mx-auto mt-8 max-w-2xl space-y-8 text-sm leading-relaxed sm:text-base">
         <section>
           <h2 className="text-ink text-lg font-semibold">What this is</h2>
           <p className="mt-2">

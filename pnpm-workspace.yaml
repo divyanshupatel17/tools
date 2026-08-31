@@ -8,3 +8,5 @@ allowBuilds:
   esbuild: true
   sharp: true
   tesseract.js: true
+  '@firebase/util': true
+  protobufjs: true

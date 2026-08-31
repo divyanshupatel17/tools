@@ -9,12 +9,17 @@ export const metadata: Metadata = buildMetadata({
   path: '/privacy',
 });
 
+const LAST_UPDATED = 'August 31, 2026';
+
 export default function PrivacyPage() {
   return (
     <Container className="py-16 sm:py-20">
-      <h1 className="font-hand text-ink text-4xl">Privacy</h1>
+      <div className="mx-auto max-w-2xl">
+        <h1 className="font-hand text-ink text-4xl">Privacy</h1>
+        <p className="text-soft-text mt-2 text-sm">Last updated {LAST_UPDATED}</p>
+      </div>
 
-      <div className="text-soft-text mt-8 max-w-2xl space-y-8 text-sm leading-relaxed sm:text-base">
+      <div className="text-soft-text mx-auto mt-8 max-w-2xl space-y-8 text-sm leading-relaxed sm:text-base">
         <section>
           <h2 className="text-ink text-lg font-semibold">Local processing</h2>
           <p className="mt-2">
@@ -34,6 +39,17 @@ export default function PrivacyPage() {
             A tool never sends a file, its contents, or its name anywhere. That includes
             analytics, error reporting and third party scripts. If a feature would require it,
             it does not ship.
+          </p>
+        </section>
+
+        <section>
+          <h2 className="text-ink text-lg font-semibold">Site analytics</h2>
+          <p className="mt-2">
+            The site uses Firebase Analytics to see which pages and tools get visited, and
+            whether a tool run succeeded, failed or produced a download. Each of those events
+            carries only a tool&apos;s name and category, plus the standard device and
+            approximate location data any site using it collects. It never sees a file, a file
+            name, or anything typed into a tool.
           </p>
         </section>
 
